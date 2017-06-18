@@ -1,0 +1,18 @@
+Package: ruler
+Title: Tidy Data Validation Reports
+Version: 0.0.0.9000
+Authors@R: person("Evgnei", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
+    role = c("aut", "cre"))
+Description: Tools for creating data validation pipelines and creating tidy
+    reports.
+Depends: R (>= 3.4.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/echasnovski/ruler
+BugReports: https://github.com/echasnovski/ruler/issues
+RoxygenNote: 6.0.1
+Imports: tibble,
+    rlang,
+    dplyr,
+    purrr

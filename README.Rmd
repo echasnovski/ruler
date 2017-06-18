@@ -1,0 +1,26 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# ruler
+
+`ruler` is yet another data validation R package. Its main goal is to provide
+tools for tidy data validation report. It is designed to work tightly with
+[dplyr](https://github.com/tidyverse/dplyr).
+
+## Installation
+
+You can install ruler from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("echasnovski/ruler")
+```
