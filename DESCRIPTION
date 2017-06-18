@@ -16,3 +16,6 @@ Imports: tibble,
     rlang,
     dplyr,
     purrr
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
