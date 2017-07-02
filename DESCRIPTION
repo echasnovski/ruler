@@ -12,6 +12,7 @@ LazyData: true
 URL: https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
 Imports: tibble,
     rlang,
     dplyr,
