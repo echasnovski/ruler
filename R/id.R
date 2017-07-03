@@ -1,11 +1,10 @@
 add_id <- function(.tbl) {
-  id_sym <- sym(compute_id_name(names(.tbl)))
+  id_name <- compute_id_name(names(.tbl))
 
-  .tbl %>%
-    # Have to use `mutate` because tibble::rowid_to_column is not generic
-    # and removes attr(., "keys").
-    mutate(UQ(id_sym) := seq_len(nrow(.tbl))) %>%
-    select(UQ(id_sym), everything())
+  .tbl[[id_name]] <- seq_len(nrow(.tbl))
+  .tbl <- select(.tbl, UQ(sym(id_name)), everything())
+
+  .tbl
 }
 
 add_id_key <- function(.tbl, .add = FALSE, .exclude = FALSE) {
@@ -15,9 +14,8 @@ add_id_key <- function(.tbl, .add = FALSE, .exclude = FALSE) {
     id_name <- compute_id_name(colnames(.tbl))
   }
 
-  tbl_names <- colnames(.tbl)
   .tbl[[id_name]] <- seq_len(nrow(.tbl))
-  .tbl <- .tbl[, c(id_name, tbl_names)]
+  .tbl <- select(.tbl, UQ(sym(id_name)), everything())
 
   .tbl %>%
     key_by(UQ(sym(id_name)), .add = .add, .exclude = .exclude)
