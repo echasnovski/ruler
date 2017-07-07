@@ -139,6 +139,17 @@ test_that("keys works", {
 })
 
 
+# raw_keys ----------------------------------------------------------------
+test_that("raw_keys works", {
+  expect_null(raw_keys(df))
+
+  df_keyed <- key_by(df, vs, am)
+  output_ref <- df %>% select(vs, am) %>% as_tibble()
+
+  expect_identical(raw_keys(df_keyed), output_ref)
+})
+
+
 # has_keys ----------------------------------------------------------------
 test_that("has_keys works", {
   expect_false(has_keys(df))

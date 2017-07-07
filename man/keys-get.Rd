@@ -3,10 +3,13 @@
 \name{keys-get}
 \alias{keys-get}
 \alias{keys}
+\alias{raw_keys}
 \alias{has_keys}
 \title{Get keys}
 \usage{
 keys(.tbl)
+
+raw_keys(.tbl)
 
 has_keys(.tbl)
 }
@@ -16,13 +19,15 @@ has_keys(.tbl)
 \value{
 \code{keys()} always returns a \link[tibble:lst]{tibble} of keys. In case of
 no keys it returns a tibble with number of rows as in \code{.tbl} and zero
-columns. To know whether \code{.tbl} has keys use \code{has_keys()}.
+columns. \code{raw_keys()} is just a wrapper for \code{attr(.tbl, "keys")}.
+To know whether \code{.tbl} has keys use \code{has_keys()}.
 }
 \description{
 Functions for getting information about keys.
 }
 \examples{
 keys(mtcars)
+raw_keys(mtcars)
 has_keys(mtcars)
 
 df <- key_by(mtcars, vs, am)
