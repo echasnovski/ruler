@@ -202,6 +202,8 @@ has_keys <- function(.tbl) {
 #' contain information about rows and by restoring you want it to be
 #' available.
 #'
+#' `rename_keys()` renames columns in keys using [dplyr::rename()].
+#'
 #' @examples df <- mtcars %>% key_by(vs, am, .exclude = TRUE)
 #' df %>% remove_keys(vs)
 #' df %>% remove_keys(dplyr::everything())
@@ -216,6 +218,9 @@ has_keys <- function(.tbl) {
 #' # Restoring on grouped data frame
 #' df_grouped <- df %>% dplyr::mutate(vs = 1) %>% dplyr::group_by(vs)
 #' df_grouped %>% restore_keys(dplyr::everything())
+#'
+#' # Renaming
+#' df %>% rename_keys(Vs = vs)
 #'
 #' @seealso [Get keys][keys-get], [Set keys][keys-set]
 #'
@@ -266,6 +271,21 @@ restore_keys.default <- function(.tbl, ..., .remove = FALSE, .unkey = FALSE) {
     group_by(UQS(tbl_groups)) %>%
     `class<-`(tbl_class) %>%
     set_key_cond(left_keys, .unkey)
+}
+
+#' @rdname keys-manipulate
+#' @export
+rename_keys <- function(.tbl, ...) {
+  UseMethod("rename_keys")
+}
+
+#' @export
+rename_keys.default <- function(.tbl, ...) {
+  if (has_keys(.tbl)) {
+    keys(.tbl) <- rename(keys(.tbl), ...)
+  }
+
+  .tbl
 }
 
 set_key_cond <- function(.tbl, .key, .unkey) {

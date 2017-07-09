@@ -4,11 +4,14 @@
 \alias{keys-manipulate}
 \alias{remove_keys}
 \alias{restore_keys}
+\alias{rename_keys}
 \title{Manipulate keys}
 \usage{
 remove_keys(.tbl, ..., .unkey = FALSE)
 
 restore_keys(.tbl, ..., .remove = FALSE, .unkey = FALSE)
+
+rename_keys(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{Reference data.frame .}
@@ -37,6 +40,8 @@ grouping variables rule. It is made according to the ideology of keys: they
 contain information about rows and by restoring you want it to be
 available.
 }
+
+\code{rename_keys()} renames columns in keys using \code{\link[dplyr:rename]{dplyr::rename()}}.
 }
 \examples{
 df <- mtcars \%>\% key_by(vs, am, .exclude = TRUE)
@@ -53,6 +58,9 @@ df \%>\% restore_keys(dplyr::everything(), .remove = TRUE, .unkey = TRUE)
 # Restoring on grouped data frame
 df_grouped <- df \%>\% dplyr::mutate(vs = 1) \%>\% dplyr::group_by(vs)
 df_grouped \%>\% restore_keys(dplyr::everything())
+
+# Renaming
+df \%>\% rename_keys(Vs = vs)
 
 }
 \seealso{

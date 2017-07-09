@@ -280,6 +280,21 @@ test_that("restore_keys.default handles grouping", {
 })
 
 
+# rename_keys -------------------------------------------------------------
+test_that("rename_keys works", {
+  df_keyed <- df %>% key_by(vs, am)
+
+  expect_identical(rename_keys(df, new = old), df)
+  expect_identical(rename_keys(df_keyed), df_keyed)
+
+  output <- rename_keys(df_keyed, Vs = vs, aM = am)
+  output_ref <- df
+  keys(output_ref) <- rename(keys(df_keyed), Vs = vs, aM = am)
+
+  expect_identical(output, output_ref)
+})
+
+
 # set_key_cond ------------------------------------------------------------
 test_that("set_key_cond works", {
   key_tbl_1 <- tibble(x = 1:nrow(df))
