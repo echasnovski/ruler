@@ -1,7 +1,7 @@
 Package: ruler
 Title: Tidy Data Validation Reports
 Version: 0.0.0.9000
-Authors@R: person("Evgnei", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
+Authors@R: person("Evgeni", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
     role = c("aut", "cre"))
 Description: Tools for creating data validation pipelines and creating tidy
     reports.
@@ -13,12 +13,14 @@ URL: https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
-Imports: tibble,
-    rlang,
+Imports: keyholder,
     dplyr,
+    rlang,
+    tibble,
     purrr
 Suggests: knitr,
     rmarkdown,
     testthat,
     covr
 VignetteBuilder: knitr
+Remotes: echasnovski/keyholder

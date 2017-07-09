@@ -30,17 +30,3 @@ remove_class_cond <- function(x, class) {
 
   x
 }
-
-
-# Two tables utilities ----------------------------------------------------
-diff_tbl <- function(.tbl1, .tbl2) {
-  not_in_tbl2_idx <- which(!(colnames(.tbl1) %in% colnames(.tbl2)))
-
-  select(.tbl1, not_in_tbl2_idx)
-}
-
-assign_tbl <- function(.tbl1, .tbl2) {
-  .tbl1[, colnames(.tbl2)] <- .tbl2[, ]
-
-  .tbl1
-}
