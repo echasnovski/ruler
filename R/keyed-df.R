@@ -71,13 +71,14 @@ print.keyed_df <- function(x, ...) {
 #' Verbs from dplyr for keyed_df
 #'
 #' Defined methods for [dplyr] generic single table functions. They preserve
-#' class and 'keys' attribute (excluding `summarise` and its scoped variants).
-#' Also they modify keys in case rows of reference data.frame have somehow
-#' changed.
+#' 'keyed_df' class and 'keys' attribute (excluding `summarise` and its scoped
+#' variants which remove them). Also these methods modify rows in keys according
+#' to the rows modification in reference data.frame (if any).
 #'
-#' @param .tbl A keyed object.
+#' @param .tbl,.data A keyed object.
 #' @param ... Appropriate arguments for functions.
 #' @param add Parameter for [dplyr::group_by].
+#' @param .by_group Parameter for [dplyr::arrange].
 #'
 #' @details [dplyr::transmute()] is supported implicitly with [dplyr::mutate()]
 #' support.
@@ -95,87 +96,87 @@ NULL
 #' @rdname keyed-df-dplyr
 #' @export
 select.keyed_df <- function(.tbl, ...) {
-  keys_attr <- attr(.tbl, "keys")
-  y <- NextMethod()
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, select, ...)
 }
 
 #' @rdname keyed-df-dplyr
 #' @export
 rename.keyed_df <- function(.tbl, ...) {
-  keys_attr <- attr(.tbl, "keys")
-  y <- NextMethod()
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, rename, ...)
 }
 
 #' @rdname keyed-df-dplyr
 #' @export
 mutate.keyed_df <- function(.tbl, ...) {
-  keys_attr <- attr(.tbl, "keys")
-  y <- NextMethod()
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, mutate, ...)
 }
 
 #' @rdname keyed-df-dplyr
 #' @export
 summarise.keyed_df <- function(.tbl, ...) {
-  y <- NextMethod()
-
-  unkey(y)
+  unkey(NextMethod())
 }
 
 #' @rdname keyed-df-dplyr
 #' @export
 group_by.keyed_df <- function(.tbl, ..., add = FALSE) {
-  keys_attr <- attr(.tbl, "keys")
-  attr(.tbl, "keys") <- NULL
-  y <- NextMethod()
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, group_by, ..., add = add)
 }
 
 #' @rdname keyed-df-dplyr
 #' @export
 ungroup.keyed_df <- function(.tbl, ...) {
-  keys_attr <- attr(.tbl, "keys")
-  y <- NextMethod()
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, ungroup, ...)
 }
 
-# rowwise is not generic in dplyr 0.7.1 so this function will not preserve
-# "keyed_df" class.
+# rowwise is not generic in dplyr 0.7.1 so use this function directly.
 #' @rdname keyed-df-dplyr
 #' @export
 rowwise.keyed_df <- function(.tbl) {
-  keys_attr <- attr(.tbl, "keys")
-  # y <- NextMethod()
-  y <- rowwise(unkey(.tbl))
-  attr(y, "keys") <- keys_attr
-
-  add_class_cond(y, "keyed_df")
+  next_method_keys(.tbl, rowwise)
 }
 
-# # Implement `guided_*` functions for verbs inferencing rows and use them.
-# arrange.keyed_df <- function(.tbl, ...) {
-#   res <- NextMethod()
-#   class(res) <- class(.tbl)
-#
-#   res
-# }
-#
-# filter.keyed_df <- function(.tbl, ...) {
-#   res <- NextMethod()
-#   class(res) <- class(.tbl)
-#
-#   res
-# }
+#' @rdname keyed-df-dplyr
+#' @export
+arrange.keyed_df <- function(.tbl, ..., .by_group = FALSE) {
+  if (is_grouped_df(.tbl)) {
+    next_method_keys_track(.tbl, arrange, ..., .by_group = .by_group)
+  } else {
+    next_method_keys_track(.tbl, arrange, ...)
+  }
+}
 
+# To ensure `filter` from `dplyr` (and not from `stats`)
+#' @export
+dplyr::filter
+
+#' @rdname keyed-df-dplyr
+#' @export
+filter.keyed_df <- function(.data, ...) {
+  next_method_keys_track(.data, filter, ...)
+}
+
+#' @rdname keyed-df-dplyr
+#' @export
+slice.keyed_df <- function(.tbl, ...) {
+  next_method_keys_track(.tbl, slice, ...)
+}
+
+next_method_keys <- function(.tbl, .f, ...) {
+  # If attr(.tbl, "keys") is NULL it is replaced with 0-column tibble
+  .f(unkey(.tbl), ...) %>% assign_keys(keys(.tbl))
+}
+
+next_method_keys_track <- function(.tbl, .f, ...) {
+  dots_names <- names(quos(...))
+  id_name <- compute_id_name(c(names(.tbl), dots_names))
+
+  y <- unkey(.tbl)
+  y[[id_name]] <- 1:nrow(y)
+  res <- .f(y, ...)
+
+  keys(res) <- keys(.tbl)[res[[id_name]], ]
+  res[[id_name]] <- NULL
+
+  res
+}

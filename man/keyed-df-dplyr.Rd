@@ -9,6 +9,9 @@
 \alias{group_by.keyed_df}
 \alias{ungroup.keyed_df}
 \alias{rowwise.keyed_df}
+\alias{arrange.keyed_df}
+\alias{filter.keyed_df}
+\alias{slice.keyed_df}
 \title{Verbs from dplyr for keyed_df}
 \usage{
 \method{select}{keyed_df}(.tbl, ...)
@@ -24,19 +27,27 @@
 \method{ungroup}{keyed_df}(.tbl, ...)
 
 rowwise.keyed_df(.tbl)
+
+\method{arrange}{keyed_df}(.tbl, ..., .by_group = FALSE)
+
+\method{filter}{keyed_df}(.data, ...)
+
+\method{slice}{keyed_df}(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{A keyed object.}
+\item{.tbl, .data}{A keyed object.}
 
 \item{...}{Appropriate arguments for functions.}
 
 \item{add}{Parameter for \link[dplyr:group_by]{dplyr::group_by}.}
+
+\item{.by_group}{Parameter for \link[dplyr:arrange]{dplyr::arrange}.}
 }
 \description{
 Defined methods for \link{dplyr} generic single table functions. They preserve
-class and 'keys' attribute (excluding \code{summarise} and its scoped variants).
-Also they modify keys in case rows of reference data.frame have somehow
-changed.
+'keyed_df' class and 'keys' attribute (excluding \code{summarise} and its scoped
+variants which remove them). Also these methods modify rows in keys according
+to the rows modification in reference data.frame (if any).
 }
 \details{
 \code{\link[dplyr:transmute]{dplyr::transmute()}} is supported implicitly with \code{\link[dplyr:mutate]{dplyr::mutate()}}
