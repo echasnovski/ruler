@@ -1,4 +1,4 @@
 #' @import keyholder
 #' @import dplyr
-#' @import rlang
+#' @importFrom rlang .data
 NULL
