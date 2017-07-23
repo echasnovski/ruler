@@ -75,3 +75,27 @@ test_that("squash_dots_rule_pack squashes", {
 
   expect_identical(output, output_ref)
 })
+
+
+# print.data_pack ---------------------------------------------------------
+test_that("print.data_pack works", {
+  expect_output(print(data_packs(UQS(input))[[1]]), "Data.*ule.*ack")
+})
+
+
+# print.col_pack ----------------------------------------------------------
+test_that("print.col_pack works", {
+  expect_output(print(col_packs(UQS(input))[[1]]), "Column.*ule.*ack")
+})
+
+
+# print.row_pack ----------------------------------------------------------
+test_that("print.row_pack works", {
+  expect_output(print(row_packs(UQS(input))[[1]]), "Row.*ule.*ack")
+})
+
+
+# print.cell_pack ---------------------------------------------------------
+test_that("print.cell_pack works", {
+  expect_output(print(cell_packs(UQS(input))[[1]]), "Cell.*ule.*ack")
+})

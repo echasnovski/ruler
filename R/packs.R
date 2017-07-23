@@ -61,6 +61,32 @@ squash_dots_rule_pack <- function(..., .extra_class) {
 }
 
 
+# Print rule packs --------------------------------------------------------
+#' @export
+print.data_pack <- function(x, ...) {
+  cat("A Data rule pack:\n")
+  NextMethod()
+}
+
+#' @export
+print.col_pack <- function(x, ...) {
+  cat("A Column rule pack:\n")
+  NextMethod()
+}
+
+#' @export
+print.row_pack <- function(x, ...) {
+  cat("A Row rule pack:\n")
+  NextMethod()
+}
+
+#' @export
+print.cell_pack <- function(x, ...) {
+  cat("A Cell rule pack:\n")
+  NextMethod()
+}
+
+
 # Data rule pack ----------------------------------------------------------
 #' Data rule pack
 #'
