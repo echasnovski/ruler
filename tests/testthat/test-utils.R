@@ -5,6 +5,24 @@ context("utils")
 df <- mtcars
 
 
+# inside_punct ------------------------------------------------------------
+test_that("inside_punct works", {
+  input1 <- c("._.", "._.a", "a._.", "a._.a",
+              "a_._.a", "a._._a", "a_._._a",
+              "a__._._a", "a_._.__a", "a__._.__a",
+              "._.*_.", "._.._.",
+              "__.a", ".__a", "...", "a_a")
+
+  expect_identical(grep(inside_punct(), input1), 1:12)
+
+  input2 <- c("a", "_a", "a_", "_a_",
+              "__a", "a__", "__a__",
+              "_")
+
+  expect_identical(grep(inside_punct("a"), input2), 1:7)
+})
+
+
 # add_class ---------------------------------------------------------------
 test_that("add_class works", {
   expect_equal(class(add_class(df, "some")), c("some", "data.frame"))
@@ -42,7 +60,7 @@ test_that("compute_def_names works", {
   expect_identical(compute_def_names(10), paste0("..", seq_len(10)))
   expect_identical(compute_def_names(10, "base"),
                    paste0("base..", seq_len(10)))
-  expect_identical(compute_def_names(10, start_ind = 4),
+  expect_identical(compute_def_names(10, .start_ind = 4),
                    paste0("..", seq_len(10) + 3))
   expect_identical(compute_def_names(10, "base", 4),
                    paste0("base..", seq_len(10) + 3))
@@ -58,24 +76,24 @@ test_that("enhance_names works", {
 
   expect_identical(enhance_names(input), output_ref_1)
   expect_identical(
-    enhance_names(input, prefix = "._."),
+    enhance_names(input, .prefix = "._."),
     paste0("._.", output_ref_1)
   )
   expect_identical(
-    enhance_names(input, suffix = "__"),
+    enhance_names(input, .suffix = "__"),
     paste0(output_ref_1, "__")
   )
   expect_identical(
-    enhance_names(input, prefix = "._.", suffix = "__"),
+    enhance_names(input, .prefix = "._.", .suffix = "__"),
     paste0("._.", output_ref_1, "__")
   )
 
   expect_identical(
-    enhance_names(input, root = "base"),
+    enhance_names(input, .root = "base"),
     c("base..1", "name", "base..3", "name", "var")
   )
   expect_identical(
-    enhance_names(input, root = "base", start_ind = 5),
+    enhance_names(input, .root = "base", .start_ind = 5),
     c("base..5", "name", "base..7", "name", "var")
   )
 })

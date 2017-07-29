@@ -38,8 +38,8 @@
 #' @export
 rules <- function(..., .args = list(), .prefix = "._.") {
   dots <- quos(...)
-  names(dots) <- enhance_names(name = rlang::names2(dots), prefix = .prefix,
-                               root = "rule")
+  names(dots) <- enhance_names(.name = rlang::names2(dots), .prefix = .prefix,
+                               .root = "rule")
 
   do.call(what = dplyr::funs, args = c(rlang::UQS(dots), list(.args = .args)),
           envir = rlang::caller_env())
