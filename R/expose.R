@@ -173,8 +173,8 @@ interp_data_pack_out <- function(.pack_out) {
 
   .pack_out %>%
     as_tibble() %>%
-    tidyr::gather_(key_col = "rule", value_col = "value",
-                   gather_cols = colnames(.pack_out)) %>%
+    tidyr::gather(key = "rule", value = "value",
+                  rlang::UQS(rlang::syms(colnames(.pack_out)))) %>%
     mutate(var = ".all", id = 0L) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
@@ -186,10 +186,10 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
 
   .pack_out %>%
     as_tibble() %>%
-    tidyr::gather_(key_col = "var_rule", value_col = "value",
-                   gather_cols = colnames(.pack_out)) %>%
-    tidyr::separate_(col = "var_rule", into = c("var", "rule"),
-                     sep = .rule_sep) %>%
+    tidyr::gather(key = "var_rule", value = "value",
+                  rlang::UQS(rlang::syms(colnames(.pack_out)))) %>%
+    tidyr::separate(col = "var_rule", into = c("var", "rule"),
+                    sep = .rule_sep) %>%
     mutate(id = 0L) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
@@ -201,8 +201,8 @@ interp_row_pack_out <- function(.pack_out) {
     as_tibble() %>%
     restore_keys_at(.vars = ".id", .funs = funs(~ "id"),
                     .remove = TRUE, .unkey = TRUE) %>%
-    tidyr::gather_(key_col = "rule", value_col = "value",
-                   gather_cols = colnames(.pack_out)) %>%
+    tidyr::gather(key = "rule", value = "value",
+                  rlang::UQS(rlang::syms(colnames(.pack_out)))) %>%
     mutate(var = ".all") %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
@@ -215,9 +215,9 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
     as_tibble() %>%
     restore_keys_at(.vars = ".id", .funs = funs(~ "id"),
                     .remove = TRUE, .unkey = TRUE) %>%
-    tidyr::gather_(key_col = "var_rule", value_col = "value",
-                   gather_cols = colnames(.pack_out)) %>%
-    tidyr::separate_(col = "var_rule", into = c("var", "rule"),
-                     sep = .rule_sep) %>%
+    tidyr::gather(key = "var_rule", value = "value",
+                  rlang::UQS(rlang::syms(colnames(.pack_out)))) %>%
+    tidyr::separate(col = "var_rule", into = c("var", "rule"),
+                    sep = .rule_sep) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
