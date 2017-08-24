@@ -101,7 +101,8 @@ print.cell_pack <- function(x, ...) {
 #' to non-grouped data.
 #'
 #' The most common way to define data pack is by creating a [functional
-#' sequence][magrittr::pipe] with no grouping ending with \code{summarise(...)}.
+#' sequence][magrittr::pipe] with no grouping and ending with
+#' \code{summarise(...)}.
 #'
 #' @examples
 #' data_dims_rules <- . %>%
@@ -127,8 +128,8 @@ NULL
 # Column rule pack --------------------------------------------------------
 #' Column rule pack
 #'
-#' Column rule pack is a [rule pack][rule-packs] which defines a set of rules for
-#' columns as a whole, i.e. functions which convert columns of interest to
+#' Column rule pack is a [rule pack][rule-packs] which defines a set of rules
+#' for columns as a whole, i.e. functions which convert columns of interest to
 #' logical values. It should return a data frame with the following properties:
 #' - Number of rows equals to __one__.
 #' - Column names should be treated as concatenation of
@@ -139,11 +140,15 @@ NULL
 #' [scoped variants of summarise()][dplyr::summarise_all] applied to non-grouped
 #' data.
 #'
-#' The most common way to define column pack is by creating a [functional
-#' sequence][magrittr::pipe] with no grouping ending with one of:
-#' - \code{summarise_all(.funs = rules(...))}.
-#' - \code{summarise_if(.predicate, .funs = rules(...))}.
-#' - \code{summarise_at(.vars, .funs = rules(...))}.
+#' There two common ways to define column pack:
+#' - __For validating present columns__: by creating a [functional
+#'   sequence][magrittr::pipe] with no grouping and ending with one of:
+#'     - \code{summarise_all(.funs = rules(...))}.
+#'     - \code{summarise_if(.predicate, .funs = rules(...))}.
+#'     - \code{summarise_at(.vars, .funs = rules(...))}.
+#' - __For validating groups as a whole__: by creating a grouped
+#' [summarising][dplyr::summarise] [functional sequence][magrittr::pipe] ending
+#' with [spread_groups()].
 #'
 #' @section Using rules():
 #' Using [rules()] instead of [funs()][dplyr::funs] is recommended because:
@@ -153,6 +158,7 @@ NULL
 #' separator as prefix surrounded by any number of non-alphanumeric values.
 #'
 #' @examples
+#' # Validating present columns
 #' numeric_column_rules <- . %>% dplyr::summarise_if(
 #'   is.numeric,
 #'   rules(mean(.) > 5, sd(.) < 10)
@@ -167,8 +173,18 @@ NULL
 #'   chr_col = character_column_rules
 #' )
 #'
+#' # Validating groups as a whole
+#' vs_am_n <- . %>%
+#'   dplyr::group_by(vs, am) %>%
+#'   dplyr::summarise(n_low = n() > 6, n_high = n() < 10) %>%
+#'   spread_groups(vs, am)
+#'
+#' col_packs(vs_am_n = vs_am_n)
+#'
 #' @seealso [Data pack][data-pack], [row pack][row-pack], [cell
 #'   pack][cell-pack].
+#'
+#' [spread_groups()] for validating groups as a whole.
 #'
 #' @name column-pack
 NULL
