@@ -262,6 +262,9 @@ test_that("get_exposure works", {
   expect_identical(get_exposure(input), input_exposure)
 
   expect_identical(get_exposure(input_exposure), input_exposure)
+
+  bad_exposure <- structure(list(some = "value"), class = "exposure")
+  expect_identical(get_exposure(bad_exposure), NULL)
 })
 
 

@@ -269,7 +269,7 @@ set_exposure <- function(.object, .exposure) {
 #' @rdname exposure
 #' @export
 get_exposure <- function(.object) {
-  if (inherits(.object, "exposure")) {
+  if (is_exposure(.object)) {
     .object
   } else {
     attr(.object, "exposure")
