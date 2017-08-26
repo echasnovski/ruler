@@ -258,6 +258,14 @@ is_report <- function(.x, .skip_class = FALSE) {
     is.integer(.x[["id"]]) && is.logical(.x[["value"]])
 }
 
+is_obeyer <- function(.x) {
+  if (!is.logical(.x)) {
+    return(rep(FALSE, length.out = length(.x)))
+  } else {
+    .x %in% TRUE
+  }
+}
+
 
 # Getters and setters -----------------------------------------------------
 set_exposure <- function(.object, .exposure) {
@@ -269,7 +277,7 @@ set_exposure <- function(.object, .exposure) {
 #' @rdname exposure
 #' @export
 get_exposure <- function(.object) {
-  if (inherits(.object, "exposure")) {
+  if (is_exposure(.object)) {
     .object
   } else {
     attr(.object, "exposure")
