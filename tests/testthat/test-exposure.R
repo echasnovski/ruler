@@ -253,6 +253,19 @@ test_that("is_report works", {
 })
 
 
+# is_obeyer ---------------------------------------------------------------
+test_that("is_obeyer works", {
+  expect_identical(is_obeyer(c(TRUE, FALSE, NA)),
+                             c(TRUE, FALSE, FALSE))
+
+  expect_identical(is_obeyer(c("TRUE", "FALSE", "a")),
+                             c(FALSE, FALSE, FALSE))
+
+  expect_identical(is_obeyer(c(1L, 0L)),
+                   c(FALSE, FALSE))
+})
+
+
 # get_exposure ------------------------------------------------------------
 test_that("get_exposure works", {
   input <- mtcars

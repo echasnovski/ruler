@@ -22,7 +22,7 @@ remove_obeyers <- function(.report, .do_remove) {
   if (!.do_remove) {
     return(.report)
   } else {
-    .report %>% filter(!(.data$value %in% TRUE))
+    .report %>% filter(!is_obeyer(.data[["value"]]))
   }
 }
 
