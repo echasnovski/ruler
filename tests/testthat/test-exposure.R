@@ -317,7 +317,9 @@ test_that("get_report works", {
 
 # print.exposure ----------------------------------------------------------
 test_that("print.exposure works", {
-  expect_output(print(input_exposure), print_exposure_not_validate_output)
+  expect_output(output <- print(input_exposure),
+                print_exposure_not_validate_output)
+  expect_identical(output, input_exposure)
 })
 
 test_that("print.exposure validates input", {

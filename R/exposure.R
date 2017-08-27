@@ -318,6 +318,8 @@ print.exposure <- function(x, ..., .validate_packs_info = TRUE,
   cat("\n")
   print(x[["report"]], ..., .validate = .validate_report, n = n_report,
         width = width_report, n_extra = n_extra_report)
+
+  invisible(x)
 }
 
 #' @export
