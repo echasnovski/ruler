@@ -18,7 +18,8 @@ This format is inspired by \code{dplyr}'s \link[dplyr:summarise]{summarise()} ap
 to non-grouped data.
 
 The most common way to define data pack is by creating a \link[magrittr:pipe]{functional
-sequence} with no grouping ending with \code{summarise(...)}.
+sequence} with no grouping and ending with
+\code{summarise(...)}.
 }
 \examples{
 data_dims_rules <- . \%>\%

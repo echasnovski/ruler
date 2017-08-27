@@ -23,6 +23,35 @@ test_that("inside_punct works", {
 })
 
 
+# negate_select_cols ------------------------------------------------------
+test_that("negate_select_cols works", {
+  output_1 <- negate_select_cols(mtcars, vs, am)
+  output_ref_1 <- setdiff(colnames(mtcars), c("vs", "am"))
+
+  expect_identical(output_1, output_ref_1)
+
+  output_2 <- negate_select_cols(mtcars, one_of("vs", "am"))
+  output_ref_2 <- output_ref_1
+
+  expect_identical(output_2, output_ref_2)
+
+  output_3 <- negate_select_cols(mtcars, dplyr::matches("p|a"))
+  output_ref_3 <- c("cyl", "wt", "qsec", "vs")
+
+  expect_identical(output_3, output_ref_3)
+
+  output_4 <- negate_select_cols(mtcars, cyl:am)
+  output_ref_4 <- c("mpg", "gear", "carb")
+
+  expect_identical(output_4, output_ref_4)
+
+  output_5 <- negate_select_cols(mtcars, -(cyl:am))
+  output_ref_5 <- c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am")
+
+  expect_identical(output_5, output_ref_5)
+})
+
+
 # add_class ---------------------------------------------------------------
 test_that("add_class works", {
   expect_equal(class(add_class(df, "some")), c("some", "data.frame"))

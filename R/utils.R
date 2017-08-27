@@ -19,6 +19,11 @@ inside_punct <- function(.x = "\\._\\.") {
   paste0("[^[:alnum:]]*", .x, "[^[:alnum:]]*")
 }
 
+negate_select_cols <- function(.tbl, ...) {
+  selected_tbl <- select(.tbl, ...)
+
+  setdiff(colnames(.tbl), colnames(selected_tbl))
+}
 
 # Class utilities ---------------------------------------------------------
 add_class <- function(.x, .class) {
