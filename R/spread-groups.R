@@ -1,9 +1,8 @@
 #' Spread grouping columns
 #'
-#' Function to be used in packs which validate groups as a whole. It converts
-#' grouped [summary][dplyr::summarise] into [column pack][column-pack] format.
-#' It is recommended to be used at the end of the grouped summarising
-#' [functional sequence][magrittr::pipe].
+#' Function that is used during interpretation of [group pack][group-pack]
+#' output. It converts grouped [summary][dplyr::summarise] into [column
+#' pack][column-pack] format.
 #'
 #' @param .tbl Data frame with result of grouped summary.
 #' @param ... A selection of grouping columns (as in [tidyr::unite()]).
@@ -29,23 +28,32 @@
 #' @export
 spread_groups <- function(.tbl, ..., .group_sep = "_", .col_sep = "._.") {
   tbl_ungrouped <- ungroup(.tbl)
+  tbl_group_cols <- select(tbl_ungrouped, ...)
 
-  if (rlang::dots_n(...) == 0) {
-    stop("No grouping columns are supplied.")
+  # Check for presence of suppied group columns
+  if (ncol(tbl_group_cols) == 0) {
+    stop("spread_groups: No grouping columns are supplied.")
   }
 
+  # Check if grouping columns has unique combined levels
+  if (nrow(tbl_group_cols) != nrow(distinct(tbl_group_cols))) {
+    stop("spread_groups: Grouping columns define non-unique levels.")
+  }
+
+  # Check for presence of rule columns
   rule_cols <- negate_select_cols(tbl_ungrouped, ...)
   rule_syms <- rlang::syms(rule_cols)
   if (length(rule_cols) == 0) {
-    stop("No rule columns are supplied.")
+    stop("spread_groups: No rule columns are supplied.")
   }
 
+  # Check if all rule columns are logical
   is_all_rules_lgl <- tbl_ungrouped %>%
     select(rlang::UQS(rule_syms)) %>%
     vapply(is.logical, TRUE) %>%
     all()
   if (!is_all_rules_lgl) {
-    stop("Some rule columns are not logical.")
+    stop("spread_groups: Some rule columns are not logical.")
   }
 
   group_id_sym <- rlang::sym(keyholder::compute_id_name(rule_cols))

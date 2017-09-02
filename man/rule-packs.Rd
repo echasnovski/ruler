@@ -4,12 +4,15 @@
 \alias{rule-packs}
 \alias{packs}
 \alias{data_packs}
+\alias{group_packs}
 \alias{col_packs}
 \alias{row_packs}
 \alias{cell_packs}
 \title{Create rule packs}
 \usage{
 data_packs(...)
+
+group_packs(..., .group_vars, .group_sep = ".")
 
 col_packs(...)
 
@@ -18,28 +21,36 @@ row_packs(...)
 cell_packs(...)
 }
 \arguments{
-\item{...}{Rule functions which define pack. They can be in pure form or
-inside a list (at any depth).}
+\item{...}{Functions which define packs. They can be in pure form or inside a
+list (at any depth).}
+
+\item{.group_vars}{Character vector of names of grouping variables.}
+
+\item{.group_sep}{String to be used as separator when uniting grouping
+levels for \code{var} column in \link[=ruler-report]{exposure report}.}
 }
 \value{
-\code{data_packs} returns a list of what should be \link[=data-pack]{data rule
-packs}, \code{col_packs} - \link[=column-pack]{column rule packs},
-\code{row_packs} - \link[=row-pack]{row rule packs}, \code{cell_packs} - \link[=cell-pack]{cell rule
-packs}.
+\code{data_packs()} returns a list of what should be \link[=data-pack]{data rule
+packs}, \code{group_packs()} - \link[=group-pack]{group rule packs},
+\code{col_packs()} - \link[=column-pack]{column rule packs}, \code{row_packs()} - \link[=row-pack]{row rule
+packs}, \code{cell_packs()} - \link[=cell-pack]{cell rule packs}.
 }
 \description{
 Functions for creating different kinds of rule packs. \strong{Rule} is a function
-which converts object of interest (data, column, row, cell) to logical value
-indicating whether this object satisfies certain condition. \strong{Rule pack} is
-a function which combines several rules into one functional block. It takes a
-data frame of interest and returns a data frame with only logical variables
-and certain column naming scheme. Types of packs differ in interpretation of
-their output.
+which converts data unit of interest (data, group, column, row, cell) to
+logical value indicating whether this object satisfies certain condition.
+\strong{Rule pack} is a function which combines several rules into one functional
+block. It takes a data frame of interest and returns a data frame with
+certain structure and column naming scheme. Types of packs differ in
+interpretation of their output.
 }
 \details{
 These functions convert \code{...} to list, apply \code{rlang}'s
-\link[rlang:squash]{squash()} and add appropriate classes. They are only
-constructors and do not check for validity of certain pack. \strong{Note} that
-it is allowed for elements of \code{...} to not have names: they will be computed
-during exposure. However it is a good idea to manually name packs.
+\link[rlang:squash]{squash()} and add appropriate classes. \code{group_packs()} also
+adds necessary attributes.
+
+These functions are only constructors and do not check for validity of
+certain pack. \strong{Note} that it is allowed for elements of \code{...} to not have
+names: they will be computed during exposure. However it is a good idea to
+manually name packs.
 }

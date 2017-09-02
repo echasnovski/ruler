@@ -36,22 +36,44 @@ Function for applying rule packs to data.
 It is guaranteed that \code{.tbl} is not modified in any other way in order to
 use \code{expose()} inside a \code{\link[magrittr]{pipe}}.
 
-To work properly in some edge cases (see Examples) one should specify pack
-types with \link[=rule-packs]{appropriate function}. However with \code{.guess} equals
-to \code{TRUE} \code{expose} will guess the pack type based on its output after
-applying to \code{.tbl}. It uses number of rows and presence of \code{.rule_sep} in
-all column names as features.
-
-It is a good idea to name all rule packs: explicitly in \code{...} or inside
-rule pack function. In case of missing name it is imputed based on possibly
-existing exposure attribute in \code{.tbl} and supplied rule packs. Imputation
-is similar to one in \code{\link[=rules]{rules()}} but applied to every pack type separately.
+It is a good idea to name all rule packs: explicitly in \code{...} (if they are
+supplied not inside list) or during creation with respective rule pack
+function. In case of missing name it is imputed based on possibly existing
+exposure attribute in \code{.tbl} and supplied rule packs. Imputation is similar
+to one in \code{\link[=rules]{rules()}} but applied to every pack type separately.
 
 Default value for \code{.rule_sep} is the regular expression \code{characters ._. surrounded by non alphanumeric characters}. It is picked to be used
 smoothly with \code{dplyr}'s \link[dplyr:scoped]{scoped verbs} and \code{\link[=rules]{rules()}} instead
 of \link[dplyr:funs]{funs()}. In most cases it shouldn't be changed but if
 needed it should align with \code{.prefix} in \code{\link[=rules]{rules()}}.
 }
+\section{Guessing}{
+
+To work properly in some edge cases one should specify pack types with
+\link[=rule-packs]{appropriate function}. However with \code{.guess} equals to \code{TRUE}
+\code{expose} will guess the pack type based on its output after applying to
+\code{.tbl}. It uses the following features:
+\itemize{
+\item Presence of non-logical columns: if present then the guess is \link[=group-pack]{group
+pack}. Grouping columns are guessed as all non-logical. This
+works incorrectly if some grouping column is logical: it will be guessed as
+result of applying the rule. \strong{Note} that on most occasions this edge case
+will produce error about grouping columns define non-unique levels.
+\item Combination of whether number of rows equals 1 (\code{n_rows_one}) and
+presence of \code{.rule_sep} in all column names (\code{all_contain_sep}). Guesses
+are:
+\itemize{
+\item \link[=data-pack]{Data pack} if \code{n_rows_one == TRUE} and \code{all_contain_sep == FALSE}.
+\item \link[=column-pack]{Column pack} if \code{n_rows_one == TRUE} and
+\code{all_contain_sep == TRUE}.
+\item \link[=row-pack]{Row pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep == FALSE}. This works incorrectly if output has one row which is checked.
+In this case it will be guessed as data pack.
+\item \link[=cell-pack]{Cell pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep == TRUE}. This works incorrectly if output has one row in which cells
+are checked. In this case it will be guessed as column pack.
+}
+}
+}
+
 \examples{
 my_rule_pack <- . \%>\% dplyr::summarise(nrow_neg = nrow(.) < 0)
 my_data_packs <- data_packs(my_data_pack_1 = my_rule_pack)
@@ -67,10 +89,28 @@ mtcars \%>\% expose(my_data_pack_1 = my_rule_pack) \%>\% get_report()
 }
 
 # Edge cases against using 'guess = TRUE' for robust code
-# If input data frame has one row 'guess' is unable to distinguish row pack
-# from data pack and cell pack from column pack
+group_rule_pack <- . \%>\% dplyr::mutate(vs_one = vs == 1) \%>\%
+  dplyr::group_by(vs_one, am) \%>\%
+  dplyr::summarise(n_low = n() > 10)
+group_rule_pack_dummy <- . \%>\% dplyr::mutate(vs_one = vs == 1) \%>\%
+  dplyr::group_by(mpg, vs_one, wt) \%>\%
+  dplyr::summarise(n_low = n() > 10)
 row_rule_pack <- . \%>\% dplyr::transmute(neg_row_sum = rowSums(.) < 0)
 cell_rule_pack <- . \%>\% dplyr::transmute_all(rules(neg_value = . < 0))
+
+# Only column 'am' is guessed as grouping which defines non-unique levels.
+\dontrun{
+  mtcars \%>\%
+    expose(group_rule_pack, .remove_obeyers = FALSE, .guess = TRUE) \%>\%
+    get_report()
+}
+
+# Values in `var` should contain combination of three grouping columns but
+# column 'vs_one' is guessed as rule. No error is thrown because the guessed
+# grouping column define unique levels.
+mtcars \%>\%
+  expose(group_rule_pack_dummy, .remove_obeyers = FALSE, .guess = TRUE) \%>\%
+  get_report()
 
 # Results should have in column 'id' value 1 and not 0.
 mtcars \%>\% dplyr::slice(1) \%>\% expose(row_rule_pack) \%>\% get_report()

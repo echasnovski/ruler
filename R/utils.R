@@ -25,6 +25,33 @@ negate_select_cols <- function(.tbl, ...) {
   setdiff(colnames(.tbl), colnames(selected_tbl))
 }
 
+
+# General assertions ------------------------------------------------------
+assert_positive_length <- function(.x, .name) {
+  if (length(.x) == 0) {
+    stop(.name, " should have positive length.", call. = FALSE)
+  }
+
+  invisible(.x)
+}
+
+assert_length <- function(.x, .length, .name) {
+  if (length(.x) != .length) {
+    stop(.name, " should have length ", .length, ".", call. = FALSE)
+  }
+
+  invisible(.x)
+}
+
+assert_character <- function(.x, .name) {
+  if (!is.character(.x)) {
+    stop(.name, " should be a character vector.", call. = FALSE)
+  }
+
+  invisible(.x)
+}
+
+
 # Class utilities ---------------------------------------------------------
 add_class <- function(.x, .class) {
   class(.x) <- c(.class, class(.x))

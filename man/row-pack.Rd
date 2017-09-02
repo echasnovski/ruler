@@ -45,6 +45,6 @@ row_packs(
 
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=column-pack]{column pack}, \link[=cell-pack]{cell
-pack}.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column
+pack}, \link[=cell-pack]{cell pack}.
 }

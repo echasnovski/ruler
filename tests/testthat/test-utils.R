@@ -52,6 +52,38 @@ test_that("negate_select_cols works", {
 })
 
 
+# assert_positive_length --------------------------------------------------
+test_that("assert_positive_length works", {
+  expect_error(assert_positive_length(list(), "Some name"),
+               "^Some name.*positive.*length")
+
+  expect_identical(assert_positive_length(1:2, "Some name"), 1:2)
+  expect_identical(assert_positive_length(list(1:2), "Some name"), list(1:2))
+})
+
+
+# assert_length -----------------------------------------------------------
+test_that("assert_length works", {
+  expect_error(assert_length(c("a", "b"), 1, "New name"),
+               "^New name.*length.*1")
+  expect_error(assert_length(1, 2, "New name"),
+               "^New name.*length.*2")
+
+  expect_identical(assert_length(list("c"), 1, "New name"), list("c"))
+})
+
+
+# assert_character --------------------------------------------------------
+test_that("assert_character works", {
+  expect_error(assert_character(1L, "Tmp name"),
+               "Tmp name.*character")
+  expect_error(assert_character(list("a"), "Tmp name"),
+               "Tmp name.*character")
+
+  expect_identical(assert_positive_length(c("a", "A"), "Tmp name"), c("a", "A"))
+})
+
+
 # add_class ---------------------------------------------------------------
 test_that("add_class works", {
   expect_equal(class(add_class(df, "some")), c("some", "data.frame"))

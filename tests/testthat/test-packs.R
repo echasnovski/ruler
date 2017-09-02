@@ -17,16 +17,41 @@ compute_output_ref <- function(.extra_class) {
 
 # data_packs --------------------------------------------------------------
 test_that("data_packs works", {
-  output <- data_packs(UQS(input))
+  output <- data_packs(rlang::UQS(input))
   output_ref <- compute_output_ref(.extra_class = "data_pack")
 
   expect_identical(output, output_ref)
 })
 
 
+# group_packs -------------------------------------------------------------
+test_that("group_packs works", {
+  output_1 <- group_packs(rlang::UQS(input), .group_vars = c("x", "y"))
+  output_2 <- group_packs(rlang::UQS(input), .group_vars = c("x", "y"),
+                          .group_sep = "+")
+  output_ref <- compute_output_ref(.extra_class = "group_pack") %>%
+    lapply(`attr<-`, which = "group_vars", value = c("x", "y"))
+  output_ref_1 <- lapply(output_ref, `attr<-`, which = "group_sep", value = ".")
+  output_ref_2 <- lapply(output_ref, `attr<-`, which = "group_sep", value = "+")
+
+  expect_identical(output_1, output_ref_1)
+  expect_identical(output_2, output_ref_2)
+})
+
+test_that("group_packs throws errors", {
+  expect_error(group_packs(rlang::UQS(input), .group_vars = character(0)))
+  expect_error(group_packs(rlang::UQS(input), .group_vars = 1:2))
+
+  expect_error(group_packs(rlang::UQS(input), .group_vars = "a",
+                           .group_sep = 1))
+  expect_error(group_packs(rlang::UQS(input), .group_vars = "a",
+                           .group_sep = c("+", "-")))
+})
+
+
 # col_packs ---------------------------------------------------------------
 test_that("col_packs works", {
-  output <- col_packs(UQS(input))
+  output <- col_packs(rlang::UQS(input))
   output_ref <- compute_output_ref(.extra_class = "col_pack")
 
   expect_identical(output, output_ref)
@@ -35,7 +60,7 @@ test_that("col_packs works", {
 
 # row_packs ---------------------------------------------------------------
 test_that("row_packs works", {
-  output <- row_packs(UQS(input))
+  output <- row_packs(rlang::UQS(input))
   output_ref <- compute_output_ref(.extra_class = "row_pack")
 
   expect_identical(output, output_ref)
@@ -44,7 +69,7 @@ test_that("row_packs works", {
 
 # cell_packs --------------------------------------------------------------
 test_that("cell_packs works", {
-  output <- cell_packs(UQS(input))
+  output <- cell_packs(rlang::UQS(input))
   output_ref <- compute_output_ref(.extra_class = "cell_pack")
 
   expect_identical(output, output_ref)
@@ -60,7 +85,8 @@ test_that("squash_dots_rule_pack returns a list", {
 })
 
 test_that("squash_dots_rule_pack returns a named list", {
-  output <- squash_dots_rule_pack(UQS(input[1:3]), .extra_class = "extra")
+  output <- squash_dots_rule_pack(rlang::UQS(input[1:3]),
+                                  .extra_class = "extra")
   output_ref <- compute_output_ref(.extra_class = "extra")[1:3]
 
   expect_identical(output, output_ref)
@@ -79,23 +105,30 @@ test_that("squash_dots_rule_pack squashes", {
 
 # print.data_pack ---------------------------------------------------------
 test_that("print.data_pack works", {
-  expect_output(print(data_packs(UQS(input))[[1]]), "Data.*ule.*ack")
+  expect_output(print(data_packs(rlang::UQS(input))[[1]]), "Data.*ule.*ack")
+})
+
+
+# print.group_pack --------------------------------------------------------
+test_that("print.group_pack works", {
+  expect_output(print(group_packs(rlang::UQS(input), .group_vars = "a")[[1]]),
+                "Group.*ule.*ack")
 })
 
 
 # print.col_pack ----------------------------------------------------------
 test_that("print.col_pack works", {
-  expect_output(print(col_packs(UQS(input))[[1]]), "Column.*ule.*ack")
+  expect_output(print(col_packs(rlang::UQS(input))[[1]]), "Column.*ule.*ack")
 })
 
 
 # print.row_pack ----------------------------------------------------------
 test_that("print.row_pack works", {
-  expect_output(print(row_packs(UQS(input))[[1]]), "Row.*ule.*ack")
+  expect_output(print(row_packs(rlang::UQS(input))[[1]]), "Row.*ule.*ack")
 })
 
 
 # print.cell_pack ---------------------------------------------------------
 test_that("print.cell_pack works", {
-  expect_output(print(cell_packs(UQS(input))[[1]]), "Cell.*ule.*ack")
+  expect_output(print(cell_packs(rlang::UQS(input))[[1]]), "Cell.*ule.*ack")
 })

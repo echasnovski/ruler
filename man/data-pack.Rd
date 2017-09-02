@@ -37,6 +37,6 @@ data_packs(
 
 }
 \seealso{
-\link[=column-pack]{Column pack}, \link[=row-pack]{row pack}, \link[=cell-pack]{cell
-pack}.
+\link[=group-pack]{Group pack}, \link[=column-pack]{Column pack}, \link[=row-pack]{row
+pack}, \link[=cell-pack]{cell pack}.
 }

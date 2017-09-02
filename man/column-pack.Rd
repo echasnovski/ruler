@@ -19,18 +19,12 @@ This format is inspired by \code{dplyr}'s
 \link[dplyr:summarise_all]{scoped variants of summarise()} applied to non-grouped
 data.
 
-There two common ways to define column pack:
-\itemize{
-\item \strong{For validating present columns}: by creating a \link[magrittr:pipe]{functional
+The most common way to define column pack is by creating a \link[magrittr:pipe]{functional
 sequence} with no grouping and ending with one of:
 \itemize{
 \item \code{summarise_all(.funs = rules(...))}.
 \item \code{summarise_if(.predicate, .funs = rules(...))}.
 \item \code{summarise_at(.vars, .funs = rules(...))}.
-}
-\item \strong{For validating groups as a whole}: by creating a grouped
-\link[dplyr:summarise]{summarising} \link[magrittr:pipe]{functional sequence} ending
-with \code{\link[=spread_groups]{spread_groups()}}.
 }
 }
 \section{Using rules()}{
@@ -60,18 +54,8 @@ col_packs(
   chr_col = character_column_rules
 )
 
-# Validating groups as a whole
-vs_am_n <- . \%>\%
-  dplyr::group_by(vs, am) \%>\%
-  dplyr::summarise(n_low = n() > 6, n_high = n() < 10) \%>\%
-  spread_groups(vs, am)
-
-col_packs(vs_am_n = vs_am_n)
-
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=row-pack]{row pack}, \link[=cell-pack]{cell
-pack}.
-
-\code{\link[=spread_groups]{spread_groups()}} for validating groups as a whole.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=row-pack]{row
+pack}, \link[=cell-pack]{cell pack}.
 }

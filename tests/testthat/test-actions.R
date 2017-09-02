@@ -6,7 +6,7 @@ mtcars_exposed <- mtcars %>% set_exposure(input_exposure_ref)
 rule_breakers <- input_exposure_ref %>% get_report() %>%
   filter(!(value %in% TRUE))
 
-trigger_nrow_30 <- function(.tbl) {nrow(get_report(.tbl)) > 30}
+trigger_nrow_30 <- function(.tbl) {nrow(get_report(.tbl)) > 40}
 trigger_nrow_10 <- function(.tbl) {nrow(get_report(.tbl)) > 10}
 actor_print <- function(.tbl) {
   print(get_exposure(.tbl))
@@ -54,14 +54,16 @@ test_that("act_after_exposure works", {
                "act_after_exposure:.*not.*proper.*exposure")
 
   expect_silent(
-    output_1 <- act_after_exposure(mtcars_exposed, trigger_nrow_30, actor_print)
+    output_1 <- act_after_exposure(mtcars_exposed, trigger_nrow_30,
+                                   actor_print)
   )
   expect_identical(output_1, mtcars_exposed)
 
   output_ref <- capture_output(print(input_exposure_ref))
 
   expect_output(
-    output_2 <- act_after_exposure(mtcars_exposed, trigger_nrow_10, actor_print),
+    output_2 <- act_after_exposure(mtcars_exposed, trigger_nrow_10,
+                                   actor_print),
     output_ref
   )
   expect_identical(output_2, mtcars_exposed)

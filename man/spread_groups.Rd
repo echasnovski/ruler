@@ -19,10 +19,9 @@ spread_groups(.tbl, ..., .group_sep = "_", .col_sep = "._.")
 A data frame in \link[=column-pack]{column pack} format.
 }
 \description{
-Function to be used in packs which validate groups as a whole. It converts
-grouped \link[dplyr:summarise]{summary} into \link[=column-pack]{column pack} format.
-It is recommended to be used at the end of the grouped summarising
-\link[magrittr:pipe]{functional sequence}.
+Function that is used during interpretation of \link[=group-pack]{group pack}
+output. It converts grouped \link[dplyr:summarise]{summary} into \link[=column-pack]{column
+pack} format.
 }
 \details{
 Multiple grouping variables are converted to one with

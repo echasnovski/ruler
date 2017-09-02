@@ -4,6 +4,7 @@ context("expose-helpers")
 # guess_pack_type ---------------------------------------------------------
 test_that("guess_pack_type works", {
   expect_identical(guess_pack_type(input_data_pack_out), "data_pack")
+  expect_identical(guess_pack_type(input_group_pack_out), "group_pack")
   expect_identical(guess_pack_type(input_col_pack_out), "col_pack")
   expect_identical(guess_pack_type(input_row_pack_out), "row_pack")
   expect_identical(guess_pack_type(input_cell_pack_out), "cell_pack")
@@ -39,20 +40,22 @@ test_that("impute_exposure_pack_names works with NULL reference exposure", {
   )
 
   cur_input_single_exposures <- input_single_exposures
-  names_remove_inds <- c(1, 2, 3, 5, 6)
-  names(cur_input_single_exposures)[names_remove_inds] <- rep("", 5)
+  names_remove_inds <- c(1, 2, 3, 5, 6, 8)
+  names(cur_input_single_exposures)[names_remove_inds] <-
+    rep("", length(names_remove_inds))
 
   expect_identical(
     names(impute_exposure_pack_names(cur_input_single_exposures, NULL)),
     c("data_pack..1", "cell_pack..1", "col_pack..1", "new_col_proper_sums",
-      "data_pack..2", "row_pack..1", "another_data_pack")
+      "data_pack..2", "row_pack..1", "another_data_pack", "group_pack..1")
   )
 })
 
 test_that("impute_exposure_pack_names works with not NULL reference exposure", {
   cur_input_single_exposures <- input_single_exposures
-  names_remove_inds <- c(1, 2, 3, 5, 6)
-  names(cur_input_single_exposures)[names_remove_inds] <- rep("", 5)
+  names_remove_inds <- c(1, 2, 3, 5, 6, 8)
+  names(cur_input_single_exposures)[names_remove_inds] <-
+    rep("", length(names_remove_inds))
 
   expect_identical(
     names(impute_exposure_pack_names(
@@ -60,7 +63,7 @@ test_that("impute_exposure_pack_names works with not NULL reference exposure", {
       input_exposure_ref
     )),
     c("data_pack..3", "cell_pack..2", "col_pack..3", "new_col_proper_sums",
-      "data_pack..4", "row_pack..2", "another_data_pack")
+      "data_pack..4", "row_pack..2", "another_data_pack", "group_pack..2")
   )
 })
 

@@ -56,6 +56,6 @@ cell_packs(outlier = cell_outlier_rules)
 
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=column-pack]{column pack}, \link[=row-pack]{row
-pack}.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column
+pack}, \link[=row-pack]{row pack}.
 }

@@ -2,26 +2,32 @@
 #' Create rule packs
 #'
 #' Functions for creating different kinds of rule packs. __Rule__ is a function
-#' which converts object of interest (data, column, row, cell) to logical value
-#' indicating whether this object satisfies certain condition. __Rule pack__ is
-#' a function which combines several rules into one functional block. It takes a
-#' data frame of interest and returns a data frame with only logical variables
-#' and certain column naming scheme. Types of packs differ in interpretation of
-#' their output.
+#' which converts data unit of interest (data, group, column, row, cell) to
+#' logical value indicating whether this object satisfies certain condition.
+#' __Rule pack__ is a function which combines several rules into one functional
+#' block. It takes a data frame of interest and returns a data frame with
+#' certain structure and column naming scheme. Types of packs differ in
+#' interpretation of their output.
 #'
-#' @param ... Rule functions which define pack. They can be in pure form or
-#'   inside a list (at any depth).
+#' @param ... Functions which define packs. They can be in pure form or inside a
+#'   list (at any depth).
+#' @param .group_vars Character vector of names of grouping variables.
+#' @param .group_sep String to be used as separator when uniting grouping
+#'   levels for `var` column in [exposure report][ruler-report].
 #'
 #' @details These functions convert `...` to list, apply `rlang`'s
-#' [squash()][rlang::squash] and add appropriate classes. They are only
-#' constructors and do not check for validity of certain pack. __Note__ that
-#' it is allowed for elements of `...` to not have names: they will be computed
-#' during exposure. However it is a good idea to manually name packs.
+#' [squash()][rlang::squash] and add appropriate classes. `group_packs()` also
+#' adds necessary attributes.
 #'
-#' @return `data_packs` returns a list of what should be [data rule
-#'   packs][data-pack], `col_packs` - [column rule packs][column-pack],
-#'   `row_packs` - [row rule packs][row-pack], `cell_packs` - [cell rule
-#'   packs][cell-pack].
+#' These functions are only constructors and do not check for validity of
+#' certain pack. __Note__ that it is allowed for elements of `...` to not have
+#' names: they will be computed during exposure. However it is a good idea to
+#' manually name packs.
+#'
+#' @return `data_packs()` returns a list of what should be [data rule
+#'   packs][data-pack], `group_packs()` - [group rule packs][group-pack],
+#'   `col_packs()` - [column rule packs][column-pack], `row_packs()` - [row rule
+#'   packs][row-pack], `cell_packs()` - [cell rule packs][cell-pack].
 #'
 #' @aliases packs
 #'
@@ -32,6 +38,19 @@ NULL
 #' @export
 data_packs <- function(...) {
   squash_dots_rule_pack(..., .extra_class = "data_pack")
+}
+
+#' @rdname rule-packs
+#' @export
+group_packs <- function(..., .group_vars, .group_sep = ".") {
+  assert_character(.group_vars, ".group_vars")
+  assert_positive_length(.group_vars, ".group_vars")
+  assert_character(.group_sep, ".group_sep")
+  assert_length(.group_sep, 1L, ".group_sep")
+
+  squash_dots_rule_pack(..., .extra_class = "group_pack") %>%
+    lapply(`attr<-`, which = "group_vars", value = .group_vars) %>%
+    lapply(`attr<-`, which = "group_sep", value = .group_sep)
 }
 
 #' @rdname rule-packs
@@ -65,6 +84,12 @@ squash_dots_rule_pack <- function(..., .extra_class) {
 #' @export
 print.data_pack <- function(x, ...) {
   cat("A Data rule pack:\n")
+  NextMethod()
+}
+
+#' @export
+print.group_pack <- function(x, ...) {
+  cat("A Group rule pack:\n")
   NextMethod()
 }
 
@@ -118,10 +143,60 @@ print.cell_pack <- function(x, ...) {
 #'   data_na = data_na_rules
 #' )
 #'
-#' @seealso [Column pack][column-pack], [row pack][row-pack], [cell
-#'   pack][cell-pack].
+#' @seealso [Group pack][group-pack], [Column pack][column-pack], [row
+#'   pack][row-pack], [cell pack][cell-pack].
 #'
 #' @name data-pack
+NULL
+
+
+# Group rule pack ---------------------------------------------------------
+#' Group rule pack
+#'
+#' Group rule pack is a [rule pack][rule-packs] which defines a set of rules
+#' for groups of rows as a whole, i.e. functions which convert groups of
+#' interest to logical values. It should return a data frame with the following
+#' properties:
+#' - There should be present some columns which combined values __uniquely__
+#'   describe group. They should be defined during creation with
+#'   [group_packs()][rule-packs].
+#' - Number of rows equals to __number of checked groups__.
+#' - Names of non-grouping columns should be treated as __rule names__.
+#' - Values indicate whether the __group as a whole__ follows the rule.
+#'
+#' This format is inspired by `dplyr`'s [summarise()][dplyr::summarise] applied
+#' to grouped data.
+#'
+#' The most common way to define data pack is by creating a [functional
+#' sequence][magrittr::pipe] with grouping and ending with
+#' \code{summarise(...)}.
+#'
+#' @section Interpretation:
+#' Group pack output is interpreted in the following way:
+#' - All grouping columns are [united][tidyr::unite] with delimiter `.group_sep`
+#' (which is an argument of `group_packs()`).
+#' - Levels of the resulting column are treated as names of some new variables
+#' which should be exposed as a whole. Names of non-grouping columns are treated
+#' as rule names. They are transformed in [column pack][column-pack] format and
+#' interpreted accordingly.
+#'
+#' Exposure result of group pack is different from others in a way that column
+#' `var` in [exposure report][ruler-report] doesn't represent the actual column
+#' in data.
+#'
+#' @examples
+#' vs_am_rules <- . %>%
+#'   dplyr::group_by(vs, am) %>%
+#'   dplyr::summarise(nrow_low = n(.) > 10,
+#'                    nrow_up = n(.) < 20,
+#'                    rowmeans_low = rowMeans(.) > 19)
+#'
+#' group_packs(vs_am = vs_am_rules, .group_vars = c("vs", "am"))
+#'
+#' @seealso [Data pack][data-pack], [Column pack][column-pack], [row
+#'   pack][row-pack], [cell pack][cell-pack].
+#'
+#' @name group-pack
 NULL
 
 
@@ -140,15 +215,11 @@ NULL
 #' [scoped variants of summarise()][dplyr::summarise_all] applied to non-grouped
 #' data.
 #'
-#' There two common ways to define column pack:
-#' - __For validating present columns__: by creating a [functional
-#'   sequence][magrittr::pipe] with no grouping and ending with one of:
-#'     - \code{summarise_all(.funs = rules(...))}.
-#'     - \code{summarise_if(.predicate, .funs = rules(...))}.
-#'     - \code{summarise_at(.vars, .funs = rules(...))}.
-#' - __For validating groups as a whole__: by creating a grouped
-#' [summarising][dplyr::summarise] [functional sequence][magrittr::pipe] ending
-#' with [spread_groups()].
+#' The most common way to define column pack is by creating a [functional
+#' sequence][magrittr::pipe] with no grouping and ending with one of:
+#'   - \code{summarise_all(.funs = rules(...))}.
+#'   - \code{summarise_if(.predicate, .funs = rules(...))}.
+#'   - \code{summarise_at(.vars, .funs = rules(...))}.
 #'
 #' @section Using rules():
 #' Using [rules()] instead of [funs()][dplyr::funs] is recommended because:
@@ -173,18 +244,8 @@ NULL
 #'   chr_col = character_column_rules
 #' )
 #'
-#' # Validating groups as a whole
-#' vs_am_n <- . %>%
-#'   dplyr::group_by(vs, am) %>%
-#'   dplyr::summarise(n_low = n() > 6, n_high = n() < 10) %>%
-#'   spread_groups(vs, am)
-#'
-#' col_packs(vs_am_n = vs_am_n)
-#'
-#' @seealso [Data pack][data-pack], [row pack][row-pack], [cell
-#'   pack][cell-pack].
-#'
-#' [spread_groups()] for validating groups as a whole.
+#' @seealso [Data pack][data-pack], [group pack][group-pack], [row
+#'   pack][row-pack], [cell pack][cell-pack].
 #'
 #' @name column-pack
 NULL
@@ -227,8 +288,8 @@ NULL
 #'   all_row_sum_rules
 #' )
 #'
-#' @seealso [Data pack][data-pack], [column pack][column-pack], [cell
-#'   pack][cell-pack].
+#' @seealso [Data pack][data-pack], [group pack][group-pack], [column
+#'   pack][column-pack], [cell pack][cell-pack].
 #'
 #' @name row-pack
 NULL
@@ -265,8 +326,8 @@ NULL
 #'
 #' cell_packs(outlier = cell_outlier_rules)
 #'
-#' @seealso [Data pack][data-pack], [column pack][column-pack], [row
-#'   pack][row-pack].
+#' @seealso [Data pack][data-pack], [group pack][group-pack], [column
+#'   pack][column-pack], [row pack][row-pack].
 #'
 #' @name cell-pack
 NULL

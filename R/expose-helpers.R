@@ -1,9 +1,14 @@
 # General expose helpers --------------------------------------------------
 guess_pack_type <- function(.pack_out, .rule_sep = inside_punct("\\._\\.")) {
+  all_logical <- all(vapply(.pack_out, is.logical, TRUE))
+  n_rows_one <- nrow(.pack_out) == 1
   all_contain_sep <- all(grepl(pattern = .rule_sep, x = colnames(.pack_out)))
-  n_rows <- nrow(.pack_out)
 
-  if (n_rows == 1) {
+  if (!all_logical) {
+    return("group_pack")
+  }
+
+  if (n_rows_one) {
     if (all_contain_sep) {
       return("col_pack")
     } else {

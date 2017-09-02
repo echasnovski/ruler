@@ -35,9 +35,17 @@ test_that("spread_groups works", {
 })
 
 test_that("spread_groups throws errors", {
-  expect_error(spread_groups(input_grouped_summary), "No group.*column")
-  expect_error(spread_groups(input_grouped_summary, everything()),
-               "No rule.*column")
+  expect_error(spread_groups(input_grouped_summary),
+               "spread_groups: No group.*column")
+  expect_error(spread_groups(input_grouped_summary, ends_with("Absent")),
+               "spread_groups: No group.*column")
   expect_error(spread_groups(input_grouped_summary, vs),
-               "logical")
+               "spread_groups:.*non-unique")
+  expect_error(spread_groups(input_grouped_summary, everything()),
+               "spread_groups: No rule.*column")
+  expect_error(input_grouped_summary %>%
+                 ungroup() %>%
+                 mutate(vs = 1:4) %>%
+                 spread_groups(vs),
+               "spread_groups:.*logical")
 })
