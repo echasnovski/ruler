@@ -110,6 +110,14 @@ test_that("new_pack_info works", {
   expect_true(identical(output, input_packs_info))
 })
 
+test_that("new_pack_info removes names inside `.packs`", {
+  output <- new_packs_info(.names = "data_pack..1",
+                           .packs = list(some_name = input_pack),
+                           .remove_obeyers = input_remove_obeyers)
+
+  expect_true(identical(output, input_packs_info))
+})
+
 
 # as_packs_info -----------------------------------------------------------
 test_that("as_packs_info works", {

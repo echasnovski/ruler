@@ -113,6 +113,9 @@ add_pack_names <- function(.single_exposures) {
 #' @param .validate_output Whether to validate with [is_exposure()] if the
 #'   output is exposure.
 #'
+#' @details __Note__ that the output doesn't have names in list-column `fun` in
+#'   [packs info][packs_info].
+#'
 #' @examples
 #' my_data_packs <- data_packs(
 #'   data_dims = . %>% dplyr::summarise(nrow_low = nrow(.) < 10),
@@ -140,12 +143,12 @@ bind_exposures <- function(..., .validate_output = TRUE) {
     return(NULL)
   }
 
-  new_packs_info <- lapply(exposures, `[[`, "packs_info") %>% bind_rows() %>%
+  binded_packs_info <- lapply(exposures, `[[`, "packs_info") %>% bind_rows() %>%
     as_packs_info(.validate = FALSE)
-  new_report <- lapply(exposures, `[[`, "report") %>% bind_rows() %>%
+  binded_report <- lapply(exposures, `[[`, "report") %>% bind_rows() %>%
     as_report(.validate = FALSE)
 
-  new_exposure(new_packs_info, new_report, .validate = .validate_output)
+  new_exposure(binded_packs_info, binded_report, .validate = .validate_output)
 }
 
 filter_not_null <- function(.x) {

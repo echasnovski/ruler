@@ -18,8 +18,8 @@ get_packs_info(.object)
 \item{.object}{Object to get \code{packs_info} value from \code{exposure} attribute.}
 }
 \value{
-\code{get_packs_info()} returns \code{packs_info} object of \code{object} if it is
-exposure and of its 'exposure' attribute otherwise.
+\code{get_packs_info()} returns \code{packs_info} attribute of \code{object} if it
+is exposure and of its 'exposure' attribute otherwise.
 }
 \description{
 An S3 class \code{packs_info} to represent information about packs in \link{exposure}.
@@ -27,10 +27,15 @@ It is a tibble with the following structure:
 \itemize{
 \item \strong{name} <chr> : Name of the pack.
 \item \strong{type} <chr> : \link[=rule-packs]{Pack type}.
-\item \strong{fun} <list> : List of rule pack functions.
+\item \strong{fun} <list> : List (preferably unnamed) of rule pack functions.
 \item \strong{remove_obeyers} <lgl> : value of \code{.remove_obeyers} argument of
 \code{\link[=expose]{expose()}} with which pack was applied.
 }
+}
+\details{
+To avoid possible confusion it is preferred (but not required) that
+list-column \code{fun} doesn't have names. Names of packs are stored in \code{name}
+column. During \link[=expose]{exposure} \code{fun} is always created without names.
 }
 \examples{
 my_row_packs <- row_packs(

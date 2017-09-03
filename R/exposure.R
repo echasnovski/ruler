@@ -71,7 +71,7 @@ NULL
 #' It is a tibble with the following structure:
 #' - __name__ <chr> : Name of the pack.
 #' - __type__ <chr> : [Pack type][rule-packs].
-#' - __fun__ <list> : List of rule pack functions.
+#' - __fun__ <list> : List (preferably unnamed) of rule pack functions.
 #' - __remove_obeyers__ <lgl> : value of `.remove_obeyers` argument of
 #' [expose()] with which pack was applied.
 #'
@@ -79,8 +79,12 @@ NULL
 #' @param .object Object to get `packs_info` value from `exposure` attribute.
 #' @param .skip_class Whether to skip checking inheritance from `packs_info`.
 #'
-#' @return `get_packs_info()` returns `packs_info` object of `object` if it is
-#' exposure and of its 'exposure' attribute otherwise.
+#' @details To avoid possible confusion it is preferred (but not required) that
+#' list-column `fun` doesn't have names. Names of packs are stored in `name`
+#' column. During [exposure][expose] `fun` is always created without names.
+#'
+#' @return `get_packs_info()` returns `packs_info` attribute of `object` if it
+#'   is exposure and of its 'exposure' attribute otherwise.
 #'
 #' @examples
 #' my_row_packs <- row_packs(
@@ -198,6 +202,9 @@ new_pack_info <- function(.pack, .remove_obeyers) {
 
 new_packs_info <- function(.names, .packs, .remove_obeyers) {
   packs_type <- vapply(.packs, function(x) {class(x)[1]}, "chr")
+  # List-column 'fun' shouldn't have names because
+  # pack name is stored in 'name' column.
+  names(.packs) <- NULL
 
   tibble(name = .names,
          type = packs_type,
@@ -208,7 +215,7 @@ new_packs_info <- function(.names, .packs, .remove_obeyers) {
 
 as_packs_info <- function(.x, .validate = TRUE) {
   if (.validate && !(is_packs_info(.x, .skip_class = TRUE))) {
-    stop("Invalid input for `new_packs_info`.")
+    stop("as_packs_info: Invalid input.")
   } else {
     add_class_cond(.x, "packs_info")
   }
@@ -216,7 +223,7 @@ as_packs_info <- function(.x, .validate = TRUE) {
 
 as_report <- function(.x, .validate = TRUE) {
   if (.validate && !(is_report(.x, .skip_class = TRUE))) {
-    stop("Invalid input for `new_report`.")
+    stop("as_report: Invalid input.")
   } else {
     add_class_cond(.x, "ruler_report")
   }

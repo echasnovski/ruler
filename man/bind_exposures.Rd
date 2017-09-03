@@ -15,6 +15,10 @@ output is exposure.}
 \description{
 Function to bind several exposures into one.
 }
+\details{
+\strong{Note} that the output doesn't have names in list-column \code{fun} in
+\link[=packs_info]{packs info}.
+}
 \examples{
 my_data_packs <- data_packs(
   data_dims = . \%>\% dplyr::summarise(nrow_low = nrow(.) < 10),
