@@ -27,7 +27,8 @@ mtcars_exposed_no_breakers <- set_exposure(mtcars, exposure_no_breakers)
 
 # Custom expectations -----------------------------------------------------
 expect_asserts <- function(input, type, silent = FALSE, result = input,
-                           output,
+                           output_name = "Breakers report\n",
+                           output_report,
                            warnings = character(0),
                            messages = character(0),
                            ...) {
@@ -36,7 +37,8 @@ expect_asserts <- function(input, type, silent = FALSE, result = input,
   )
 
   expect_identical(assert_evalutation$result, result)
-  expect_identical(assert_evalutation$output, output)
+  expect_match(assert_evalutation$output, output_name)
+  expect_match(assert_evalutation$output, output_report)
   expect_identical(assert_evalutation$warnings, warnings)
   expect_identical(assert_evalutation$messages, messages)
 }
@@ -90,24 +92,29 @@ test_that("assert_any_breaker works", {
 
   # Warning and message assertions
   expect_asserts(mtcars_exposed, "warning",
-                 output = output_ref,
+                 output_report = output_ref,
                  warnings = assert_text)
   expect_asserts(mtcars_exposed, "message",
-                 output = output_ref,
+                 output_report = output_ref,
                  messages = paste0(assert_text, "\n"))
 
   # Absence of printing
   expect_asserts(mtcars_exposed, "warning", silent = TRUE,
-                 output = "",
+                 output_name = "",
+                 output_report = "",
                  warnings = assert_text)
   expect_asserts(mtcars_exposed, "message", silent = TRUE,
-                 output = "",
+                 output_name = "",
+                 output_report = "",
                  messages = paste0(assert_text, "\n"))
 
   # Absence of assertions
-  expect_asserts(mtcars_exposed_no_breakers, "error", output = "")
-  expect_asserts(mtcars_exposed_no_breakers, "warning", output = "")
-  expect_asserts(mtcars_exposed_no_breakers, "message", output = "")
+  expect_asserts(mtcars_exposed_no_breakers, "error",
+                 output_name = "", output_report = "")
+  expect_asserts(mtcars_exposed_no_breakers, "warning",
+                 output_name = "", output_report = "")
+  expect_asserts(mtcars_exposed_no_breakers, "message",
+                 output_name = "", output_report = "")
 })
 
 test_that("assert_any_breaker accounts for printing options", {
@@ -119,11 +126,11 @@ test_that("assert_any_breaker accounts for printing options", {
     assert_text
   )
   expect_asserts(mtcars_exposed, "warning",
-                 output = output_ref,
+                 output_report = output_ref,
                  warnings = assert_text,
                  n = 3)
   expect_asserts(mtcars_exposed, "message",
-                 output = output_ref,
+                 output_report = output_ref,
                  messages = paste0(assert_text, "\n"),
                  n = 3)
 })
@@ -151,7 +158,7 @@ test_that("generate_breakers_informer works", {
   output <- evaluate_promise(informer(.tbl = mtcars_exposed))
 
   expect_identical(output$result, mtcars_exposed)
-  expect_identical(output$output, capture_output(print(rule_breakers)))
+  expect_match(output$output, capture_output(print(rule_breakers)))
   expect_identical(output$warnings, custom_assert_text)
   expect_identical(output$messages, character(0))
 })

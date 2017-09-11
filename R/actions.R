@@ -148,10 +148,12 @@ generate_breakers_informer <-
       report_breakers <- get_report(.tbl) %>% remove_obeyers(TRUE)
 
       if (!(.silent)) {
+        cat("  Breakers report\n")
         print(report_breakers, ...)
+        cat("\n")
       }
       .fun(.message)
 
-      .tbl
+      invisible(.tbl)
     }
   }
