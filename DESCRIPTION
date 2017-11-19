@@ -21,4 +21,3 @@ Suggests: knitr,
     testthat,
     covr
 VignetteBuilder: knitr
-Remotes: echasnovski/keyholder

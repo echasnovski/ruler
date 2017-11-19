@@ -119,12 +119,12 @@ NULL
 #' tidy way:
 #' - __pack__ <chr> : Name of rule pack from column 'name' of corresponding
 #' [packs_info] object.
-#' - __rule__ <chr> : Name of the rule defining in rule pack.
+#' - __rule__ <chr> : Name of the rule defined in rule pack.
 #' - __var__ <chr> : Name of the variable which validation result is reported.
 #' Value '.all' is reserved and interpreted as 'all columns as a whole'.
 #' __Note__ that `var` doesn't always represent the actual column in data frame
 #' (see [group packs][group-pack]).
-#' - __id__ <int> : Index of the row which in tested data frame which validation
+#' - __id__ <int> : Index of the row in tested data frame which validation
 #' result is reported. Value 0 is reserved and interpreted as 'all rows as a
 #' whole'.
 #' - __value__ <lgl> : Whether the described data unit obeys the rule.
@@ -135,11 +135,11 @@ NULL
 #'
 #' @details There are four basic combinations of `var` and `id` values which
 #' define five basic data units:
-#' - `var` == '.all' and `id` == 0: Data as a whole.
-#' - `var` != '.all' and `id` == 0: Group (`var` shouldn't be an actual column
+#' - `var == '.all'` and `id == 0`: Data as a whole.
+#' - `var != '.all'` and `id == 0`: Group (`var` shouldn't be an actual column
 #'   name) or column (`var` should be an actual column name) as a whole.
-#' - `var` == '.all' and `id` != 0: Row as a whole.
-#' - `var` != '.all' and `id` != 0: Described cell.
+#' - `var == '.all'` and `id != 0`: Row as a whole.
+#' - `var != '.all'` and `id != 0`: Described cell.
 #'
 #' @return `get_report()` returns `report` element of `object` if it is
 #' exposure and of its 'exposure' attribute otherwise.

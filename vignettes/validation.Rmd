@@ -1,0 +1,213 @@
+---
+title: "Validation"
+author: "Evgeni Chasnovski"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(ruler, quietly = TRUE, warn.conflicts = FALSE)
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+
+# Packs from previous vignette
+my_data_packs <- data_packs(
+  my_data_pack_1 = . %>% summarise(
+    nrow_low = nrow(.) > 10,
+    nrow_high = nrow(.) < 30,
+    ncol = ncol(.) == 12
+  )
+)
+
+my_group_packs <- group_packs(
+  . %>% group_by(vs, am) %>%
+    summarise(any_cyl_6 = any(cyl == 6)),
+  .group_vars = c("vs", "am")
+)
+
+is_integerish <- function(x) {all(x == as.integer(x))}
+
+my_col_packs <- col_packs(
+  my_col_pack_1 = . %>% summarise_if(
+    is_integerish,
+    rules(mean_low = mean(.) > 0.5)
+  ),
+  . %>% summarise_at(vars(vs = "vs"), rules(sum(.) > 300))
+)
+
+z_score <- function(x) {(x - mean(x)) / sd(x)}
+
+my_row_packs <- row_packs(
+  my_row_pack_1 = . %>% mutate(rowMean = rowMeans(.)) %>%
+    transmute(is_common_row_mean = abs(z_score(rowMean)) < 1) %>%
+    slice(10:15)
+)
+
+my_cell_packs <- cell_packs(
+  my_cell_pack_1 = . %>% transmute_if(
+    is_integerish,
+    rules(is_common = abs(z_score(.)) < 1)
+  ) %>%
+    slice(20:24)
+)
+```
+
+This vignette will describe the actual validation step (called 'exposure') of `ruler` workflow and show some examples of what one can do with validation results. Packs from vignette about rule packs will be used for this.
+
+## Exposure
+
+### Overview
+
+__Exposing__ data to rules means applying rule packs to data, collecting results in common format and attaching them to the data as an `exposure` attribute. In this way actual exposure can be done in multiple steps and also be a part of a general data preparation pipeline.
+
+After attaching exposure to data frame one can extract information from it using the following functions:
+
+- `get_exposure()` for exposure.
+- `get_packs_info()` for packs info (part of exposure).
+- `get_report()` for tidy data validation report (part of exposure).
+
+For exposing data to rules use `expose()`:
+
+- It takes data as a first argument and rule packs (in pure form or inside list at any depth) of interest after that.
+- All rule packs are actually applied to __keyed__ version of data (see [keyholder](https://echasnovski.github.io/keyholder)) for reasons described in "Rule Packs" vignette. If input has keys they are removed and _id key_ is created.
+- It is guaranteed that its output is equivalent to the input data frame: only attribute `exposure` might change. If input has already `exposure` attached to it then the new one is binded with it.
+
+Simple example:
+
+```{r Simple expose}
+mtcars %>%
+  expose(my_group_packs) %>%
+  get_exposure()
+```
+
+### Don't remove obeyers
+
+By default exposing removes obeyers. One can leave obeyers by setting `.remove_obeyers` to `FALSE`.
+
+```{r Expose can not remove obeyers}
+mtcars %>%
+  expose(my_group_packs, .remove_obeyers = FALSE) %>%
+  get_exposure()
+```
+
+### Set pack name
+
+Notice imputed group pack name `group_pack..1`. To change it one can set name during creation with `group_packs()` or write the following:
+
+```{r Renaming pack}
+mtcars %>%
+  expose(new_group_pack = my_group_packs[[1]]) %>%
+  get_report()
+```
+
+### Expose step by step
+
+One can expose to several packs at ones or do it step by step:
+
+```{r Two-step expose}
+mtcars_one_step <- mtcars %>%
+  expose(my_data_packs, my_col_packs)
+
+mtcars_two_step <- mtcars %>%
+  expose(my_data_packs) %>%
+  expose(my_col_packs)
+
+identical(mtcars_one_step, mtcars_two_step)
+```
+
+### Guessing
+
+By default `expose()` guesses which type of pack function represents (if it is not set manually). This is useful for interactive experiments. Guess is based on features of pack's output structures (see `?expose` for more details).
+
+```{r Expose can guess}
+mtcars %>%
+  expose(some_data_pack = . %>% summarise(nrow = nrow(.) == 10)) %>%
+  get_exposure()
+```
+
+However there are some edge cases (especially for group packs). To write strict and robust code one should use `.guess = FALSE` option.
+
+```{r Expose can not guess, error = TRUE, purl = FALSE}
+mtcars %>%
+  expose(some_data_pack = . %>% summarise(nrow = nrow(.) == 10),
+         .guess = FALSE)
+```
+
+### Using different rule separator
+
+If for some reason not default rule separator was used in `rules()` one should take this into consideration by using argument `.rule_sep`. It takes regular expression describing the separator. __Note__ that by default it is a string '._.' surrounded by any number of 'non alpha-numeric characters' (with use of `inside_punct()`). This is done to take account of the `dplyr`'s default separator `_`.
+
+```{r Expose can change rule separator}
+regular_col_packs <- col_packs(
+  . %>% summarise_all(rules(mean(.) > 1))
+)
+
+irregular_col_packs <- col_packs(
+  . %>% summarise_all(rules(mean(.) > 1, .prefix = "@_@"))
+)
+
+regular_report <- mtcars %>%
+  expose(regular_col_packs) %>%
+  get_report()
+
+irregular_report <- mtcars %>%
+  expose(irregular_col_packs, .rule_sep = inside_punct("@_@")) %>%
+  get_report()
+
+identical(regular_report, irregular_report)
+
+# Note suffix '_' after column names
+mtcars %>%
+  expose(irregular_col_packs, .rule_sep = "@_@") %>%
+  get_report()
+```
+
+## Acting after exposure
+
+### General actions
+
+With exposure attached to data one can perform different kinds of actions: exploration, assertion, imputation and so on.
+
+General actions are recommended to be done with `act_after_exposure()`. It takes two arguments:
+
+- `.trigger` - a function which takes the data with attached exposure and returns `TRUE` if some action should be made.
+- `.actor` - a function which takes the same argument as `.trigger` and performes some action.
+
+If trigger didn't notify then the input data is returned untouched. Otherwise the output of `.actor()` is returned. __Note__ that `act_after_exposure()` is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe `%>%`).
+
+```{r Acting after exposure}
+trigger_one_pack <- function(.tbl) {
+  packs_number <- .tbl %>%
+    get_packs_info() %>%
+    nrow()
+  
+  packs_number > 1
+}
+
+actor_one_pack <- function(.tbl) {
+  cat("More than one pack was applied.\n")
+  
+  invisible(.tbl)
+}
+
+mtcars %>%
+  expose(my_col_packs, my_row_packs) %>%
+  act_after_exposure(
+    .trigger = trigger_one_pack,
+    .actor = actor_one_pack
+  ) %>%
+  invisible()
+```
+
+### Assert presence of rule breaker
+
+`ruler` has function `assert_any_breaker()` which can notify about presence of any breaker in exposure.
+
+```{r Assert any breaker, error = TRUE, purl = FALSE}
+mtcars %>%
+  expose(my_col_packs, my_row_packs) %>%
+  assert_any_breaker()
+```

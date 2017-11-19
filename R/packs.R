@@ -16,13 +16,11 @@
 #'   levels for `var` column in [exposure report][ruler-report].
 #'
 #' @details These functions convert `...` to list, apply `rlang`'s
-#' [squash()][rlang::squash] and add appropriate classes. `group_packs()` also
-#' adds necessary attributes.
-#'
-#' These functions are only constructors and do not check for validity of
-#' certain pack. __Note__ that it is allowed for elements of `...` to not have
-#' names: they will be computed during exposure. However it is a good idea to
-#' manually name packs.
+#' [squash()][rlang::squash] and add appropriate classes (`group_packs()` also
+#' adds necessary attributes). Also they are only constructors and do not check
+#' for validity of certain pack. __Note__ that it is allowed for elements of
+#' `...` to not have names: they will be computed during exposure. However it is
+#' a good idea to manually name packs.
 #'
 #' @return `data_packs()` returns a list of what should be [data rule
 #'   packs][data-pack], `group_packs()` - [group rule packs][group-pack],

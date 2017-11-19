@@ -27,12 +27,12 @@ tidy way:
 \itemize{
 \item \strong{pack} <chr> : Name of rule pack from column 'name' of corresponding
 \link{packs_info} object.
-\item \strong{rule} <chr> : Name of the rule defining in rule pack.
+\item \strong{rule} <chr> : Name of the rule defined in rule pack.
 \item \strong{var} <chr> : Name of the variable which validation result is reported.
 Value '.all' is reserved and interpreted as 'all columns as a whole'.
 \strong{Note} that \code{var} doesn't always represent the actual column in data frame
 (see \link[=group-pack]{group packs}).
-\item \strong{id} <int> : Index of the row which in tested data frame which validation
+\item \strong{id} <int> : Index of the row in tested data frame which validation
 result is reported. Value 0 is reserved and interpreted as 'all rows as a
 whole'.
 \item \strong{value} <lgl> : Whether the described data unit obeys the rule.
@@ -42,11 +42,11 @@ whole'.
 There are four basic combinations of \code{var} and \code{id} values which
 define five basic data units:
 \itemize{
-\item \code{var} == '.all' and \code{id} == 0: Data as a whole.
-\item \code{var} != '.all' and \code{id} == 0: Group (\code{var} shouldn't be an actual column
+\item \code{var == '.all'} and \code{id == 0}: Data as a whole.
+\item \code{var != '.all'} and \code{id == 0}: Group (\code{var} shouldn't be an actual column
 name) or column (\code{var} should be an actual column name) as a whole.
-\item \code{var} == '.all' and \code{id} != 0: Row as a whole.
-\item \code{var} != '.all' and \code{id} != 0: Described cell.
+\item \code{var == '.all'} and \code{id != 0}: Row as a whole.
+\item \code{var != '.all'} and \code{id != 0}: Described cell.
 }
 }
 \examples{
