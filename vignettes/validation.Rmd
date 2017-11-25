@@ -180,7 +180,7 @@ With exposure attached to data one can perform different kinds of actions: explo
 General actions are recommended to be done with `act_after_exposure()`. It takes two arguments:
 
 - `.trigger` - a function which takes the data with attached exposure and returns `TRUE` if some action should be made.
-- `.actor` - a function which takes the same argument as `.trigger` and performes some action.
+- `.actor` - a function which takes the same argument as `.trigger` and performs some action.
 
 If trigger didn't notify then the input data is returned untouched. Otherwise the output of `.actor()` is returned. __Note__ that `act_after_exposure()` is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe `%>%`).
 

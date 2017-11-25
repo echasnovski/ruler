@@ -3,7 +3,9 @@ Title: Tidy Data Validation Reports
 Version: 0.0.0.9000
 Authors@R: person("Evgeni", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
     role = c("aut", "cre"))
-Description: Tools for creating data validation pipelines and tidy reports.
+Description: Tools for creating data validation pipelines and tidy reports. This
+    package offers a framework for exploring and validating data frame like
+    objects using 'dplyr' grammar of data manipulation.
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8

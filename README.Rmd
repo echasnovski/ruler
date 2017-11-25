@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-```{r, echo = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -10,6 +10,8 @@ knitr::opts_chunk$set(
 )
 library(ruler, quietly = TRUE, warn.conflicts = FALSE)
 library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+
+options(tibble.print_min = 6, tibble.print_max = 6)
 ```
 
 # ruler: Rule Your Data
@@ -24,6 +26,14 @@ To fully use this package a solid knowledge of `dplyr` is required. The key idea
 
 Some functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder) package. It is highly recommended to use its supported functions during rule construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rules.
 
+This README is structured as follows:
+
+- __Installation__ shows ways to install package.
+- __Example__ shows the basic usage of `ruler` for exploration of obeying user-defined rules and its automatic validation.
+- __Overview__ explains basic data and function types with design behind them.
+- __Usage__ describes `ruler`'s capabilities in more detail.
+- __Other packages for validation and assertions__ lists alternatives for described tasks.
+
 ## Installation
 
 You can install `ruler` from github with:
@@ -31,6 +41,50 @@ You can install `ruler` from github with:
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("echasnovski/ruler")
+```
+
+## Example
+
+```{r Example, error = TRUE, purl = FALSE}
+# Utilities functions
+is_integerish <- function(x) {all(x == as.integer(x))}
+z_score <- function(x) {abs(x - mean(x)) / sd(x)}
+
+# Define rule packs
+my_packs <- list(
+  data_packs(
+    dims = . %>% summarise(nrow_low = nrow(.) >= 10, nrow_high = nrow(.) <= 15,
+                           ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
+  ),
+  group_packs(
+    vs_am_num = . %>% group_by(vs, am) %>% summarise(vs_am_low = n() >= 7),
+    .group_vars = c("vs", "am")
+  ),
+  col_packs(
+    enough_col_sum = . %>%
+      summarise_if(is_integerish, rules(is_enough = sum(.) >= 14))
+  ),
+  row_packs(
+    enough_row_sum = . %>%
+      filter(vs == 1) %>%
+      transmute(is_enough = rowSums(.) >= 200)
+  ),
+  cell_packs(
+    dbl_outlier = . %>%
+      transmute_if(is.numeric, rules(is_out = z_score(.) > 1)) %>%
+      slice(-(1:5))
+  )
+)
+
+# Expose data to rules
+mtcars_exposed <- mtcars %>% as_tibble() %>%
+  expose(my_packs)
+
+# View exposure
+mtcars_exposed %>% get_exposure()
+
+# Assert any breaker
+invisible(mtcars_exposed %>% assert_any_breaker())
 ```
 
 ## Overview
@@ -211,7 +265,7 @@ mtcars %>%
 General actions are recommended to be done with `act_after_exposure()`. It takes two arguments:
 
 - `.trigger` - a function which takes the data with attached exposure and returns `TRUE` if some action should be made.
-- `.actor` - a function which takes the same argument as `.trigger` and performes some action.
+- `.actor` - a function which takes the same argument as `.trigger` and performs some action.
 
 If trigger didn't notify then the input data is returned untouched. Otherwise the output of `.actor()` is returned. __Note__ that `act_after_exposure()` is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe).
 
@@ -247,7 +301,7 @@ mtcars %>%
   assert_any_breaker()
 ```
 
-### Other packages for validation and assertions
+## Other packages for validation and assertions
 
 More leaned towards assertions:
 

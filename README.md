@@ -10,6 +10,14 @@ To fully use this package a solid knowledge of `dplyr` is required. The key idea
 
 Some functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder) package. It is highly recommended to use its supported functions during rule construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rules.
 
+This README is structured as follows:
+
+-   **Installation** shows ways to install package.
+-   **Example** shows the basic usage of `ruler` for exploration of obeying user-defined rules and its automatic validation.
+-   **Overview** explains basic data and function types with design behind them.
+-   **Usage** describes `ruler`'s capabilities in more detail.
+-   **Other packages for validation and assertions** lists alternatives for described tasks.
+
 Installation
 ------------
 
@@ -18,6 +26,86 @@ You can install `ruler` from github with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("echasnovski/ruler")
+```
+
+Example
+-------
+
+``` r
+# Utilities functions
+is_integerish <- function(x) {all(x == as.integer(x))}
+z_score <- function(x) {abs(x - mean(x)) / sd(x)}
+
+# Define rule packs
+my_packs <- list(
+  data_packs(
+    dims = . %>% summarise(nrow_low = nrow(.) >= 10, nrow_high = nrow(.) <= 15,
+                           ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
+  ),
+  group_packs(
+    vs_am_num = . %>% group_by(vs, am) %>% summarise(vs_am_low = n() >= 7),
+    .group_vars = c("vs", "am")
+  ),
+  col_packs(
+    enough_col_sum = . %>%
+      summarise_if(is_integerish, rules(is_enough = sum(.) >= 14))
+  ),
+  row_packs(
+    enough_row_sum = . %>%
+      filter(vs == 1) %>%
+      transmute(is_enough = rowSums(.) >= 200)
+  ),
+  cell_packs(
+    dbl_outlier = . %>%
+      transmute_if(is.numeric, rules(is_out = z_score(.) > 1)) %>%
+      slice(-(1:5))
+  )
+)
+
+# Expose data to rules
+mtcars_exposed <- mtcars %>% as_tibble() %>%
+  expose(my_packs)
+
+# View exposure
+mtcars_exposed %>% get_exposure()
+#>   Exposure
+#> 
+#> Packs info:
+#> # A tibble: 5 x 4
+#>             name       type              fun remove_obeyers
+#>            <chr>      <chr>           <list>          <lgl>
+#> 1           dims  data_pack  <S3: data_pack>           TRUE
+#> 2      vs_am_num group_pack <S3: group_pack>           TRUE
+#> 3 enough_col_sum   col_pack   <S3: col_pack>           TRUE
+#> 4 enough_row_sum   row_pack   <S3: row_pack>           TRUE
+#> 5    dbl_outlier  cell_pack  <S3: cell_pack>           TRUE
+#> 
+#> Tidy data validation report:
+#> # A tibble: 190 x 5
+#>             pack      rule   var    id value
+#>            <chr>     <chr> <chr> <int> <lgl>
+#> 1           dims nrow_high  .all     0 FALSE
+#> 2           dims  ncol_low  .all     0 FALSE
+#> 3      vs_am_num vs_am_low   0.1     0 FALSE
+#> 4 enough_col_sum is_enough    am     0 FALSE
+#> 5 enough_row_sum is_enough  .all    19 FALSE
+#> 6    dbl_outlier    is_out   mpg     6 FALSE
+#> # ... with 184 more rows
+
+# Assert any breaker
+invisible(mtcars_exposed %>% assert_any_breaker())
+#>   Breakers report
+#> # A tibble: 190 x 5
+#>             pack      rule   var    id value
+#>            <chr>     <chr> <chr> <int> <lgl>
+#> 1           dims nrow_high  .all     0 FALSE
+#> 2           dims  ncol_low  .all     0 FALSE
+#> 3      vs_am_num vs_am_low   0.1     0 FALSE
+#> 4 enough_col_sum is_enough    am     0 FALSE
+#> 5 enough_row_sum is_enough  .all    19 FALSE
+#> 6    dbl_outlier    is_out   mpg     6 FALSE
+#> # ... with 184 more rows
+#> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
 Overview
@@ -203,8 +291,7 @@ mtcars %>%
 #> 4          vs_1 nrow_high  .all     0  TRUE
 #> 5 group_pack..1 any_cyl_6   0.0     0 FALSE
 #> 6 group_pack..1 any_cyl_6   0.1     0  TRUE
-#> 7 group_pack..1 any_cyl_6   1.0     0  TRUE
-#> 8 group_pack..1 any_cyl_6   1.1     0 FALSE
+#> # ... with 2 more rows
 ```
 
 By default `expose()` guesses the pack type if 'not-pack' function is supplied. This behaviour has some edge cases but is useful for interactive use.
@@ -251,7 +338,7 @@ mtcars %>%
 General actions are recommended to be done with `act_after_exposure()`. It takes two arguments:
 
 -   `.trigger` - a function which takes the data with attached exposure and returns `TRUE` if some action should be made.
--   `.actor` - a function which takes the same argument as `.trigger` and performes some action.
+-   `.actor` - a function which takes the same argument as `.trigger` and performs some action.
 
 If trigger didn't notify then the input data is returned untouched. Otherwise the output of `.actor()` is returned. **Note** that `act_after_exposure()` is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe).
 
@@ -297,7 +384,8 @@ mtcars %>%
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
-### Other packages for validation and assertions
+Other packages for validation and assertions
+--------------------------------------------
 
 More leaned towards assertions:
 
