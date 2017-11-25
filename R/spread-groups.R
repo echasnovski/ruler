@@ -22,7 +22,9 @@
 #'   dplyr::summarise(n_low = n() > 6, n_high = n() < 10)
 #'
 #' spread_groups(mtcars_grouped_summary, vs, am)
+#'
 #' spread_groups(mtcars_grouped_summary, vs, am, .group_sep = "__")
+#'
 #' spread_groups(mtcars_grouped_summary, vs, am, .col_sep = "__")
 #'
 #' @export

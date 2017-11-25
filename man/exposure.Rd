@@ -43,7 +43,9 @@ mtcars_exposed <- mtcars \%>\% expose(my_col_packs)
 mtcars_exposure <- mtcars_exposed \%>\% get_exposure()
 
 is_exposure(mtcars_exposure)
+
 identical(remove_exposure(mtcars_exposed), mtcars)
+
 identical(get_exposure(mtcars_exposure), mtcars_exposure)
 
 }

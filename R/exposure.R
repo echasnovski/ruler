@@ -27,7 +27,9 @@
 #' mtcars_exposure <- mtcars_exposed %>% get_exposure()
 #'
 #' is_exposure(mtcars_exposure)
+#'
 #' identical(remove_exposure(mtcars_exposed), mtcars)
+#'
 #' identical(get_exposure(mtcars_exposure), mtcars_exposure)
 #'
 #' @name exposure
@@ -108,6 +110,7 @@ NULL
 #'   expose(my_row_packs)
 #'
 #' mtcars_exposed %>% get_packs_info()
+#'
 #' mtcars_exposed %>% get_packs_info() %>% is_packs_info()
 #'
 #' @name packs_info
@@ -166,6 +169,7 @@ NULL
 #'   expose(my_row_packs)
 #'
 #' mtcars_exposed %>% get_report()
+#'
 #' mtcars_exposed %>% get_report() %>% is_report()
 #'
 #' @name ruler-report

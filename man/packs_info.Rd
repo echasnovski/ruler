@@ -59,6 +59,7 @@ mtcars_exposed <- mtcars \%>\%
   expose(my_row_packs)
 
 mtcars_exposed \%>\% get_packs_info()
+
 mtcars_exposed \%>\% get_packs_info() \%>\% is_packs_info()
 
 }

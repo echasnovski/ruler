@@ -80,12 +80,12 @@ my_data_packs <- data_packs(my_data_pack_1 = my_rule_pack)
 
 # These pipes give identical results
 mtcars \%>\% expose(my_data_packs) \%>\% get_report()
+
 mtcars \%>\% expose(my_data_pack_1 = my_rule_pack) \%>\% get_report()
 
 # This throws an error because no pack type is specified for my_rule_pack
 \dontrun{
-  mtcars \%>\% expose(my_data_pack_1 = my_rule_pack, guess = FALSE) \%>\%
-  get_report()
+  mtcars \%>\% expose(my_data_pack_1 = my_rule_pack, .guess = FALSE)
 }
 
 # Edge cases against using 'guess = TRUE' for robust code
@@ -114,6 +114,7 @@ mtcars \%>\%
 
 # Results should have in column 'id' value 1 and not 0.
 mtcars \%>\% dplyr::slice(1) \%>\% expose(row_rule_pack) \%>\% get_report()
+
 mtcars \%>\% dplyr::slice(1) \%>\% expose(cell_rule_pack) \%>\% get_report()
 
 }

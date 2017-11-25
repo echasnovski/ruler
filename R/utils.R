@@ -12,6 +12,7 @@ dplyr::`%>%`
 #'
 #' @examples
 #' inside_punct()
+#'
 #' inside_punct("abc")
 #'
 #' @export

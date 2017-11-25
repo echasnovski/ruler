@@ -15,6 +15,7 @@ characters' + 'some characters' + 'non alpha-numeric characters'.
 }
 \examples{
 inside_punct()
+
 inside_punct("abc")
 
 }
