@@ -1,0 +1,34 @@
+title: ruler
+template:
+  params:
+    bootswatch: united
+
+reference:
+  - title: Package description
+    contents:
+    - ruler-package
+  - title: Data structures
+    contents:
+    - is_exposure
+    - is_packs_info
+    - is_report
+  - title: Rules and packs
+    contents:
+    - rules
+    - rule-packs
+    - data-pack
+    - group-pack
+    - column-pack
+    - row-pack
+    - cell-pack
+  - title: Validation
+    contents:
+    - expose
+    - act_after_exposure
+    - assert_any_breaker
+  - title: Helpers
+    contents:
+    - any_breaker
+    - bind_exposures
+    - inside_punct
+    - spread_groups
