@@ -67,20 +67,6 @@ add_class_cond <- function(.x, .class) {
   .x
 }
 
-remove_class <- function(.x) {
-  class(.x) <- class(.x)[-1]
-
-  .x
-}
-
-remove_class_cond <- function(.x, .class) {
-  if (class(.x)[1] == .class) {
-    class(.x) <- class(.x)[-1]
-  }
-
-  .x
-}
-
 
 # Naming ------------------------------------------------------------------
 compute_def_names <- function(.n = 1, .root = "", .start_ind = 1) {
