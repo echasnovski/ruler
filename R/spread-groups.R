@@ -28,7 +28,7 @@
 #' spread_groups(mtcars_grouped_summary, vs, am, .col_sep = "__")
 #'
 #' @export
-spread_groups <- function(.tbl, ..., .group_sep = "_", .col_sep = "._.") {
+spread_groups <- function(.tbl, ..., .group_sep = ".", .col_sep = "._.") {
   tbl_ungrouped <- ungroup(.tbl)
   tbl_group_cols <- select(tbl_ungrouped, ...)
 

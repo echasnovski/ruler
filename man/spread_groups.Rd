@@ -4,7 +4,7 @@
 \alias{spread_groups}
 \title{Spread grouping columns}
 \usage{
-spread_groups(.tbl, ..., .group_sep = "_", .col_sep = "._.")
+spread_groups(.tbl, ..., .group_sep = ".", .col_sep = "._.")
 }
 \arguments{
 \item{.tbl}{Data frame with result of grouped summary.}
