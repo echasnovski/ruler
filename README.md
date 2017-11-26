@@ -21,7 +21,13 @@ This README is structured as follows:
 Installation
 ------------
 
-You can install `ruler` from github with:
+You can install current stable version from CRAN with:
+
+``` r
+install.packages("ruler")
+```
+
+Also you can install development version from github with:
 
 ``` r
 # install.packages("devtools")
