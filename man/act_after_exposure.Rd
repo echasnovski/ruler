@@ -32,7 +32,7 @@ case \code{.tbl} is returned.
 It is a good idea that \code{.actor} should be doing one of two things:
 \itemize{
 \item Making side effects. For example throwing an error (if condition in
-\code{.trigger} is not met), printing some information and so on. In this case it
+\code{.trigger} is met), printing some information and so on. In this case it
 should return \code{.tbl} to be used properly inside a \link[magrittr:pipe]{pipe}.
 \item Changing \code{.tbl} based on exposure information. In this case it should
 return the imputed version of \code{.tbl}.

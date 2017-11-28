@@ -18,7 +18,7 @@
 #'
 #' It is a good idea that `.actor` should be doing one of two things:
 #' - Making side effects. For example throwing an error (if condition in
-#' `.trigger` is not met), printing some information and so on. In this case it
+#' `.trigger` is met), printing some information and so on. In this case it
 #' should return `.tbl` to be used properly inside a [pipe][magrittr::pipe].
 #' - Changing `.tbl` based on exposure information. In this case it should
 #' return the imputed version of `.tbl`.
