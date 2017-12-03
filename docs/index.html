@@ -139,8 +139,8 @@ my_packs &lt;-<span class="st"> </span><span class="kw">list</span>(
 <span class="st">      </span><span class="kw">transmute</span>(<span class="dt">is_enough =</span> <span class="kw">rowSums</span>(.) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">200</span>)
   ),
   <span class="kw"><a href="reference/rule-packs.html">cell_packs</a></span>(
-    <span class="dt">dbl_outlier =</span> . <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">transmute_if</span>(is.numeric, <span class="kw"><a href="reference/rules.html">rules</a></span>(<span class="dt">is_out =</span> <span class="kw">z_score</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">%&gt;%</span>
+    <span class="dt">dbl_not_outlier =</span> . <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">transmute_if</span>(is.numeric, <span class="kw"><a href="reference/rules.html">rules</a></span>(<span class="dt">is_not_out =</span> <span class="kw">z_score</span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">slice</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))
   )
 )
@@ -155,39 +155,39 @@ mtcars_exposed <span class="op">%&gt;%</span><span class="st"> </span><span clas
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Packs info:</span>
 <span class="co">#&gt; # A tibble: 5 x 4</span>
-<span class="co">#&gt;             name       type              fun remove_obeyers</span>
-<span class="co">#&gt;            &lt;chr&gt;      &lt;chr&gt;           &lt;list&gt;          &lt;lgl&gt;</span>
-<span class="co">#&gt; 1           dims  data_pack  &lt;S3: data_pack&gt;           TRUE</span>
-<span class="co">#&gt; 2      vs_am_num group_pack &lt;S3: group_pack&gt;           TRUE</span>
-<span class="co">#&gt; 3 enough_col_sum   col_pack   &lt;S3: col_pack&gt;           TRUE</span>
-<span class="co">#&gt; 4 enough_row_sum   row_pack   &lt;S3: row_pack&gt;           TRUE</span>
-<span class="co">#&gt; 5    dbl_outlier  cell_pack  &lt;S3: cell_pack&gt;           TRUE</span>
+<span class="co">#&gt;              name       type              fun remove_obeyers</span>
+<span class="co">#&gt;             &lt;chr&gt;      &lt;chr&gt;           &lt;list&gt;          &lt;lgl&gt;</span>
+<span class="co">#&gt; 1            dims  data_pack  &lt;S3: data_pack&gt;           TRUE</span>
+<span class="co">#&gt; 2       vs_am_num group_pack &lt;S3: group_pack&gt;           TRUE</span>
+<span class="co">#&gt; 3  enough_col_sum   col_pack   &lt;S3: col_pack&gt;           TRUE</span>
+<span class="co">#&gt; 4  enough_row_sum   row_pack   &lt;S3: row_pack&gt;           TRUE</span>
+<span class="co">#&gt; 5 dbl_not_outlier  cell_pack  &lt;S3: cell_pack&gt;           TRUE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 190 x 5</span>
-<span class="co">#&gt;             pack      rule   var    id value</span>
-<span class="co">#&gt;            &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1           dims nrow_high  .all     0 FALSE</span>
-<span class="co">#&gt; 2           dims  ncol_low  .all     0 FALSE</span>
-<span class="co">#&gt; 3      vs_am_num vs_am_low   0.1     0 FALSE</span>
-<span class="co">#&gt; 4 enough_col_sum is_enough    am     0 FALSE</span>
-<span class="co">#&gt; 5 enough_row_sum is_enough  .all    19 FALSE</span>
-<span class="co">#&gt; 6    dbl_outlier    is_out   mpg     6 FALSE</span>
-<span class="co">#&gt; # ... with 184 more rows</span>
+<span class="co">#&gt; # A tibble: 117 x 5</span>
+<span class="co">#&gt;              pack       rule   var    id value</span>
+<span class="co">#&gt;             &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1            dims  nrow_high  .all     0 FALSE</span>
+<span class="co">#&gt; 2            dims   ncol_low  .all     0 FALSE</span>
+<span class="co">#&gt; 3       vs_am_num  vs_am_low   0.1     0 FALSE</span>
+<span class="co">#&gt; 4  enough_col_sum  is_enough    am     0 FALSE</span>
+<span class="co">#&gt; 5  enough_row_sum  is_enough  .all    19 FALSE</span>
+<span class="co">#&gt; 6 dbl_not_outlier is_not_out   mpg    15 FALSE</span>
+<span class="co">#&gt; # ... with 111 more rows</span>
 
 <span class="co"># Assert any breaker</span>
 <span class="kw">invisible</span>(mtcars_exposed <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/assert_any_breaker.html">assert_any_breaker</a></span>())
 <span class="co">#&gt;   Breakers report</span>
-<span class="co">#&gt; # A tibble: 190 x 5</span>
-<span class="co">#&gt;             pack      rule   var    id value</span>
-<span class="co">#&gt;            &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1           dims nrow_high  .all     0 FALSE</span>
-<span class="co">#&gt; 2           dims  ncol_low  .all     0 FALSE</span>
-<span class="co">#&gt; 3      vs_am_num vs_am_low   0.1     0 FALSE</span>
-<span class="co">#&gt; 4 enough_col_sum is_enough    am     0 FALSE</span>
-<span class="co">#&gt; 5 enough_row_sum is_enough  .all    19 FALSE</span>
-<span class="co">#&gt; 6    dbl_outlier    is_out   mpg     6 FALSE</span>
-<span class="co">#&gt; # ... with 184 more rows</span>
+<span class="co">#&gt; # A tibble: 117 x 5</span>
+<span class="co">#&gt;              pack       rule   var    id value</span>
+<span class="co">#&gt;             &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1            dims  nrow_high  .all     0 FALSE</span>
+<span class="co">#&gt; 2            dims   ncol_low  .all     0 FALSE</span>
+<span class="co">#&gt; 3       vs_am_num  vs_am_low   0.1     0 FALSE</span>
+<span class="co">#&gt; 4  enough_col_sum  is_enough    am     0 FALSE</span>
+<span class="co">#&gt; 5  enough_row_sum  is_enough  .all    19 FALSE</span>
+<span class="co">#&gt; 6 dbl_not_outlier is_not_out   mpg    15 FALSE</span>
+<span class="co">#&gt; # ... with 111 more rows</span>
 <span class="co">#&gt; Error: assert_any_breaker: Some breakers found in exposure.</span></code></pre></div>
 </div>
 <div id="overview" class="section level2">

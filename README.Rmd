@@ -76,8 +76,8 @@ my_packs <- list(
       transmute(is_enough = rowSums(.) >= 200)
   ),
   cell_packs(
-    dbl_outlier = . %>%
-      transmute_if(is.numeric, rules(is_out = z_score(.) > 1)) %>%
+    dbl_not_outlier = . %>%
+      transmute_if(is.numeric, rules(is_not_out = z_score(.) < 1)) %>%
       slice(-(1:5))
   )
 )

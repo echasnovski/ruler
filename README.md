@@ -62,8 +62,8 @@ my_packs <- list(
       transmute(is_enough = rowSums(.) >= 200)
   ),
   cell_packs(
-    dbl_outlier = . %>%
-      transmute_if(is.numeric, rules(is_out = z_score(.) > 1)) %>%
+    dbl_not_outlier = . %>%
+      transmute_if(is.numeric, rules(is_not_out = z_score(.) < 1)) %>%
       slice(-(1:5))
   )
 )
@@ -78,39 +78,39 @@ mtcars_exposed %>% get_exposure()
 #> 
 #> Packs info:
 #> # A tibble: 5 x 4
-#>             name       type              fun remove_obeyers
-#>            <chr>      <chr>           <list>          <lgl>
-#> 1           dims  data_pack  <S3: data_pack>           TRUE
-#> 2      vs_am_num group_pack <S3: group_pack>           TRUE
-#> 3 enough_col_sum   col_pack   <S3: col_pack>           TRUE
-#> 4 enough_row_sum   row_pack   <S3: row_pack>           TRUE
-#> 5    dbl_outlier  cell_pack  <S3: cell_pack>           TRUE
+#>              name       type              fun remove_obeyers
+#>             <chr>      <chr>           <list>          <lgl>
+#> 1            dims  data_pack  <S3: data_pack>           TRUE
+#> 2       vs_am_num group_pack <S3: group_pack>           TRUE
+#> 3  enough_col_sum   col_pack   <S3: col_pack>           TRUE
+#> 4  enough_row_sum   row_pack   <S3: row_pack>           TRUE
+#> 5 dbl_not_outlier  cell_pack  <S3: cell_pack>           TRUE
 #> 
 #> Tidy data validation report:
-#> # A tibble: 190 x 5
-#>             pack      rule   var    id value
-#>            <chr>     <chr> <chr> <int> <lgl>
-#> 1           dims nrow_high  .all     0 FALSE
-#> 2           dims  ncol_low  .all     0 FALSE
-#> 3      vs_am_num vs_am_low   0.1     0 FALSE
-#> 4 enough_col_sum is_enough    am     0 FALSE
-#> 5 enough_row_sum is_enough  .all    19 FALSE
-#> 6    dbl_outlier    is_out   mpg     6 FALSE
-#> # ... with 184 more rows
+#> # A tibble: 117 x 5
+#>              pack       rule   var    id value
+#>             <chr>      <chr> <chr> <int> <lgl>
+#> 1            dims  nrow_high  .all     0 FALSE
+#> 2            dims   ncol_low  .all     0 FALSE
+#> 3       vs_am_num  vs_am_low   0.1     0 FALSE
+#> 4  enough_col_sum  is_enough    am     0 FALSE
+#> 5  enough_row_sum  is_enough  .all    19 FALSE
+#> 6 dbl_not_outlier is_not_out   mpg    15 FALSE
+#> # ... with 111 more rows
 
 # Assert any breaker
 invisible(mtcars_exposed %>% assert_any_breaker())
 #>   Breakers report
-#> # A tibble: 190 x 5
-#>             pack      rule   var    id value
-#>            <chr>     <chr> <chr> <int> <lgl>
-#> 1           dims nrow_high  .all     0 FALSE
-#> 2           dims  ncol_low  .all     0 FALSE
-#> 3      vs_am_num vs_am_low   0.1     0 FALSE
-#> 4 enough_col_sum is_enough    am     0 FALSE
-#> 5 enough_row_sum is_enough  .all    19 FALSE
-#> 6    dbl_outlier    is_out   mpg     6 FALSE
-#> # ... with 184 more rows
+#> # A tibble: 117 x 5
+#>              pack       rule   var    id value
+#>             <chr>      <chr> <chr> <int> <lgl>
+#> 1            dims  nrow_high  .all     0 FALSE
+#> 2            dims   ncol_low  .all     0 FALSE
+#> 3       vs_am_num  vs_am_low   0.1     0 FALSE
+#> 4  enough_col_sum  is_enough    am     0 FALSE
+#> 5  enough_row_sum  is_enough  .all    19 FALSE
+#> 6 dbl_not_outlier is_not_out   mpg    15 FALSE
+#> # ... with 111 more rows
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
