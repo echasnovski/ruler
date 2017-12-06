@@ -17,7 +17,8 @@ Roxygen: list(markdown = TRUE)
 Imports: keyholder,
     dplyr (>= 0.7.0),
     rlang,
-    tidyr (>= 0.7.0)
+    tidyr (>= 0.7.0),
+    tidyselect (>= 0.2.3)
 Suggests: knitr,
     rmarkdown,
     testthat,
