@@ -51,7 +51,7 @@ spread_groups <- function(.tbl, ..., .group_sep = ".", .col_sep = "._.") {
 
   # Check if all rule columns are logical
   is_all_rules_lgl <- tbl_ungrouped %>%
-    select(rlang::UQS(rule_syms)) %>%
+    select(!!! rule_syms) %>%
     vapply(is.logical, TRUE) %>%
     all()
   if (!is_all_rules_lgl) {
@@ -61,12 +61,12 @@ spread_groups <- function(.tbl, ..., .group_sep = ".", .col_sep = "._.") {
   group_id_sym <- rlang::sym(keyholder::compute_id_name(rule_cols))
 
   tbl_ungrouped %>%
-    tidyr::unite(rlang::UQ(group_id_sym), ...,
+    tidyr::unite(!! group_id_sym, ...,
                  sep = .group_sep, remove = TRUE) %>%
     tidyr::gather(key = "rule_name", value = "value",
-                  rlang::UQS(rule_syms)) %>%
+                  !!! rule_syms) %>%
     tidyr::unite(col = "var_rule",
-                 rlang::UQ(group_id_sym), .data[["rule_name"]],
+                 !!! group_id_sym, .data[["rule_name"]],
                  sep = .col_sep, remove = TRUE) %>%
     # For preserving ordering by rule and then by variable
     mutate(var_rule = factor(.data$var_rule,
