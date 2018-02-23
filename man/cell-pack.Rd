@@ -25,6 +25,12 @@ sequence} containing one of:
 \item \code{transmute_if(.predicate, .funs = rules(...))}.
 \item \code{transmute_at(.vars, .funs = rules(...))}.
 }
+
+\strong{Note} that (as of \code{dplyr} version 0.7.4) when only one column is
+transmuted, names of the output don't have a necessary structure. The 'column
+name of check cell' is missing which results (after \link[=expose]{exposure})
+into empty string in \code{var} column of \link[=ruler-report]{validation report}. The
+current way of dealing with this is to name the input column (see examples).
 }
 \section{Using rules()}{
 
@@ -53,6 +59,21 @@ cell_outlier_rules <- . \%>\% dplyr::transmute_at(
 )
 
 cell_packs(outlier = cell_outlier_rules)
+
+# Dealing with one column edge case
+improper_pack <- . \%>\% dplyr::transmute_at(
+  dplyr::vars(vs),
+  rules(improper_is_neg = . < 0)
+)
+
+proper_pack <- . \%>\% dplyr::transmute_at(
+  dplyr::vars(vs = vs),
+  rules(proper_is_neg = . < 0)
+)
+
+mtcars[1:2, ] \%>\%
+  expose(cell_packs(improper_pack, proper_pack)) \%>\%
+  get_report()
 
 }
 \seealso{

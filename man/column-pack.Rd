@@ -26,6 +26,12 @@ sequence} with no grouping and ending with one of:
 \item \code{summarise_if(.predicate, .funs = rules(...))}.
 \item \code{summarise_at(.vars, .funs = rules(...))}.
 }
+
+\strong{Note} that (as of \code{dplyr} version 0.7.4) when only one column is
+summarised, names of the output don't have a necessary structure. The 'check
+column name' is missing which results (after \link[=expose]{exposure}) into empty
+string in \code{var} column of \link[=ruler-report]{validation report}. The current way
+of dealing with this is to name the input column (see examples).
 }
 \section{Using rules()}{
 
@@ -53,6 +59,21 @@ col_packs(
   num_col = numeric_column_rules,
   chr_col = character_column_rules
 )
+
+# Dealing with one column edge case
+improper_pack <- . \%>\% dplyr::summarise_at(
+  dplyr::vars(vs),
+  rules(improper_is_chr = is.character)
+)
+
+proper_pack <- . \%>\% dplyr::summarise_at(
+  dplyr::vars(vs = vs),
+  rules(proper_is_chr = is.character)
+)
+
+mtcars \%>\%
+  expose(col_packs(improper_pack, proper_pack)) \%>\%
+  get_report()
 
 }
 \seealso{

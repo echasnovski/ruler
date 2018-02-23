@@ -219,6 +219,12 @@ NULL
 #'   - \code{summarise_if(.predicate, .funs = rules(...))}.
 #'   - \code{summarise_at(.vars, .funs = rules(...))}.
 #'
+#' __Note__ that (as of `dplyr` version 0.7.4) when only one column is
+#' summarised, names of the output don't have a necessary structure. The 'check
+#' column name' is missing which results (after [exposure][expose()]) into empty
+#' string in `var` column of [validation report][ruler-report]. The current way
+#' of dealing with this is to name the input column (see examples).
+#'
 #' @section Using rules():
 #' Using [rules()] instead of [funs()][dplyr::funs] is recommended because:
 #' - It is a convenient way to ensure consistent naming of rules without manual
@@ -241,6 +247,21 @@ NULL
 #'   num_col = numeric_column_rules,
 #'   chr_col = character_column_rules
 #' )
+#'
+#' # Dealing with one column edge case
+#' improper_pack <- . %>% dplyr::summarise_at(
+#'   dplyr::vars(vs),
+#'   rules(improper_is_chr = is.character)
+#' )
+#'
+#' proper_pack <- . %>% dplyr::summarise_at(
+#'   dplyr::vars(vs = vs),
+#'   rules(proper_is_chr = is.character)
+#' )
+#'
+#' mtcars %>%
+#'   expose(col_packs(improper_pack, proper_pack)) %>%
+#'   get_report()
 #'
 #' @seealso [Data pack][data-pack], [group pack][group-pack], [row
 #'   pack][row-pack], [cell pack][cell-pack].
@@ -313,6 +334,12 @@ NULL
 #' - \code{transmute_if(.predicate, .funs = rules(...))}.
 #' - \code{transmute_at(.vars, .funs = rules(...))}.
 #'
+#' __Note__ that (as of `dplyr` version 0.7.4) when only one column is
+#' transmuted, names of the output don't have a necessary structure. The 'column
+#' name of check cell' is missing which results (after [exposure][expose()])
+#' into empty string in `var` column of [validation report][ruler-report]. The
+#' current way of dealing with this is to name the input column (see examples).
+#'
 #' @inheritSection column-pack Using rules()
 #' @inheritSection row-pack Note about rearranging rows
 #'
@@ -323,6 +350,21 @@ NULL
 #' )
 #'
 #' cell_packs(outlier = cell_outlier_rules)
+#'
+#' # Dealing with one column edge case
+#' improper_pack <- . %>% dplyr::transmute_at(
+#'   dplyr::vars(vs),
+#'   rules(improper_is_neg = . < 0)
+#' )
+#'
+#' proper_pack <- . %>% dplyr::transmute_at(
+#'   dplyr::vars(vs = vs),
+#'   rules(proper_is_neg = . < 0)
+#' )
+#'
+#' mtcars[1:2, ] %>%
+#'   expose(cell_packs(improper_pack, proper_pack)) %>%
+#'   get_report()
 #'
 #' @seealso [Data pack][data-pack], [group pack][group-pack], [column
 #'   pack][column-pack], [row pack][row-pack].
