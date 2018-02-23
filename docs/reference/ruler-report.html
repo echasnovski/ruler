@@ -182,22 +182,22 @@ name) or column (<code>var</code> should be an actual column name) as a whole.</
 
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_report</span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 14 x 5
-#&gt;              pack            rule   var    id value
-#&gt;             &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt;  1      data_dims            nrow  .all     0  TRUE
-#&gt;  2      data_dims            ncol  .all     0 FALSE
-#&gt;  3 row_mean_props    row_mean_low  .all    18 FALSE
-#&gt;  4 row_mean_props    row_mean_low  .all    19 FALSE
-#&gt;  5 row_mean_props    row_mean_low  .all    20 FALSE
-#&gt;  6 row_mean_props    row_mean_low  .all    26 FALSE
-#&gt;  7 row_mean_props   row_mean_high  .all    15 FALSE
-#&gt;  8 row_mean_props   row_mean_high  .all    16 FALSE
-#&gt;  9 row_mean_props   row_mean_high  .all    17 FALSE
-#&gt; 10 row_mean_props   row_mean_high  .all    29 FALSE
-#&gt; 11 row_mean_props   row_mean_high  .all    31 FALSE
-#&gt; 12    row_outlier not_row_outlier  .all    15 FALSE
-#&gt; 13    row_outlier not_row_outlier  .all    16 FALSE
-#&gt; 14    row_outlier not_row_outlier  .all    17 FALSE</div><div class='input'>
+#&gt;    pack           rule            var      id value
+#&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt;  1 data_dims      nrow            .all      0 T    
+#&gt;  2 data_dims      ncol            .all      0 F    
+#&gt;  3 row_mean_props row_mean_low    .all     18 F    
+#&gt;  4 row_mean_props row_mean_low    .all     19 F    
+#&gt;  5 row_mean_props row_mean_low    .all     20 F    
+#&gt;  6 row_mean_props row_mean_low    .all     26 F    
+#&gt;  7 row_mean_props row_mean_high   .all     15 F    
+#&gt;  8 row_mean_props row_mean_high   .all     16 F    
+#&gt;  9 row_mean_props row_mean_high   .all     17 F    
+#&gt; 10 row_mean_props row_mean_high   .all     29 F    
+#&gt; 11 row_mean_props row_mean_high   .all     31 F    
+#&gt; 12 row_outlier    not_row_outlier .all     15 F    
+#&gt; 13 row_outlier    not_row_outlier .all     16 F    
+#&gt; 14 row_outlier    not_row_outlier .all     17 F    </div><div class='input'>
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_report</span>() <span class='kw'>%&gt;%</span> <span class='fu'>is_report</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></code></pre>
   </div>

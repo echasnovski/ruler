@@ -82,7 +82,7 @@
       <h1>Validation</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2017-12-03</h4>
+            <h4 class="date">2018-02-23</h4>
           </div>
 
     
@@ -119,16 +119,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Packs info:</span>
 <span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;            name       type              fun remove_obeyers</span>
-<span class="co">#&gt;           &lt;chr&gt;      &lt;chr&gt;           &lt;list&gt;          &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack..1 group_pack &lt;S3: group_pack&gt;           TRUE</span>
+<span class="co">#&gt;   name          type       fun              remove_obeyers</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;           &lt;lgl&gt;         </span>
+<span class="co">#&gt; 1 group_pack..1 group_pack &lt;S3: group_pack&gt; T             </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Tidy data validation report:</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;            pack      rule   var    id value</span>
-<span class="co">#&gt;           &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack..1 any_cyl_6   0.0     0 FALSE</span>
-<span class="co">#&gt; 2 group_pack..1 any_cyl_6   1.1     0 FALSE</span></code></pre></div>
+<span class="co">#&gt;   pack          rule      var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 group_pack..1 any_cyl_6 0.0       0 F    </span>
+<span class="co">#&gt; 2 group_pack..1 any_cyl_6 1.1       0 F</span></code></pre></div>
 </div>
 <div id="dont-remove-obeyers" class="section level3">
 <h3 class="hasAnchor">
@@ -141,18 +141,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Packs info:</span>
 <span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;            name       type              fun remove_obeyers</span>
-<span class="co">#&gt;           &lt;chr&gt;      &lt;chr&gt;           &lt;list&gt;          &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack..1 group_pack &lt;S3: group_pack&gt;          FALSE</span>
+<span class="co">#&gt;   name          type       fun              remove_obeyers</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;           &lt;lgl&gt;         </span>
+<span class="co">#&gt; 1 group_pack..1 group_pack &lt;S3: group_pack&gt; F             </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Tidy data validation report:</span>
 <span class="co">#&gt; # A tibble: 4 x 5</span>
-<span class="co">#&gt;            pack      rule   var    id value</span>
-<span class="co">#&gt;           &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack..1 any_cyl_6   0.0     0 FALSE</span>
-<span class="co">#&gt; 2 group_pack..1 any_cyl_6   0.1     0  TRUE</span>
-<span class="co">#&gt; 3 group_pack..1 any_cyl_6   1.0     0  TRUE</span>
-<span class="co">#&gt; 4 group_pack..1 any_cyl_6   1.1     0 FALSE</span></code></pre></div>
+<span class="co">#&gt;   pack          rule      var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 group_pack..1 any_cyl_6 0.0       0 F    </span>
+<span class="co">#&gt; 2 group_pack..1 any_cyl_6 0.1       0 T    </span>
+<span class="co">#&gt; 3 group_pack..1 any_cyl_6 1.0       0 T    </span>
+<span class="co">#&gt; 4 group_pack..1 any_cyl_6 1.1       0 F</span></code></pre></div>
 </div>
 <div id="set-pack-name" class="section level3">
 <h3 class="hasAnchor">
@@ -163,10 +163,10 @@
 <span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
 <span class="co">#&gt; Tidy data validation report:</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;             pack      rule   var    id value</span>
-<span class="co">#&gt;            &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 new_group_pack any_cyl_6   0.0     0 FALSE</span>
-<span class="co">#&gt; 2 new_group_pack any_cyl_6   1.1     0 FALSE</span></code></pre></div>
+<span class="co">#&gt;   pack           rule      var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 new_group_pack any_cyl_6 0.0       0 F    </span>
+<span class="co">#&gt; 2 new_group_pack any_cyl_6 1.1       0 F</span></code></pre></div>
 </div>
 <div id="expose-step-by-step" class="section level3">
 <h3 class="hasAnchor">
@@ -193,15 +193,15 @@ mtcars_two_step &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</sp
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Packs info:</span>
 <span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;             name      type             fun remove_obeyers</span>
-<span class="co">#&gt;            &lt;chr&gt;     &lt;chr&gt;          &lt;list&gt;          &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 some_data_pack data_pack &lt;S3: data_pack&gt;           TRUE</span>
+<span class="co">#&gt;   name           type      fun             remove_obeyers</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;list&gt;          &lt;lgl&gt;         </span>
+<span class="co">#&gt; 1 some_data_pack data_pack &lt;S3: data_pack&gt; T             </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Tidy data validation report:</span>
 <span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;             pack  rule   var    id value</span>
-<span class="co">#&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 some_data_pack  nrow  .all     0 FALSE</span></code></pre></div>
+<span class="co">#&gt;   pack           rule  var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 some_data_pack nrow  .all      0 F</span></code></pre></div>
 <p>However there are some edge cases (especially for group packs). To write strict and robust code one should use <code>.guess = FALSE</code> option.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw">nrow</span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),
@@ -237,10 +237,10 @@ mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
 <span class="co">#&gt; Tidy data validation report:</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;          pack    rule   var    id value</span>
-<span class="co">#&gt;         &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 col_pack..1 rule..1   vs_     0 FALSE</span>
-<span class="co">#&gt; 2 col_pack..1 rule..1   am_     0 FALSE</span></code></pre></div>
+<span class="co">#&gt;   pack        rule    var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 col_pack..1 rule..1 vs_       0 F    </span>
+<span class="co">#&gt; 2 col_pack..1 rule..1 am_       0 F</span></code></pre></div>
 </div>
 </div>
 <div id="acting-after-exposure" class="section level2">
@@ -290,12 +290,12 @@ mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/assert_any_breaker.html">assert_any_breaker</a></span>()
 <span class="co">#&gt;   Breakers report</span>
 <span class="co">#&gt; # A tibble: 4 x 5</span>
-<span class="co">#&gt;            pack               rule   var    id value</span>
-<span class="co">#&gt;           &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 my_col_pack_1           mean_low    vs     0 FALSE</span>
-<span class="co">#&gt; 2 my_col_pack_1           mean_low    am     0 FALSE</span>
-<span class="co">#&gt; 3   col_pack..2            rule..1    vs     0 FALSE</span>
-<span class="co">#&gt; 4 my_row_pack_1 is_common_row_mean  .all    15 FALSE</span>
+<span class="co">#&gt;   pack          rule               var      id value</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 my_col_pack_1 mean_low           vs        0 F    </span>
+<span class="co">#&gt; 2 my_col_pack_1 mean_low           am        0 F    </span>
+<span class="co">#&gt; 3 col_pack..2   rule..1            vs        0 F    </span>
+<span class="co">#&gt; 4 my_row_pack_1 is_common_row_mean .all     15 F</span>
 <span class="co">#&gt; Error: assert_any_breaker: Some breakers found in exposure.</span></code></pre></div>
 </div>
 </div>

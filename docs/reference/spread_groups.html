@@ -152,20 +152,20 @@ as a whole.</p>
 
 <span class='fu'>spread_groups</span>(<span class='no'>mtcars_grouped_summary</span>, <span class='no'>vs</span>, <span class='no'>am</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 8
 #&gt;   `0.0._.n_low` `0.1._.n_low` `1.0._.n_low` `1.1._.n_low` `0.0._.n_high`
-#&gt; *         &lt;lgl&gt;         &lt;lgl&gt;         &lt;lgl&gt;         &lt;lgl&gt;          &lt;lgl&gt;
-#&gt; 1          TRUE         FALSE          TRUE          TRUE          FALSE
+#&gt;   &lt;lgl&gt;         &lt;lgl&gt;         &lt;lgl&gt;         &lt;lgl&gt;         &lt;lgl&gt;         
+#&gt; 1 T             F             T             T             F             
 #&gt; # ... with 3 more variables: `0.1._.n_high` &lt;lgl&gt;, `1.0._.n_high` &lt;lgl&gt;,
 #&gt; #   `1.1._.n_high` &lt;lgl&gt;</div><div class='input'>
 <span class='fu'>spread_groups</span>(<span class='no'>mtcars_grouped_summary</span>, <span class='no'>vs</span>, <span class='no'>am</span>, <span class='kw'>.group_sep</span> <span class='kw'>=</span> <span class='st'>"__"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 8
 #&gt;   `0__0._.n_low` `0__1._.n_low` `1__0._.n_low` `1__1._.n_low` `0__0._.n_high`
-#&gt; *          &lt;lgl&gt;          &lt;lgl&gt;          &lt;lgl&gt;          &lt;lgl&gt;           &lt;lgl&gt;
-#&gt; 1           TRUE          FALSE           TRUE           TRUE           FALSE
+#&gt;   &lt;lgl&gt;          &lt;lgl&gt;          &lt;lgl&gt;          &lt;lgl&gt;          &lt;lgl&gt;          
+#&gt; 1 T              F              T              T              F              
 #&gt; # ... with 3 more variables: `0__1._.n_high` &lt;lgl&gt;, `1__0._.n_high` &lt;lgl&gt;,
 #&gt; #   `1__1._.n_high` &lt;lgl&gt;</div><div class='input'>
 <span class='fu'>spread_groups</span>(<span class='no'>mtcars_grouped_summary</span>, <span class='no'>vs</span>, <span class='no'>am</span>, <span class='kw'>.col_sep</span> <span class='kw'>=</span> <span class='st'>"__"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 8
 #&gt;   `0.0__n_low` `0.1__n_low` `1.0__n_low` `1.1__n_low` `0.0__n_high`
-#&gt; *        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;         &lt;lgl&gt;
-#&gt; 1         TRUE        FALSE         TRUE         TRUE         FALSE
+#&gt;   &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        
+#&gt; 1 T            F            T            T            F            
 #&gt; # ... with 3 more variables: `0.1__n_high` &lt;lgl&gt;, `1.0__n_high` &lt;lgl&gt;,
 #&gt; #   `1.1__n_high` &lt;lgl&gt;</div><div class='input'>
 </div></code></pre>

@@ -125,7 +125,11 @@ sequence containing one of:</p><ul>
 <li><p><code>transmute_all(.funs = rules(...))</code>.</p></li>
 <li><p><code>transmute_if(.predicate, .funs = rules(...))</code>.</p></li>
 <li><p><code>transmute_at(.vars, .funs = rules(...))</code>.</p></li>
-</ul>
+</ul><p><strong>Note</strong> that (as of <code>dplyr</code> version 0.7.4) when only one column is
+transmuted, names of the output don't have a necessary structure. The 'column
+name of check cell' is missing which results (after <a href='expose.html'>exposure</a>)
+into empty string in <code>var</code> column of <a href='ruler-report.html'>validation report</a>. The
+current way of dealing with this is to name the input column (see examples).</p>
     
     <h2 class="hasAnchor" id="using-rules-"><a class="anchor" href="#using-rules-"></a>Using rules()</h2>
 
@@ -165,6 +169,27 @@ pack</a>, <a href='row-pack.html'>row pack</a>.</p>
 #&gt; 
 #&gt; Use 'functions' to extract the individual functions. 
 #&gt; </div><div class='input'>
+<span class='co'># Dealing with one column edge case</span>
+<span class='no'>improper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise_all.html'>transmute_at</a></span>(
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>vs</span>),
+  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>improper_is_neg</span> <span class='kw'>=</span> <span class='no'>.</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>)
+)
+
+<span class='no'>proper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise_all.html'>transmute_at</a></span>(
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>vs</span> <span class='kw'>=</span> <span class='no'>vs</span>),
+  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>proper_is_neg</span> <span class='kw'>=</span> <span class='no'>.</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>)
+)
+
+<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>2</span>, ] <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='expose.html'>expose</a></span>(<span class='fu'><a href='rule-packs.html'>cell_packs</a></span>(<span class='no'>improper_pack</span>, <span class='no'>proper_pack</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; # A tibble: 4 x 5
+#&gt;   pack         rule            var      id value
+#&gt;   &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt; 1 cell_pack..1 improper_is_neg ""        1 F    
+#&gt; 2 cell_pack..1 improper_is_neg ""        2 F    
+#&gt; 3 cell_pack..2 proper_is_neg   vs        1 F    
+#&gt; 4 cell_pack..2 proper_is_neg   vs        2 F    </div><div class='input'>
 </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

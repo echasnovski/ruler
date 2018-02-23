@@ -171,11 +171,11 @@ column. During <a href='expose.html'>exposure</a> <code>fun</code> is always cre
 
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_packs_info</span>()</div><div class='output co'>#&gt; Packs info:
 #&gt; # A tibble: 3 x 4
-#&gt;             name      type             fun remove_obeyers
-#&gt;            &lt;chr&gt;     &lt;chr&gt;          &lt;list&gt;          &lt;lgl&gt;
-#&gt; 1      data_dims data_pack &lt;S3: data_pack&gt;          FALSE
-#&gt; 2 row_mean_props  row_pack  &lt;S3: row_pack&gt;           TRUE
-#&gt; 3    row_outlier  row_pack  &lt;S3: row_pack&gt;           TRUE</div><div class='input'>
+#&gt;   name           type      fun             remove_obeyers
+#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;list&gt;          &lt;lgl&gt;         
+#&gt; 1 data_dims      data_pack &lt;S3: data_pack&gt; F             
+#&gt; 2 row_mean_props row_pack  &lt;S3: row_pack&gt;  T             
+#&gt; 3 row_outlier    row_pack  &lt;S3: row_pack&gt;  T             </div><div class='input'>
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_packs_info</span>() <span class='kw'>%&gt;%</span> <span class='fu'>is_packs_info</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></code></pre>
   </div>

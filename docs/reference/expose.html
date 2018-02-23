@@ -195,14 +195,14 @@ are checked. In this case it will be guessed as column pack.</p></li>
 <span class='co'># These pipes give identical results</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>my_data_packs</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 1 x 5
-#&gt;             pack     rule   var    id value
-#&gt;            &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 my_data_pack_1 nrow_neg  .all     0 FALSE</div><div class='input'>
+#&gt;   pack           rule     var      id value
+#&gt;   &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt; 1 my_data_pack_1 nrow_neg .all      0 F    </div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 1 x 5
-#&gt;             pack     rule   var    id value
-#&gt;            &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 my_data_pack_1 nrow_neg  .all     0 FALSE</div><div class='input'>
+#&gt;   pack           rule     var      id value
+#&gt;   &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt; 1 my_data_pack_1 nrow_neg .all      0 F    </div><div class='input'>
 # This throws an error because no pack type is specified for my_rule_pack
 </div><span class='co'># NOT RUN {</span>
   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -229,40 +229,40 @@ are checked. In this case it will be guessed as column pack.</p></li>
   <span class='fu'>expose</span>(<span class='no'>group_rule_pack_dummy</span>, <span class='kw'>.remove_obeyers</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 64 x 5
-#&gt;             pack   rule        var    id value
-#&gt;            &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt;  1 group_pack..1 vs_one  10.4.5.25     0 FALSE
-#&gt;  2 group_pack..1 vs_one 10.4.5.424     0 FALSE
-#&gt;  3 group_pack..1 vs_one  13.3.3.84     0 FALSE
-#&gt;  4 group_pack..1 vs_one  14.3.3.57     0 FALSE
-#&gt;  5 group_pack..1 vs_one 14.7.5.345     0 FALSE
-#&gt;  6 group_pack..1 vs_one    15.3.57     0 FALSE
-#&gt;  7 group_pack..1 vs_one 15.2.3.435     0 FALSE
-#&gt;  8 group_pack..1 vs_one  15.2.3.78     0 FALSE
-#&gt;  9 group_pack..1 vs_one  15.5.3.52     0 FALSE
-#&gt; 10 group_pack..1 vs_one  15.8.3.17     0 FALSE
+#&gt;    pack          rule   var           id value
+#&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt; &lt;lgl&gt;
+#&gt;  1 group_pack..1 vs_one 10.4.5.25      0 F    
+#&gt;  2 group_pack..1 vs_one 10.4.5.424     0 F    
+#&gt;  3 group_pack..1 vs_one 13.3.3.84      0 F    
+#&gt;  4 group_pack..1 vs_one 14.3.3.57      0 F    
+#&gt;  5 group_pack..1 vs_one 14.7.5.345     0 F    
+#&gt;  6 group_pack..1 vs_one 15.3.57        0 F    
+#&gt;  7 group_pack..1 vs_one 15.2.3.435     0 F    
+#&gt;  8 group_pack..1 vs_one 15.2.3.78      0 F    
+#&gt;  9 group_pack..1 vs_one 15.5.3.52      0 F    
+#&gt; 10 group_pack..1 vs_one 15.8.3.17      0 F    
 #&gt; # ... with 54 more rows</div><div class='input'>
 <span class='co'># Results should have in column 'id' value 1 and not 0.</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>row_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 1 x 5
-#&gt;           pack        rule   var    id value
-#&gt;          &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 data_pack..1 neg_row_sum  .all     0 FALSE</div><div class='input'>
+#&gt;   pack         rule        var      id value
+#&gt;   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt; 1 data_pack..1 neg_row_sum .all      0 F    </div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>cell_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 11 x 5
-#&gt;           pack      rule   var    id value
-#&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt;  1 col_pack..1 neg_value   mpg     0 FALSE
-#&gt;  2 col_pack..1 neg_value   cyl     0 FALSE
-#&gt;  3 col_pack..1 neg_value  disp     0 FALSE
-#&gt;  4 col_pack..1 neg_value    hp     0 FALSE
-#&gt;  5 col_pack..1 neg_value  drat     0 FALSE
-#&gt;  6 col_pack..1 neg_value    wt     0 FALSE
-#&gt;  7 col_pack..1 neg_value  qsec     0 FALSE
-#&gt;  8 col_pack..1 neg_value    vs     0 FALSE
-#&gt;  9 col_pack..1 neg_value    am     0 FALSE
-#&gt; 10 col_pack..1 neg_value  gear     0 FALSE
-#&gt; 11 col_pack..1 neg_value  carb     0 FALSE</div><div class='input'>
+#&gt;    pack        rule      var      id value
+#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
+#&gt;  1 col_pack..1 neg_value mpg       0 F    
+#&gt;  2 col_pack..1 neg_value cyl       0 F    
+#&gt;  3 col_pack..1 neg_value disp      0 F    
+#&gt;  4 col_pack..1 neg_value hp        0 F    
+#&gt;  5 col_pack..1 neg_value drat      0 F    
+#&gt;  6 col_pack..1 neg_value wt        0 F    
+#&gt;  7 col_pack..1 neg_value qsec      0 F    
+#&gt;  8 col_pack..1 neg_value vs        0 F    
+#&gt;  9 col_pack..1 neg_value am        0 F    
+#&gt; 10 col_pack..1 neg_value gear      0 F    
+#&gt; 11 col_pack..1 neg_value carb      0 F    </div><div class='input'>
 </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -82,7 +82,7 @@
       <h1>Rule Packs</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2017-12-03</h4>
+            <h4 class="date">2018-02-23</h4>
           </div>
 
     
@@ -137,11 +137,11 @@
 <span class="co">#&gt; # A tibble: 4 x 3</span>
 <span class="co">#&gt; # Groups:   vs [?]</span>
 <span class="co">#&gt;      vs    am any_cyl_6</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1     0     0     FALSE</span>
-<span class="co">#&gt; 2     0     1      TRUE</span>
-<span class="co">#&gt; 3     1     0      TRUE</span>
-<span class="co">#&gt; 4     1     1     FALSE</span></code></pre></div>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    </span>
+<span class="co">#&gt; 1  0     0    F        </span>
+<span class="co">#&gt; 2  0     1.00 T        </span>
+<span class="co">#&gt; 3  1.00  0    T        </span>
+<span class="co">#&gt; 4  1.00  1.00 F</span></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Some columns define group levels (<code>vs</code> and <code>am</code> in this case).</li>
@@ -210,13 +210,13 @@ mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)
 <span class="co">#&gt; # A tibble: 6 x 1</span>
 <span class="co">#&gt;   is_common_row_mean</span>
-<span class="co">#&gt;                &lt;lgl&gt;</span>
-<span class="co">#&gt; 1               TRUE</span>
-<span class="co">#&gt; 2               TRUE</span>
-<span class="co">#&gt; 3               TRUE</span>
-<span class="co">#&gt; 4               TRUE</span>
-<span class="co">#&gt; 5               TRUE</span>
-<span class="co">#&gt; 6              FALSE</span></code></pre></div>
+<span class="co">#&gt;   &lt;lgl&gt;             </span>
+<span class="co">#&gt; 1 T                 </span>
+<span class="co">#&gt; 2 T                 </span>
+<span class="co">#&gt; 3 T                 </span>
+<span class="co">#&gt; 4 T                 </span>
+<span class="co">#&gt; 5 T                 </span>
+<span class="co">#&gt; 6 F</span></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of checked rows</strong>.</li>
@@ -243,13 +243,13 @@ mtcars <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)
 <span class="co">#&gt; # A tibble: 5 x 6</span>
 <span class="co">#&gt;   cyl_is_common hp_is_common vs_is_common am_is_common gear_is_common</span>
-<span class="co">#&gt;           &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;          &lt;lgl&gt;</span>
-<span class="co">#&gt; 1         FALSE        FALSE        FALSE        FALSE           TRUE</span>
-<span class="co">#&gt; 2         FALSE         TRUE        FALSE         TRUE           TRUE</span>
-<span class="co">#&gt; 3         FALSE         TRUE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt; 4         FALSE         TRUE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt; 5         FALSE        FALSE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt; # ... with 1 more variables: carb_is_common &lt;lgl&gt;</span></code></pre></div>
+<span class="co">#&gt;   &lt;lgl&gt;         &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;        &lt;lgl&gt;         </span>
+<span class="co">#&gt; 1 F             F            F            F            T             </span>
+<span class="co">#&gt; 2 F             T            F            T            T             </span>
+<span class="co">#&gt; 3 F             T            T            T            T             </span>
+<span class="co">#&gt; 4 F             T            T            T            T             </span>
+<span class="co">#&gt; 5 F             F            T            T            T             </span>
+<span class="co">#&gt; # ... with 1 more variable: carb_is_common &lt;lgl&gt;</span></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of rows for checked cells</strong>.</li>
