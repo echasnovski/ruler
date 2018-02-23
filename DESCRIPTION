@@ -1,6 +1,6 @@
 Package: ruler
 Title: Tidy Data Validation Reports
-Version: 0.1.1.9000
+Version: 0.1.2
 Authors@R: person("Evgeni", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
     role = c("aut", "cre"))
 Description: Tools for creating data validation pipelines and tidy reports. This

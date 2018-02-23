@@ -1,13 +1,11 @@
 ## Submission details
 
-This submission is reaction to update of its implicit dependency package 'tibble'. The current version has some unnecessarily strict tests for printing objects, which result in ERRORs.
-
-In this submission __no change in functionality is made__, only tests are updated.
+This submission is reaction to breaking changes in 'rlang' 0.2.0.
 
 ## Test environments
 * Ubuntu 16.04 LTS (local install), R 3.4.3
-* macOS 10.11 El Capitan (64-bit) (on R-hub), R 3.4.1
-* win-builder, R Under development (unstable) (2018-01-04 r74054)
+* macOS 10.11 El Capitan (64-bit) (on R-hub), R 3.4.3
+* win-builder, R Under development (unstable) (2018-02-21 r74285)
 * Debian Linux (on R-hub), R-devel (2017-12-30 r73992), GCC
 
 ## R CMD check results
@@ -16,7 +14,7 @@ In this submission __no change in functionality is made__, only tests are update
 
 ---
 
-On some Linux platforms on R-hub (Ubuntu Linux 16.04 LTS, R-release, GCC; Fedora Linux, R-devel, clang, gfortran) there was WARNING:
+On some platforms on R-hub there was WARNING:
 
 * checking top-level files ... WARNING
 Conversion of ‘README.md’ failed:
