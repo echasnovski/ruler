@@ -21,9 +21,9 @@ inside_punct <- function(.x = "\\._\\.") {
 }
 
 negate_select_cols <- function(.tbl, ...) {
-  selected_tbl <- select(.tbl, ...)
-
-  setdiff(colnames(.tbl), colnames(selected_tbl))
+  nms <- colnames(.tbl)
+  skip_names <- tidyselect::vars_select(nms, ...)
+  setdiff(nms, skip_names)
 }
 
 
