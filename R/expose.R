@@ -291,8 +291,8 @@ interp_row_pack_out <- function(.pack_out) {
 
   .pack_out %>%
     as_tibble() %>%
-    restore_keys_at(.vars = ".id", .funs = funs(~ "id"),
-                    .remove = TRUE, .unkey = TRUE) %>%
+    rename_keys(id = ".id") %>%
+    restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(key = "rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
     mutate(var = ".all") %>%
@@ -305,8 +305,8 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
 
   .pack_out %>%
     as_tibble() %>%
-    restore_keys_at(.vars = ".id", .funs = funs(~ "id"),
-                    .remove = TRUE, .unkey = TRUE) %>%
+    rename_keys(id = ".id") %>%
+    restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(key = "var_rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
     tidyr::separate(col = "var_rule", into = c("var", "rule"),
