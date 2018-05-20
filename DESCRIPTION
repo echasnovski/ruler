@@ -10,7 +10,7 @@ Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/echasnovski/ruler
+URL: https://echasnovski.github.io/ruler/, https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
