@@ -80,22 +80,22 @@ mtcars_exposed %>% get_exposure()
 #> # A tibble: 5 x 4
 #>   name            type       fun              remove_obeyers
 #>   <chr>           <chr>      <list>           <lgl>         
-#> 1 dims            data_pack  <S3: data_pack>  T             
-#> 2 vs_am_num       group_pack <S3: group_pack> T             
-#> 3 enough_col_sum  col_pack   <S3: col_pack>   T             
-#> 4 enough_row_sum  row_pack   <S3: row_pack>   T             
-#> 5 dbl_not_outlier cell_pack  <S3: cell_pack>  T             
+#> 1 dims            data_pack  <S3: data_pack>  TRUE          
+#> 2 vs_am_num       group_pack <S3: group_pack> TRUE          
+#> 3 enough_col_sum  col_pack   <S3: col_pack>   TRUE          
+#> 4 enough_row_sum  row_pack   <S3: row_pack>   TRUE          
+#> 5 dbl_not_outlier cell_pack  <S3: cell_pack>  TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 117 x 5
 #>   pack            rule       var      id value
 #>   <chr>           <chr>      <chr> <int> <lgl>
-#> 1 dims            nrow_high  .all      0 F    
-#> 2 dims            ncol_low   .all      0 F    
-#> 3 vs_am_num       vs_am_low  0.1       0 F    
-#> 4 enough_col_sum  is_enough  am        0 F    
-#> 5 enough_row_sum  is_enough  .all     19 F    
-#> 6 dbl_not_outlier is_not_out mpg      15 F    
+#> 1 dims            nrow_high  .all      0 FALSE
+#> 2 dims            ncol_low   .all      0 FALSE
+#> 3 vs_am_num       vs_am_low  0.1       0 FALSE
+#> 4 enough_col_sum  is_enough  am        0 FALSE
+#> 5 enough_row_sum  is_enough  .all     19 FALSE
+#> 6 dbl_not_outlier is_not_out mpg      15 FALSE
 #> # ... with 111 more rows
 
 # Assert any breaker
@@ -104,12 +104,12 @@ invisible(mtcars_exposed %>% assert_any_breaker())
 #> # A tibble: 117 x 5
 #>   pack            rule       var      id value
 #>   <chr>           <chr>      <chr> <int> <lgl>
-#> 1 dims            nrow_high  .all      0 F    
-#> 2 dims            ncol_low   .all      0 F    
-#> 3 vs_am_num       vs_am_low  0.1       0 F    
-#> 4 enough_col_sum  is_enough  am        0 F    
-#> 5 enough_row_sum  is_enough  .all     19 F    
-#> 6 dbl_not_outlier is_not_out mpg      15 F    
+#> 1 dims            nrow_high  .all      0 FALSE
+#> 2 dims            ncol_low   .all      0 FALSE
+#> 3 vs_am_num       vs_am_low  0.1       0 FALSE
+#> 4 enough_col_sum  is_enough  am        0 FALSE
+#> 5 enough_row_sum  is_enough  .all     19 FALSE
+#> 6 dbl_not_outlier is_not_out mpg      15 FALSE
 #> # ... with 111 more rows
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
@@ -258,17 +258,17 @@ mtcars %>%
 #> # A tibble: 3 x 4
 #>   name          type       fun              remove_obeyers
 #>   <chr>         <chr>      <list>           <lgl>         
-#> 1 data_dims     data_pack  <S3: data_pack>  T             
-#> 2 vs_1          data_pack  <S3: data_pack>  T             
-#> 3 group_pack..1 group_pack <S3: group_pack> T             
+#> 1 data_dims     data_pack  <S3: data_pack>  TRUE          
+#> 2 vs_1          data_pack  <S3: data_pack>  TRUE          
+#> 3 group_pack..1 group_pack <S3: group_pack> TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 3 x 5
 #>   pack          rule      var      id value
 #>   <chr>         <chr>     <chr> <int> <lgl>
-#> 1 data_dims     ncol      .all      0 F    
-#> 2 group_pack..1 any_cyl_6 0.0       0 F    
-#> 3 group_pack..1 any_cyl_6 1.1       0 F
+#> 1 data_dims     ncol      .all      0 FALSE
+#> 2 group_pack..1 any_cyl_6 0.0       0 FALSE
+#> 3 group_pack..1 any_cyl_6 1.1       0 FALSE
 ```
 
 One can leave obeyers by setting `.remove_obeyers` to `FALSE`.
@@ -283,20 +283,20 @@ mtcars %>%
 #> # A tibble: 3 x 4
 #>   name          type       fun              remove_obeyers
 #>   <chr>         <chr>      <list>           <lgl>         
-#> 1 data_dims     data_pack  <S3: data_pack>  F             
-#> 2 vs_1          data_pack  <S3: data_pack>  F             
-#> 3 group_pack..1 group_pack <S3: group_pack> F             
+#> 1 data_dims     data_pack  <S3: data_pack>  FALSE         
+#> 2 vs_1          data_pack  <S3: data_pack>  FALSE         
+#> 3 group_pack..1 group_pack <S3: group_pack> FALSE         
 #> 
 #> Tidy data validation report:
 #> # A tibble: 8 x 5
 #>   pack          rule      var      id value
 #>   <chr>         <chr>     <chr> <int> <lgl>
-#> 1 data_dims     ncol      .all      0 F    
-#> 2 data_dims     nrow      .all      0 T    
-#> 3 vs_1          nrow_low  .all      0 T    
-#> 4 vs_1          nrow_high .all      0 T    
-#> 5 group_pack..1 any_cyl_6 0.0       0 F    
-#> 6 group_pack..1 any_cyl_6 0.1       0 T    
+#> 1 data_dims     ncol      .all      0 FALSE
+#> 2 data_dims     nrow      .all      0 TRUE 
+#> 3 vs_1          nrow_low  .all      0 TRUE 
+#> 4 vs_1          nrow_high .all      0 TRUE 
+#> 5 group_pack..1 any_cyl_6 0.0       0 FALSE
+#> 6 group_pack..1 any_cyl_6 0.1       0 TRUE 
 #> # ... with 2 more rows
 ```
 
@@ -315,15 +315,15 @@ mtcars %>%
 #> # A tibble: 2 x 4
 #>   name           type      fun             remove_obeyers
 #>   <chr>          <chr>     <list>          <lgl>         
-#> 1 some_data_pack data_pack <S3: data_pack> T             
-#> 2 some_col_pack  col_pack  <S3: col_pack>  T             
+#> 1 some_data_pack data_pack <S3: data_pack> TRUE          
+#> 2 some_col_pack  col_pack  <S3: col_pack>  TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 2 x 5
 #>   pack           rule    var      id value
 #>   <chr>          <chr>   <chr> <int> <lgl>
-#> 1 some_data_pack nrow    .all      0 F    
-#> 2 some_col_pack  rule..1 vs        0 F
+#> 1 some_data_pack nrow    .all      0 FALSE
+#> 2 some_col_pack  rule..1 vs        0 FALSE
 ```
 
 To write strict and robust code one can set `.guess` to `FALSE`.
@@ -383,10 +383,10 @@ mtcars %>%
 #> # A tibble: 4 x 5
 #>   pack       rule               var      id value
 #>   <chr>      <chr>              <chr> <int> <lgl>
-#> 1 sum_bounds sum_low            cyl       0 F    
-#> 2 sum_bounds sum_low            carb      0 F    
-#> 3 vs_mean    rule..1            vs        0 F    
-#> 4 row_mean   is_common_row_mean .all     15 F
+#> 1 sum_bounds sum_low            cyl       0 FALSE
+#> 2 sum_bounds sum_low            carb      0 FALSE
+#> 3 vs_mean    rule..1            vs        0 FALSE
+#> 4 row_mean   is_common_row_mean .all     15 FALSE
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
@@ -400,6 +400,7 @@ More leaned towards assertions:
 -   [checkmate](https://github.com/mllg/checkmate)
 -   [ensurer](https://github.com/smbache/ensurer)
 -   [tester](https://github.com/gastonstat/tester)
+-   [sealr](https://github.com/uribo/sealr)
 
 More leaned towards validation:
 

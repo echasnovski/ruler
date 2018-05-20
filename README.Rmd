@@ -316,6 +316,7 @@ More leaned towards assertions:
 - [checkmate](https://github.com/mllg/checkmate)
 - [ensurer](https://github.com/smbache/ensurer)
 - [tester](https://github.com/gastonstat/tester)
+- [sealr](https://github.com/uribo/sealr)
 
 More leaned towards validation:
 
