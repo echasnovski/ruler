@@ -18,13 +18,31 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+<meta property="og:title" content="Column rule pack — column-pack" />
+
+<meta property="og:description" content="Column rule pack is a rule pack which defines a set of rules
+for columns as a whole, i.e. functions which convert columns of interest to
+logical values. It should return a data frame with the following properties:
+Number of rows equals to one.
+Column names should be treated as concatenation of
+'check column name' + 'separator' + 'rule name'.
+Values indicate whether the column as a whole follows the rule.
+" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +65,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ruler</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ruler</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -79,7 +101,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +113,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,12 +121,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Column rule pack</h1>
+    <small class="dont-index">Source: <a href='https://github.com/echasnovski/ruler/blob/master/R/packs.R'><code>R/packs.R</code></a></small>
+    <div class="hidden name"><code>column-pack.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Column rule pack is a <a href='rule-packs.html'>rule pack</a> which defines a set of rules
 for columns as a whole, i.e. functions which convert columns of interest to
@@ -114,6 +140,7 @@ logical values. It should return a data frame with the following properties:</p>
 <li><p>Values indicate whether the <strong>column as a whole</strong> follows the rule.</p></li>
 </ul>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -126,7 +153,8 @@ sequence with no grouping and ending with one of:</p><ul>
 <li><p><code>summarise_all(.funs = rules(...))</code>.</p></li>
 <li><p><code>summarise_if(.predicate, .funs = rules(...))</code>.</p></li>
 <li><p><code>summarise_at(.vars, .funs = rules(...))</code>.</p></li>
-</ul><p><strong>Note</strong> that (as of <code>dplyr</code> version 0.7.4) when only one column is
+</ul>
+    <p><strong>Note</strong> that (as of <code>dplyr</code> version 0.7.4) when only one column is
 summarised, names of the output don't have a necessary structure. The 'check
 column name' is missing which results (after <a href='expose.html'>exposure</a>) into empty
 string in <code>var</code> column of <a href='ruler-report.html'>validation report</a>. The current way
@@ -144,8 +172,8 @@ separator as prefix surrounded by any number of non-alphanumeric values.</p></li
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='data-pack.html'>Data pack</a>, <a href='group-pack.html'>group pack</a>, <a href='row-pack.html'>row
-pack</a>, <a href='cell-pack.html'>cell pack</a>.</p>
+    <div class='dont-index'><p><a href='data-pack.html'>Data pack</a>, <a href='group-pack.html'>group pack</a>, <a href='row-pack.html'>row
+pack</a>, <a href='cell-pack.html'>cell pack</a>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -195,8 +223,8 @@ pack</a>, <a href='cell-pack.html'>cell pack</a>.</p>
 #&gt; # A tibble: 2 x 5
 #&gt;   pack        rule            var      id value
 #&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 col_pack..1 improper_is_chr ""        0 F    
-#&gt; 2 col_pack..2 proper_is_chr   vs        0 F    </div><div class='input'>
+#&gt; 1 col_pack..1 improper_is_chr ""        0 FALSE
+#&gt; 2 col_pack..2 proper_is_chr   vs        0 FALSE</div><div class='input'>
 </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -221,11 +249,14 @@ pack</a>, <a href='cell-pack.html'>cell pack</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

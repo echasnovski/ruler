@@ -18,13 +18,37 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+<meta property="og:title" content="Tidy data validation report — ruler-report" />
+
+<meta property="og:description" content="A tibble representing the data validation result of certain data units in
+tidy way:
+pack &lt;chr&gt; : Name of rule pack from column 'name' of corresponding
+packs_info object.
+rule &lt;chr&gt; : Name of the rule defined in rule pack.
+var &lt;chr&gt; : Name of the variable which validation result is reported.
+Value '.all' is reserved and interpreted as 'all columns as a whole'.
+Note that var doesn't always represent the actual column in data frame
+(see group packs).
+id &lt;int&gt; : Index of the row in tested data frame which validation
+result is reported. Value 0 is reserved and interpreted as 'all rows as a
+whole'.
+value &lt;lgl&gt; : Whether the described data unit obeys the rule.
+" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +71,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ruler</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ruler</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -79,7 +107,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +119,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,12 +127,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tidy data validation report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/echasnovski/ruler/blob/master/R/exposure.R'><code>R/exposure.R</code></a></small>
+    <div class="hidden name"><code>ruler-report.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A tibble representing the data validation result of certain data units in
 tidy way:</p><ul>
@@ -120,12 +152,13 @@ whole'.</p></li>
 <li><p><strong>value</strong> &lt;lgl&gt; : Whether the described data unit obeys the rule.</p></li>
 </ul>
     
+    </div>
 
     <pre class="usage"><code class = "r"><span class='fu'>is_report</span>(<span class='no'>.x</span>, <span class='kw'>.skip_class</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>get_report</span>(<span class='no'>.object</span>)</code></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -184,20 +217,20 @@ name) or column (<code>var</code> should be an actual column name) as a whole.</
 #&gt; # A tibble: 14 x 5
 #&gt;    pack           rule            var      id value
 #&gt;    &lt;chr&gt;          &lt;chr&gt;           &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt;  1 data_dims      nrow            .all      0 T    
-#&gt;  2 data_dims      ncol            .all      0 F    
-#&gt;  3 row_mean_props row_mean_low    .all     18 F    
-#&gt;  4 row_mean_props row_mean_low    .all     19 F    
-#&gt;  5 row_mean_props row_mean_low    .all     20 F    
-#&gt;  6 row_mean_props row_mean_low    .all     26 F    
-#&gt;  7 row_mean_props row_mean_high   .all     15 F    
-#&gt;  8 row_mean_props row_mean_high   .all     16 F    
-#&gt;  9 row_mean_props row_mean_high   .all     17 F    
-#&gt; 10 row_mean_props row_mean_high   .all     29 F    
-#&gt; 11 row_mean_props row_mean_high   .all     31 F    
-#&gt; 12 row_outlier    not_row_outlier .all     15 F    
-#&gt; 13 row_outlier    not_row_outlier .all     16 F    
-#&gt; 14 row_outlier    not_row_outlier .all     17 F    </div><div class='input'>
+#&gt;  1 data_dims      nrow            .all      0 TRUE 
+#&gt;  2 data_dims      ncol            .all      0 FALSE
+#&gt;  3 row_mean_props row_mean_low    .all     18 FALSE
+#&gt;  4 row_mean_props row_mean_low    .all     19 FALSE
+#&gt;  5 row_mean_props row_mean_low    .all     20 FALSE
+#&gt;  6 row_mean_props row_mean_low    .all     26 FALSE
+#&gt;  7 row_mean_props row_mean_high   .all     15 FALSE
+#&gt;  8 row_mean_props row_mean_high   .all     16 FALSE
+#&gt;  9 row_mean_props row_mean_high   .all     17 FALSE
+#&gt; 10 row_mean_props row_mean_high   .all     29 FALSE
+#&gt; 11 row_mean_props row_mean_high   .all     31 FALSE
+#&gt; 12 row_outlier    not_row_outlier .all     15 FALSE
+#&gt; 13 row_outlier    not_row_outlier .all     16 FALSE
+#&gt; 14 row_outlier    not_row_outlier .all     17 FALSE</div><div class='input'>
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_report</span>() <span class='kw'>%&gt;%</span> <span class='fu'>is_report</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></code></pre>
   </div>
@@ -222,11 +255,14 @@ name) or column (<code>var</code> should be an actual column name) as a whole.</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

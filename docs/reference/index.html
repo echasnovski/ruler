@@ -18,13 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +55,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ruler</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ruler</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -79,7 +91,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +103,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,174 +111,169 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.2</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-package-description" class="hasAnchor"><a href="#section-package-description" class="anchor"></a>Package description</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ruler-package.html">ruler-package</a></code> </p>
-          </td>
-          <td><p>ruler: Rule Your Data</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-data-structures" class="hasAnchor"><a href="#section-data-structures" class="anchor"></a>Data structures</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="exposure.html">is_exposure</a></code> <code><a href="exposure.html">get_exposure</a></code> <code><a href="exposure.html">remove_exposure</a></code> </p>
-          </td>
-          <td><p>Exposure</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="packs_info.html">is_packs_info</a></code> <code><a href="packs_info.html">get_packs_info</a></code> </p>
-          </td>
-          <td><p>Packs info</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ruler-report.html">is_report</a></code> <code><a href="ruler-report.html">get_report</a></code> </p>
-          </td>
-          <td><p>Tidy data validation report</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-rules-and-packs" class="hasAnchor"><a href="#section-rules-and-packs" class="anchor"></a>Rules and packs</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rules.html">rules</a></code> </p>
-          </td>
-          <td><p>Create a list of rules</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rule-packs.html">data_packs</a></code> <code><a href="rule-packs.html">group_packs</a></code> <code><a href="rule-packs.html">col_packs</a></code> <code><a href="rule-packs.html">row_packs</a></code> <code><a href="rule-packs.html">cell_packs</a></code> </p>
-          </td>
-          <td><p>Create rule packs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="data-pack.html">data-pack</a></code> </p>
-          </td>
-          <td><p>Data rule pack</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="group-pack.html">group-pack</a></code> </p>
-          </td>
-          <td><p>Group rule pack</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="column-pack.html">column-pack</a></code> </p>
-          </td>
-          <td><p>Column rule pack</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="row-pack.html">row-pack</a></code> </p>
-          </td>
-          <td><p>Row rule pack</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="cell-pack.html">cell-pack</a></code> </p>
-          </td>
-          <td><p>Cell rule pack</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-validation" class="hasAnchor"><a href="#section-validation" class="anchor"></a>Validation</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="expose.html">expose</a></code> </p>
-          </td>
-          <td><p>Expose data to rule packs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="act_after_exposure.html">act_after_exposure</a></code> </p>
-          </td>
-          <td><p>Act after exposure</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="assert_any_breaker.html">assert_any_breaker</a></code> </p>
-          </td>
-          <td><p>Assert presence of rule breaker</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="any_breaker.html">any_breaker</a></code> </p>
-          </td>
-          <td><p>Is there any breaker in exposure?</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bind_exposures.html">bind_exposures</a></code> </p>
-          </td>
-          <td><p>Bind exposures</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="inside_punct.html">inside_punct</a></code> </p>
-          </td>
-          <td><p>Inside punctuation regular expression</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spread_groups.html">spread_groups</a></code> </p>
-          </td>
-          <td><p>Spread grouping columns</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-package-description" class="hasAnchor"><a href="#section-package-description" class="anchor"></a>Package description</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ruler-package.html">ruler-package</a></code> </p>
+        </td>
+        <td><p>ruler: Rule Your Data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-structures" class="hasAnchor"><a href="#section-data-structures" class="anchor"></a>Data structures</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="exposure.html">is_exposure()</a></code> <code><a href="exposure.html">get_exposure()</a></code> <code><a href="exposure.html">remove_exposure()</a></code> </p>
+        </td>
+        <td><p>Exposure</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="packs_info.html">is_packs_info()</a></code> <code><a href="packs_info.html">get_packs_info()</a></code> </p>
+        </td>
+        <td><p>Packs info</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ruler-report.html">is_report()</a></code> <code><a href="ruler-report.html">get_report()</a></code> </p>
+        </td>
+        <td><p>Tidy data validation report</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-rules-and-packs" class="hasAnchor"><a href="#section-rules-and-packs" class="anchor"></a>Rules and packs</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rules.html">rules()</a></code> </p>
+        </td>
+        <td><p>Create a list of rules</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rule-packs.html">data_packs()</a></code> <code><a href="rule-packs.html">group_packs()</a></code> <code><a href="rule-packs.html">col_packs()</a></code> <code><a href="rule-packs.html">row_packs()</a></code> <code><a href="rule-packs.html">cell_packs()</a></code> </p>
+        </td>
+        <td><p>Create rule packs</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="data-pack.html">data-pack</a></code> </p>
+        </td>
+        <td><p>Data rule pack</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="group-pack.html">group-pack</a></code> </p>
+        </td>
+        <td><p>Group rule pack</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="column-pack.html">column-pack</a></code> </p>
+        </td>
+        <td><p>Column rule pack</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="row-pack.html">row-pack</a></code> </p>
+        </td>
+        <td><p>Row rule pack</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="cell-pack.html">cell-pack</a></code> </p>
+        </td>
+        <td><p>Cell rule pack</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-validation" class="hasAnchor"><a href="#section-validation" class="anchor"></a>Validation</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="expose.html">expose()</a></code> </p>
+        </td>
+        <td><p>Expose data to rule packs</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="act_after_exposure.html">act_after_exposure()</a></code> </p>
+        </td>
+        <td><p>Act after exposure</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="assert_any_breaker.html">assert_any_breaker()</a></code> </p>
+        </td>
+        <td><p>Assert presence of rule breaker</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="any_breaker.html">any_breaker()</a></code> </p>
+        </td>
+        <td><p>Is there any breaker in exposure?</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bind_exposures.html">bind_exposures()</a></code> </p>
+        </td>
+        <td><p>Bind exposures</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="inside_punct.html">inside_punct()</a></code> </p>
+        </td>
+        <td><p>Inside punctuation regular expression</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="spread_groups.html">spread_groups()</a></code> </p>
+        </td>
+        <td><p>Spread grouping columns</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -286,11 +294,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

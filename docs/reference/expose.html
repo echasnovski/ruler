@@ -18,13 +18,24 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+<meta property="og:title" content="Expose data to rule packs — expose" />
+
+<meta property="og:description" content="Function for applying rule packs to data." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +58,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ruler</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ruler</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -79,7 +94,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +106,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,20 +114,24 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Expose data to rule packs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/echasnovski/ruler/blob/master/R/expose.R'><code>R/expose.R</code></a></small>
+    <div class="hidden name"><code>expose.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function for applying rule packs to data.</p>
     
+    </div>
 
     <pre class="usage"><code class = "r"><span class='fu'>expose</span>(<span class='no'>.tbl</span>, <span class='no'>...</span>, <span class='kw'>.rule_sep</span> <span class='kw'>=</span> <span class='fu'><a href='inside_punct.html'>inside_punct</a></span>(<span class='st'>"\\._\\."</span>),
   <span class='kw'>.remove_obeyers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</code></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -197,12 +217,12 @@ are checked. In this case it will be guessed as column pack.</p></li>
 #&gt; # A tibble: 1 x 5
 #&gt;   pack           rule     var      id value
 #&gt;   &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 my_data_pack_1 nrow_neg .all      0 F    </div><div class='input'>
+#&gt; 1 my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 1 x 5
 #&gt;   pack           rule     var      id value
 #&gt;   &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 my_data_pack_1 nrow_neg .all      0 F    </div><div class='input'>
+#&gt; 1 my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
 # This throws an error because no pack type is specified for my_rule_pack
 </div><span class='co'># NOT RUN {</span>
   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -231,38 +251,38 @@ are checked. In this case it will be guessed as column pack.</p></li>
 #&gt; # A tibble: 64 x 5
 #&gt;    pack          rule   var           id value
 #&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt; &lt;lgl&gt;
-#&gt;  1 group_pack..1 vs_one 10.4.5.25      0 F    
-#&gt;  2 group_pack..1 vs_one 10.4.5.424     0 F    
-#&gt;  3 group_pack..1 vs_one 13.3.3.84      0 F    
-#&gt;  4 group_pack..1 vs_one 14.3.3.57      0 F    
-#&gt;  5 group_pack..1 vs_one 14.7.5.345     0 F    
-#&gt;  6 group_pack..1 vs_one 15.3.57        0 F    
-#&gt;  7 group_pack..1 vs_one 15.2.3.435     0 F    
-#&gt;  8 group_pack..1 vs_one 15.2.3.78      0 F    
-#&gt;  9 group_pack..1 vs_one 15.5.3.52      0 F    
-#&gt; 10 group_pack..1 vs_one 15.8.3.17      0 F    
+#&gt;  1 group_pack..1 vs_one 10.4.5.25      0 FALSE
+#&gt;  2 group_pack..1 vs_one 10.4.5.424     0 FALSE
+#&gt;  3 group_pack..1 vs_one 13.3.3.84      0 FALSE
+#&gt;  4 group_pack..1 vs_one 14.3.3.57      0 FALSE
+#&gt;  5 group_pack..1 vs_one 14.7.5.345     0 FALSE
+#&gt;  6 group_pack..1 vs_one 15.3.57        0 FALSE
+#&gt;  7 group_pack..1 vs_one 15.2.3.435     0 FALSE
+#&gt;  8 group_pack..1 vs_one 15.2.3.78      0 FALSE
+#&gt;  9 group_pack..1 vs_one 15.5.3.52      0 FALSE
+#&gt; 10 group_pack..1 vs_one 15.8.3.17      0 FALSE
 #&gt; # ... with 54 more rows</div><div class='input'>
 <span class='co'># Results should have in column 'id' value 1 and not 0.</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>row_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 1 x 5
 #&gt;   pack         rule        var      id value
 #&gt;   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt; 1 data_pack..1 neg_row_sum .all      0 F    </div><div class='input'>
+#&gt; 1 data_pack..1 neg_row_sum .all      0 FALSE</div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>cell_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
 #&gt; # A tibble: 11 x 5
 #&gt;    pack        rule      var      id value
 #&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;
-#&gt;  1 col_pack..1 neg_value mpg       0 F    
-#&gt;  2 col_pack..1 neg_value cyl       0 F    
-#&gt;  3 col_pack..1 neg_value disp      0 F    
-#&gt;  4 col_pack..1 neg_value hp        0 F    
-#&gt;  5 col_pack..1 neg_value drat      0 F    
-#&gt;  6 col_pack..1 neg_value wt        0 F    
-#&gt;  7 col_pack..1 neg_value qsec      0 F    
-#&gt;  8 col_pack..1 neg_value vs        0 F    
-#&gt;  9 col_pack..1 neg_value am        0 F    
-#&gt; 10 col_pack..1 neg_value gear      0 F    
-#&gt; 11 col_pack..1 neg_value carb      0 F    </div><div class='input'>
+#&gt;  1 col_pack..1 neg_value mpg       0 FALSE
+#&gt;  2 col_pack..1 neg_value cyl       0 FALSE
+#&gt;  3 col_pack..1 neg_value disp      0 FALSE
+#&gt;  4 col_pack..1 neg_value hp        0 FALSE
+#&gt;  5 col_pack..1 neg_value drat      0 FALSE
+#&gt;  6 col_pack..1 neg_value wt        0 FALSE
+#&gt;  7 col_pack..1 neg_value qsec      0 FALSE
+#&gt;  8 col_pack..1 neg_value vs        0 FALSE
+#&gt;  9 col_pack..1 neg_value am        0 FALSE
+#&gt; 10 col_pack..1 neg_value gear      0 FALSE
+#&gt; 11 col_pack..1 neg_value carb      0 FALSE</div><div class='input'>
 </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -288,11 +308,14 @@ are checked. In this case it will be guessed as column pack.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
