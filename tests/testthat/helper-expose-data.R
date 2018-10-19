@@ -29,7 +29,7 @@ input_packs <- list(
   )[[1]],
   group = group_packs(
     . %>% dplyr::group_by(vs, am) %>%
-      dplyr::summarise(n_low = n() > 10, n_high = n() < 15) %>%
+      dplyr::summarise(n_low = dplyr::n() > 10, n_high = dplyr::n() < 15) %>%
       dplyr::ungroup(),
     .group_vars = c("vs", "am"), .group_sep = "."
   )[[1]],
