@@ -90,10 +90,10 @@ mtcars \%>\% expose(my_data_pack_1 = my_rule_pack) \%>\% get_report()
 # Edge cases against using 'guess = TRUE' for robust code
 group_rule_pack <- . \%>\% dplyr::mutate(vs_one = vs == 1) \%>\%
   dplyr::group_by(vs_one, am) \%>\%
-  dplyr::summarise(n_low = n() > 10)
+  dplyr::summarise(n_low = dplyr::n() > 10)
 group_rule_pack_dummy <- . \%>\% dplyr::mutate(vs_one = vs == 1) \%>\%
   dplyr::group_by(mpg, vs_one, wt) \%>\%
-  dplyr::summarise(n_low = n() > 10)
+  dplyr::summarise(n_low = dplyr::n() > 10)
 row_rule_pack <- . \%>\% dplyr::transmute(neg_row_sum = rowSums(.) < 0)
 cell_rule_pack <- . \%>\% dplyr::transmute_all(rules(neg_value = . < 0))
 

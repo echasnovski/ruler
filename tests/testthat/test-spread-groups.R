@@ -4,7 +4,7 @@ context("spread-groups")
 # Input data --------------------------------------------------------------
 input_grouped_summary <- mtcars %>%
   group_by(vs, am) %>%
-  summarise(n_low = n() > 6, n_high = n() < 10)
+  summarise(n_low = dplyr::n() > 6, n_high = dplyr::n() < 10)
 
 
 # spread_groups -----------------------------------------------------------

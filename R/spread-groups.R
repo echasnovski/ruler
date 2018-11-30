@@ -19,7 +19,7 @@
 #' @examples
 #' mtcars_grouped_summary <- mtcars %>%
 #'   dplyr::group_by(vs, am) %>%
-#'   dplyr::summarise(n_low = n() > 6, n_high = n() < 10)
+#'   dplyr::summarise(n_low = dplyr::n() > 6, n_high = dplyr::n() < 10)
 #'
 #' spread_groups(mtcars_grouped_summary, vs, am)
 #'

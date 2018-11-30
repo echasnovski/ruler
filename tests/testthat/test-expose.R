@@ -15,7 +15,7 @@ input_data_pack_report_no_remove <- tibble(
 )
 
 group_pack_ref <- . %>% group_by(vs, am) %>%
-  summarise(n_low = n() > 10, n_high = n() < 15) %>%
+  summarise(n_low = dplyr::n() > 10, n_high = dplyr::n() < 15) %>%
   ungroup()
 input_group_pack <- input_packs[["group"]]
 input_group_pack_report_with_remove <- input_reports[["group"]] %>%
