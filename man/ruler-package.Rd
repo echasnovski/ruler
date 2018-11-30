@@ -18,8 +18,7 @@ The common workflow is:
 group, column, row, cell) to obey.
 \item \link[=expose]{Expose} some data to those rules. The result is the same data with
 possibly created \link{exposure} attribute. Exposure contains
-information \link[=packs_info]{about applied packs} and \link[=ruler-report]{tidy data validation
-report}.
+information \link[=packs_info]{about applied packs} and \link[=ruler-report]{tidy data validation report}.
 \item Use data and exposure to perform some \link[=act_after_exposure]{actions}:
 \link[=assert_any_breaker]{assert about rule breakers}, impute data, remove
 outliers and so on.
@@ -35,6 +34,7 @@ To learn more about \code{ruler} browse vignettes with \code{browseVignettes(pac
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://echasnovski.github.io/ruler/}
   \item \url{https://github.com/echasnovski/ruler}
   \item Report bugs at \url{https://github.com/echasnovski/ruler/issues}
 }

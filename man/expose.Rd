@@ -54,8 +54,7 @@ To work properly in some edge cases one should specify pack types with
 \code{expose} will guess the pack type based on its output after applying to
 \code{.tbl}. It uses the following features:
 \itemize{
-\item Presence of non-logical columns: if present then the guess is \link[=group-pack]{group
-pack}. Grouping columns are guessed as all non-logical. This
+\item Presence of non-logical columns: if present then the guess is \link[=group-pack]{group pack}. Grouping columns are guessed as all non-logical. This
 works incorrectly if some grouping column is logical: it will be guessed as
 result of applying the rule. \strong{Note} that on most occasions this edge case
 will produce error about grouping columns define non-unique levels.
@@ -63,12 +62,12 @@ will produce error about grouping columns define non-unique levels.
 presence of \code{.rule_sep} in all column names (\code{all_contain_sep}). Guesses
 are:
 \itemize{
-\item \link[=data-pack]{Data pack} if \code{n_rows_one == TRUE} and \code{all_contain_sep == FALSE}.
+\item \link[=data-pack]{Data pack} if \code{n_rows_one == TRUE} and \code{all_contain_sep   == FALSE}.
 \item \link[=column-pack]{Column pack} if \code{n_rows_one == TRUE} and
 \code{all_contain_sep == TRUE}.
-\item \link[=row-pack]{Row pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep == FALSE}. This works incorrectly if output has one row which is checked.
+\item \link[=row-pack]{Row pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep ==   FALSE}. This works incorrectly if output has one row which is checked.
 In this case it will be guessed as data pack.
-\item \link[=cell-pack]{Cell pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep == TRUE}. This works incorrectly if output has one row in which cells
+\item \link[=cell-pack]{Cell pack} if \code{n_rows_one == FALSE} and \code{all_contain_sep   == TRUE}. This works incorrectly if output has one row in which cells
 are checked. In this case it will be guessed as column pack.
 }
 }

@@ -16,15 +16,12 @@ values. It should return a data frame with the following properties:
 \details{
 This format is inspired by \code{dplyr}'s \link[dplyr:transmute]{transmute()}.
 
-The most common way to define row pack is by creating a \link[magrittr:pipe]{functional
-sequence} containing \code{transmute(...)}.
+The most common way to define row pack is by creating a \link[magrittr:pipe]{functional sequence} containing \code{transmute(...)}.
 }
 \section{Note about rearranging rows}{
 
-\strong{Note} that during exposure packs are applied to \link[keyholder:keys-set]{keyed
-object} with \link[keyholder:keyholder-id]{id key}. So they
-can rearrange rows as long as it is done with \link[keyholder:keyholder-supported-funs]{functions supported by
-keyholder}. Rows will be tracked and
+\strong{Note} that during exposure packs are applied to \link[keyholder:keys-set]{keyed object} with \link[keyholder:keyholder-id]{id key}. So they
+can rearrange rows as long as it is done with \link[keyholder:keyholder-supported-funs]{functions supported by keyholder}. Rows will be tracked and
 recognized as in the original data frame of interest.
 }
 
@@ -45,6 +42,5 @@ row_packs(
 
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column
-pack}, \link[=cell-pack]{cell pack}.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column pack}, \link[=cell-pack]{cell pack}.
 }

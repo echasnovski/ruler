@@ -30,10 +30,8 @@ list (at any depth).}
 levels for \code{var} column in \link[=ruler-report]{exposure report}.}
 }
 \value{
-\code{data_packs()} returns a list of what should be \link[=data-pack]{data rule
-packs}, \code{group_packs()} - \link[=group-pack]{group rule packs},
-\code{col_packs()} - \link[=column-pack]{column rule packs}, \code{row_packs()} - \link[=row-pack]{row rule
-packs}, \code{cell_packs()} - \link[=cell-pack]{cell rule packs}.
+\code{data_packs()} returns a list of what should be \link[=data-pack]{data rule packs}, \code{group_packs()} - \link[=group-pack]{group rule packs},
+\code{col_packs()} - \link[=column-pack]{column rule packs}, \code{row_packs()} - \link[=row-pack]{row rule packs}, \code{cell_packs()} - \link[=cell-pack]{cell rule packs}.
 }
 \description{
 Functions for creating different kinds of rule packs. \strong{Rule} is a function

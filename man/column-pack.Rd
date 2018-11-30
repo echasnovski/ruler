@@ -19,8 +19,7 @@ This format is inspired by \code{dplyr}'s
 \link[dplyr:summarise_all]{scoped variants of summarise()} applied to non-grouped
 data.
 
-The most common way to define column pack is by creating a \link[magrittr:pipe]{functional
-sequence} with no grouping and ending with one of:
+The most common way to define column pack is by creating a \link[magrittr:pipe]{functional sequence} with no grouping and ending with one of:
 \itemize{
 \item \code{summarise_all(.funs = rules(...))}.
 \item \code{summarise_if(.predicate, .funs = rules(...))}.
@@ -77,6 +76,5 @@ mtcars \%>\%
 
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=row-pack]{row
-pack}, \link[=cell-pack]{cell pack}.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=row-pack]{row pack}, \link[=cell-pack]{cell pack}.
 }

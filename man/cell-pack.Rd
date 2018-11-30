@@ -15,11 +15,9 @@ should return a data frame with the following properties:
 }
 }
 \details{
-This format is inspired by \link[dplyr:transmute_all]{scoped variants of
-transmute()}.
+This format is inspired by \link[dplyr:transmute_all]{scoped variants of transmute()}.
 
-The most common way to define cell pack is by creating a \link[magrittr:pipe]{functional
-sequence} containing one of:
+The most common way to define cell pack is by creating a \link[magrittr:pipe]{functional sequence} containing one of:
 \itemize{
 \item \code{transmute_all(.funs = rules(...))}.
 \item \code{transmute_if(.predicate, .funs = rules(...))}.
@@ -45,10 +43,8 @@ separator as prefix surrounded by any number of non-alphanumeric values.
 
 \section{Note about rearranging rows}{
 
-\strong{Note} that during exposure packs are applied to \link[keyholder:keys-set]{keyed
-object} with \link[keyholder:keyholder-id]{id key}. So they
-can rearrange rows as long as it is done with \link[keyholder:keyholder-supported-funs]{functions supported by
-keyholder}. Rows will be tracked and
+\strong{Note} that during exposure packs are applied to \link[keyholder:keys-set]{keyed object} with \link[keyholder:keyholder-id]{id key}. So they
+can rearrange rows as long as it is done with \link[keyholder:keyholder-supported-funs]{functions supported by keyholder}. Rows will be tracked and
 recognized as in the original data frame of interest.
 }
 
@@ -77,6 +73,5 @@ mtcars[1:2, ] \%>\%
 
 }
 \seealso{
-\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column
-pack}, \link[=row-pack]{row pack}.
+\link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column pack}, \link[=row-pack]{row pack}.
 }

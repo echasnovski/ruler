@@ -12,7 +12,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://echasnovski.github.io/ruler/, https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Imports: keyholder,
     dplyr (>= 0.7.0),

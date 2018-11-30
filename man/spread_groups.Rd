@@ -20,8 +20,7 @@ A data frame in \link[=column-pack]{column pack} format.
 }
 \description{
 Function that is used during interpretation of \link[=group-pack]{group pack}
-output. It converts grouped \link[dplyr:summarise]{summary} into \link[=column-pack]{column
-pack} format.
+output. It converts grouped \link[dplyr:summarise]{summary} into \link[=column-pack]{column pack} format.
 }
 \details{
 Multiple grouping variables are converted to one with

@@ -14,8 +14,7 @@ new_pack_info(.pack, .remove_obeyers)
 which \code{.pack} was applied.}
 }
 \description{
-An S3 class \code{pack_info} to represent information about pack in \link[=single_exposure]{single
-exposure}. Its content is as in \link{packs_info} but without
+An S3 class \code{pack_info} to represent information about pack in \link[=single_exposure]{single exposure}. Its content is as in \link{packs_info} but without
 column 'name'.
 }
 \keyword{internal}
