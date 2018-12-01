@@ -97,6 +97,15 @@ test_that("add_class_cond works", {
 })
 
 
+# remove_class_cond -------------------------------------------------------
+test_that("remove_class_cond works", {
+  input <- structure(1, class = c("a", "b"))
+
+  expect_equal(remove_class_cond(input, "a"), structure(1, class = "b"))
+  expect_equal(remove_class_cond(input, "b"), input)
+})
+
+
 # compute_def_names -------------------------------------------------------
 test_that("compute_def_names works", {
   expect_identical(compute_def_names(0), character(0))

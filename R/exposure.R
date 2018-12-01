@@ -224,7 +224,7 @@ as_packs_info <- function(.x, .validate = TRUE) {
   if (.validate && !(is_packs_info(.x, .skip_class = TRUE))) {
     stop("as_packs_info: Invalid input.")
   } else {
-    add_class_cond(.x, "packs_info")
+    .x %>% remove_class_cond("pack_info") %>% add_class_cond("packs_info")
   }
 }
 
