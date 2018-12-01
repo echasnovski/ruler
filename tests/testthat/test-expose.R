@@ -582,7 +582,7 @@ test_that("interp_col_pack_out works", {
                "row")
 
   input_bad_3 <- input_col_pack_out
-  names(input_bad_3) <- "vs...rule..1"
+  names(input_bad_3)[1] <- "vs...rule..1"
 
   expect_error(interp_col_pack_out(input_bad_3,
                                    inside_punct("\\._\\.")),
