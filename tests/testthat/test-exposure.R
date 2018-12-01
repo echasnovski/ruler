@@ -5,14 +5,14 @@ context("exposure")
 input_pack <- data_packs(. %>% summarise(nrow_low = nrow(.) > 10,
                                          nrow_high = nrow(.) < 20))[[1]]
 input_remove_obeyers <- FALSE
-input_packs_info <- tibble(
+input_packs_info <- tibble::tibble(
   name = "data_pack..1",
   type = "data_pack",
   fun = list(input_pack),
   remove_obeyers = input_remove_obeyers
 ) %>% add_class("packs_info")
 
-input_single_report <- tibble(
+input_single_report <- tibble::tibble(
   rule = c("nrow_low", "nrow_high"),
   var = rep(".all", 2),
   id = rep(0L, 2),
@@ -29,7 +29,7 @@ input_exposure <- structure(
   class = "exposure"
 )
 
-tibble_class <- class(tibble())
+tibble_class <- class(tibble::tibble())
 
 print_packs_info_not_validate_output <- "Packs info.*[Tt]ibble"
 print_report_not_validate_output <- "Tidy data validation report.*[Tt]ibble"
@@ -94,7 +94,7 @@ test_that("new_pack_info works", {
   output <- new_pack_info(.pack = input_pack,
                           .remove_obeyers = input_remove_obeyers)
   output_ref <- input_packs_info[, c("type", "fun", "remove_obeyers")] %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     add_class("pack_info")
 
   expect_true(identical(output, output_ref))
@@ -168,7 +168,7 @@ test_that("is_exposure works", {
   expect_false(is_exposure(output_3))
 
   output_4 <- output
-  output_4$report <- tibble(value = TRUE)
+  output_4$report <- tibble::tibble(value = TRUE)
 
   expect_false(is_exposure(output_4))
 })
@@ -357,10 +357,10 @@ test_that("print.exposure passes tibble options", {
     bind_exposures(.validate_output = TRUE)
 
   input_print_pack_info_tbl <- input_print_exposure$packs_info
-  class(input_print_pack_info_tbl) <- class(tibble())
+  class(input_print_pack_info_tbl) <- class(tibble::tibble())
 
   input_print_report_tbl <- input_print_exposure$report
-  class(input_print_report_tbl) <- class(tibble())
+  class(input_print_report_tbl) <- class(tibble::tibble())
 
   # Option `n`
   output_ref_packs_info_n <- capture_output(
@@ -432,7 +432,7 @@ test_that("print.packs_info handles extra arguments", {
     bind_rows() %>% as_packs_info()
 
   input_print_packs_info_tbl <- input_print_packs_info
-  class(input_print_packs_info_tbl) <- class(tibble())
+  class(input_print_packs_info_tbl) <- class(tibble::tibble())
 
   output_ref_packs_info_n <- capture_output(
     print(input_print_packs_info_tbl, n = 11)
@@ -466,7 +466,7 @@ test_that("print.ruler_report handles extra arguments", {
     bind_rows() %>% as_report()
 
   input_print_ruler_report_tbl <- input_print_ruler_report
-  class(input_print_ruler_report_tbl) <- class(tibble())
+  class(input_print_ruler_report_tbl) <- class(tibble::tibble())
 
   output_ref_ruler_report_n <- capture_output(
     print(input_print_ruler_report_tbl, n = 11)

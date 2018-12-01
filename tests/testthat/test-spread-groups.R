@@ -9,7 +9,7 @@ input_grouped_summary <- mtcars %>%
 
 # spread_groups -----------------------------------------------------------
 test_that("spread_groups works", {
-  output_ref_1 <- tibble(
+  output_ref_1 <- tibble::tibble(
     '0.0._.n_low' = TRUE, '0.1._.n_low' = FALSE,
     '1.0._.n_low' = TRUE, '1.1._.n_low' = TRUE,
     '0.0._.n_high' = FALSE, '0.1._.n_high' = TRUE,

@@ -1,22 +1,22 @@
 # Results of some packs ---------------------------------------------------
-input_data_pack_out <- dplyr::tibble('rule..1' = TRUE, 'nrow' = FALSE)
-input_group_pack_out <- dplyr::tibble(
+input_data_pack_out <- tibble::tibble('rule..1' = TRUE, 'nrow' = FALSE)
+input_group_pack_out <- tibble::tibble(
   'vs' = c(0, 0, 1, 1), 'am' = c(0, 1, 0, 1),
   'n_low' = c(TRUE, FALSE, FALSE, FALSE),
   'n_high' = c(TRUE, TRUE, TRUE, TRUE)
 )
-input_col_pack_out <- dplyr::tibble(
+input_col_pack_out <- tibble::tibble(
   'vs_._.rule..1' = TRUE, 'am_._.rule..1' = FALSE,
   'cyl_._.not_outlier' = TRUE, 'vs_._.not_outlier' = TRUE
 )
-input_row_pack_out <- dplyr::tibble(
+input_row_pack_out <- tibble::tibble(
   'row_rule..1' = rep(TRUE, 2),
   '._.rule..2' = c(TRUE, FALSE)
-) %>% keyholder::assign_keys(dplyr::tibble(.id = c(1, 3)))
-input_cell_pack_out <- dplyr::tibble(
+) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 3)))
+input_cell_pack_out <- tibble::tibble(
   'vs_._.rule..1' = rep(TRUE, 2), 'am_._.rule..1' = rep(FALSE, 2),
   'cyl_._.not_outlier' = c(TRUE, FALSE), 'vs_._.not_outlier' = c(TRUE, FALSE)
-) %>% keyholder::assign_keys(dplyr::tibble(.id = c(1, 4)))
+) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 4)))
 
 
 # Exposure data -----------------------------------------------------------
@@ -68,31 +68,31 @@ input_packs <- list(
 input_remove_obeyers <- c(data = TRUE, group = FALSE, col = FALSE,
                           row = TRUE, cell = TRUE)
 input_reports <- list(
-  data = dplyr::tibble(
+  data = tibble::tibble(
     rule = c("nrow_high", "ncol_high"),
     var = rep(".all", 2),
     id = rep(0L, 2),
     value = rep(FALSE, 2)
   ),
-  group = dplyr::tibble(
+  group = tibble::tibble(
     rule = rep(c("n_low", "n_high"), each = 4),
     var = rep(c("0.0", "0.1", "1.0", "1.1"), times = 2),
     id = rep(0L, 8),
     value = c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
   ),
-  col = dplyr::tibble(
+  col = tibble::tibble(
     rule = rep("tot_sum", 6),
     var = c("cyl", "hp", "vs", "am", "gear", "carb"),
     id = rep(0L, 6),
     value = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE)
   ),
-  row = dplyr::tibble(
+  row = tibble::tibble(
     rule = rep("outlier_sum", 2),
     var = rep(".all", 2),
     id = c(15L, 7L),
     value = rep(FALSE, 2)
   ),
-  cell = dplyr::tibble(
+  cell = tibble::tibble(
     rule = rep("rule..1", 7),
     var = c("mpg", "mpg", "drat", "wt", "wt", "wt", "qsec"),
     id = c(18L, 20L, 19L, 15L, 16L, 17L, 9L),

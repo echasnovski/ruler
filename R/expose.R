@@ -253,7 +253,7 @@ interp_data_pack_out <- function(.pack_out) {
   assert_pack_out_one_row(.pack_out, "data pack")
 
   .pack_out %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     tidyr::gather(key = "rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
     mutate(var = ".all", id = 0L) %>%
@@ -262,7 +262,7 @@ interp_data_pack_out <- function(.pack_out) {
 
 interp_group_pack_out <- function(.pack_out, .group_vars, .group_sep,
                                   .col_sep = "@_-_@") {
-  .pack_out %>% as_tibble() %>% ungroup() %>%
+  .pack_out %>% tibble::as_tibble() %>% ungroup() %>%
     spread_groups(
       !!! rlang::syms(.group_vars),
       .group_sep = .group_sep,
@@ -277,7 +277,7 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
   assert_pack_out_all_have_separator(.pack_out, "column pack", .rule_sep)
 
   .pack_out %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     tidyr::gather(key = "var_rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
     tidyr::separate(col = "var_rule", into = c("var", "rule"),
@@ -290,7 +290,7 @@ interp_row_pack_out <- function(.pack_out) {
   assert_pack_out_all_logical(.pack_out, "row pack")
 
   .pack_out %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(key = "rule", value = "value",
@@ -304,7 +304,7 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
   assert_pack_out_all_have_separator(.pack_out, "column pack", .rule_sep)
 
   .pack_out %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(key = "var_rule", value = "value",

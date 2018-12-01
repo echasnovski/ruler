@@ -2,12 +2,12 @@ context("expose")
 
 
 # Input data --------------------------------------------------------------
-input_tbl <- mtcars %>% as_tibble()
+input_tbl <- mtcars %>% tibble::as_tibble()
 input_tbl_keyed <- input_tbl %>% keyholder::use_id()
 
 input_data_pack <- input_packs[["data"]]
 input_data_pack_report_with_remove <- input_reports[["data"]]
-input_data_pack_report_no_remove <- tibble(
+input_data_pack_report_no_remove <- tibble::tibble(
   rule = c("nrow_low", "nrow_high", "ncol_low", "ncol_high"),
   var = rep(".all", 4),
   id = rep(0L, 4),
@@ -29,7 +29,7 @@ input_col_pack_report_no_remove <- input_reports[["col"]]
 
 input_row_pack <- input_packs[["row"]]
 input_row_pack_report_with_remove <- input_reports[["row"]]
-input_row_pack_report_no_remove <- dplyr::tibble(
+input_row_pack_report_no_remove <- tibble::tibble(
   rule = rep("outlier_sum", 15),
   var = rep(".all", 15),
   id = 15:1,
@@ -38,7 +38,7 @@ input_row_pack_report_no_remove <- dplyr::tibble(
 
 input_cell_pack <- input_packs[["cell"]]
 input_cell_pack_report_with_remove <- input_reports[["cell"]]
-input_cell_pack_report_no_remove <- tibble(
+input_cell_pack_report_no_remove <- tibble::tibble(
   rule = rep("rule..1", 160),
   var = rep(c("mpg", "disp", "drat", "wt", "qsec"), each = 32),
   id = rep(1:32, 5),
@@ -481,7 +481,7 @@ test_that("expose_single.cell_pack works", {
 
 # interp_data_pack_out ----------------------------------------------------
 test_that("interp_data_pack_out works", {
-  output_ref <- tibble(
+  output_ref <- tibble::tibble(
     rule = c("rule..1", "nrow"),
     var = rep(".all", 2),
     id = rep(0L, 2),
@@ -504,13 +504,13 @@ test_that("interp_data_pack_out works", {
 
 # interp_group_pack_out ---------------------------------------------------
 test_that("interp_group_pack_out works", {
-  output_ref_single <- tibble(
+  output_ref_single <- tibble::tibble(
     rule = rep(c("n_low", "n_high"), each = 2),
     var = rep(c("0", "1"), times = 2),
     id = rep(0L, 4),
     value = c(TRUE, FALSE, TRUE, TRUE)
   )
-  output_ref_1 <- tibble(
+  output_ref_1 <- tibble::tibble(
     rule = rep(c("n_low", "n_high"), each = 4),
     var = rep(c("0.0", "0.1", "1.0", "1.1"), times = 2),
     id = rep(0L, 8),
@@ -555,7 +555,7 @@ test_that("interp_group_pack_out works", {
 
 # interp_col_pack_out -----------------------------------------------------
 test_that("interp_col_pack_out works", {
-  output_ref <- tibble(
+  output_ref <- tibble::tibble(
     rule = c(rep("rule..1", 2), rep("not_outlier", 2)),
     var = c("vs", "am", "cyl", "vs"),
     id = rep(0L, 4),
@@ -592,7 +592,7 @@ test_that("interp_col_pack_out works", {
 
 # interp_row_pack_out -----------------------------------------------------
 test_that("interp_row_pack_out works", {
-  output_ref <- tibble(
+  output_ref <- tibble::tibble(
     rule = c(rep("row_rule..1", 2), rep("._.rule..2", 2)),
     var = rep(".all", 4),
     id = rep(c(1, 3), 2),
@@ -610,7 +610,7 @@ test_that("interp_row_pack_out works", {
 
 # interp_cell_pack_out ----------------------------------------------------
 test_that("interp_cell_pack_out works", {
-  output_ref <- tibble(
+  output_ref <- tibble::tibble(
     rule = c(rep("rule..1", 4), rep("not_outlier", 4)),
     var = c(rep("vs", 2), rep("am", 2), rep("cyl", 2), rep("vs", 2)),
     id = rep(c(1, 4), 4),

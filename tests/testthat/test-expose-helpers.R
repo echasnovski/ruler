@@ -21,7 +21,7 @@ test_that("guess_pack_type works", {
 
 # remove_obeyers ----------------------------------------------------------
 test_that("remove_obeyers works", {
-  input_report <- tibble(
+  input_report <- tibble::tibble(
     pack = rep("data_pack", 4), rule = paste0("rule..", 1:4),
     var = rep(".all", 4), id = rep(0L, 4),
     value = c(TRUE, FALSE, TRUE, NA)
@@ -140,7 +140,7 @@ test_that("assert_pack_out_one_row works", {
 test_that("assert_pack_out_all_logical works", {
   expect_silent(assert_pack_out_all_logical(input_data_pack_out, "data_pack"))
 
-  input_bad <- tibble(good = c(TRUE, FALSE), bad = 1:2)
+  input_bad <- tibble::tibble(good = c(TRUE, FALSE), bad = 1:2)
 
   expect_error(assert_pack_out_all_logical(input_bad, "cell_pack"),
                "cell_pack.*not.*logical")
