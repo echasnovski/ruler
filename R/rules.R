@@ -15,7 +15,11 @@
 #' - `.prefix` is added at the beginning of all names. The default is `._.` . It
 #'   is picked for its symbolism (it is the Morse code of letter 'R') and rare
 #'   occurrence in names. In those rare cases it can be manually changed but
-#'   this will not be tracked further.
+#'   this will not be tracked further. **Note** that it is a good idea for
+#'   `.prefix` to be [syntactic][make.names()], as newer versions of `dplyr` (>=
+#'   0.8.0) will force tibble names to be syntactic. To check if string is
+#'   "good", use it as input to `make.names()`: if output equals that string
+#'   than it is a "good" choice.
 #'
 #' @examples
 #' rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
@@ -31,8 +35,8 @@
 #' )
 #' identical(rules_2, rules_2_ref)
 #'
-#' rules_3 <- rules(mean, .prefix = "__")
-#' rules_3_ref <- dplyr::funs('__rule..1' = mean)
+#' rules_3 <- rules(mean, .prefix = "a_a_")
+#' rules_3_ref <- dplyr::funs('a_a_rule..1' = mean)
 #' identical(rules_3, rules_3_ref)
 #'
 #' @export

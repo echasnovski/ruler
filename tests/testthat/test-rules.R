@@ -24,11 +24,11 @@ test_that("rules works", {
 
   expect_identical(output_2, output_ref_2)
 
-  output_3 <- rules(mean, sd = "sd", var, .prefix = "__")
+  output_3 <- rules(mean, sd = "sd", var, .prefix = "a_a_")
   output_ref_3 <- funs(
-    '__rule..1' = mean,
-    '__sd' = "sd",
-    '__rule..3' = var
+    'a_a_rule..1' = mean,
+    'a_a_sd' = "sd",
+    'a_a_rule..3' = var
   )
 
   expect_identical(output_3, output_ref_3)

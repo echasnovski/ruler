@@ -152,7 +152,7 @@ regular_col_packs <- col_packs(
 )
 
 irregular_col_packs <- col_packs(
-  . %>% summarise_all(rules(mean(.) > 1, .prefix = "@_@"))
+  . %>% summarise_all(rules(mean(.) > 1, .prefix = "a_a_"))
 )
 
 regular_report <- mtcars %>%
@@ -160,14 +160,14 @@ regular_report <- mtcars %>%
   get_report()
 
 irregular_report <- mtcars %>%
-  expose(irregular_col_packs, .rule_sep = inside_punct("@_@")) %>%
+  expose(irregular_col_packs, .rule_sep = inside_punct("a_a_")) %>%
   get_report()
 
 identical(regular_report, irregular_report)
 
 # Note suffix '_' after column names
 mtcars %>%
-  expose(irregular_col_packs, .rule_sep = "@_@") %>%
+  expose(irregular_col_packs, .rule_sep = "a_a_") %>%
   get_report()
 ```
 
