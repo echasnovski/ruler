@@ -276,12 +276,17 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
   assert_pack_out_one_row(.pack_out, "column pack")
   assert_pack_out_all_have_separator(.pack_out, "column pack", .rule_sep)
 
+  # First extracted group is "everything from beginning until the first
+  # `.rule_sep` is found. Second - everything after `.rule_sep`.
+  rule_sep_regex <- paste0("(^.*?)", .rule_sep, "(.*$)")
   .pack_out %>%
     tibble::as_tibble() %>%
     tidyr::gather(key = "var_rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
-    tidyr::separate(col = "var_rule", into = c("var", "rule"),
-                    sep = .rule_sep) %>%
+    tidyr::extract(
+      col = "var_rule", into = c("var", "rule"),
+      regex = rule_sep_regex
+    ) %>%
     mutate(id = 0L) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
@@ -303,13 +308,18 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
   assert_pack_out_all_logical(.pack_out, "row pack")
   assert_pack_out_all_have_separator(.pack_out, "column pack", .rule_sep)
 
+  # First extracted group is "everything from beginning until the first
+  # `.rule_sep` is found. Second - everything after `.rule_sep`.
+  rule_sep_regex <- paste0("(^.*?)", .rule_sep, "(.*$)")
   .pack_out %>%
     tibble::as_tibble() %>%
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(key = "var_rule", value = "value",
                   !!! rlang::syms(colnames(.pack_out))) %>%
-    tidyr::separate(col = "var_rule", into = c("var", "rule"),
-                    sep = .rule_sep) %>%
+    tidyr::extract(
+      col = "var_rule", into = c("var", "rule"),
+      regex = rule_sep_regex
+    ) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
