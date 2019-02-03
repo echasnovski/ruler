@@ -226,7 +226,9 @@ NULL
 #' of dealing with this is to name the input column (see examples).
 #'
 #' @section Using rules():
-#' Using [rules()] instead of [funs()][dplyr::funs] is recommended because:
+#' Using [rules()] to create list of functions for scoped `dplyr` "mutating"
+#' verbs (such as [summarise_all()][dplyr::summarise_all()] and
+#' [transmute_all()][dplyr::transmute_all()]) is recommended because:
 #' - It is a convenient way to ensure consistent naming of rules without manual
 #' name.
 #' - It adds a common prefix to all rule names. This helps in defining

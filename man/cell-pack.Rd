@@ -32,7 +32,9 @@ current way of dealing with this is to name the input column (see examples).
 }
 \section{Using rules()}{
 
-Using \code{\link[=rules]{rules()}} instead of \link[dplyr:funs]{funs()} is recommended because:
+Using \code{\link[=rules]{rules()}} to create list of functions for scoped \code{dplyr} "mutating"
+verbs (such as \link[dplyr:summarise_all]{summarise_all()} and
+\link[dplyr:transmute_all]{transmute_all()}) is recommended because:
 \itemize{
 \item It is a convenient way to ensure consistent naming of rules without manual
 name.
