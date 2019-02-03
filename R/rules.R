@@ -1,17 +1,26 @@
 #' Create a list of rules
 #'
-#' `rules()` is a wrapper for `dplyr`'s [funs][dplyr::funs] which provides a
-#' different naming scheme.
+#' `rules()` is a function designed to create input for `.funs` argument of
+#' scoped `dplyr` "mutating" verbs (such as
+#' [summarise_all()][dplyr::summarise_all()] and
+#' [transmute_all()][dplyr::transmute_all()]). For version of `dplyr` less than
+#' 0.8.0 it is a direct wrapper for [funs()][dplyr::funs()] which does custom
+#' name repair (see 'Details'). For newer versions it [quotes][rlang::quos()]
+#' elements in `...` (except explicit formulas) and repairs names of the output.
 #'
-#' @param ... A list of functions (as in [funs][dplyr::funs]).
+#' @param ... Element(s) suitable as `.funs` argument (in scoped "mutating"
+#'   verbs) for current version of `dplyr`. It can also be a bare expression
+#'   with `.` as input even if `dplyr` version is 0.8.0 or newer.
 #' @param .args A named list of additional arguments to be added to all function
-#'   calls (as in [funs][dplyr::funs]).
+#'   calls (as in `dplyr::funs()`). **Note** that this argument isn't used if
+#'   installed version of `dplyr` is 0.8.0 or newer. Use other methods to supply
+#'   arguments: `...` argument in [scoped verbs][summarise_at()] or make own
+#'   explicit functions.
 #' @param .prefix Prefix to be added to function names.
 #'
-#' @details `rules()` behaves exactly as `funs()` with only difference being the
-#' names of the output. The following naming scheme is applied:
+#' @details `rules()` repairs names by the following algorithm:
 #' - Absent names are replaced with the 'rule..\\{ind\\}' where \\{ind\\} is the
-#' index of function position in the `...` .
+#'   index of function position in the `...` .
 #' - `.prefix` is added at the beginning of all names. The default is `._.` . It
 #'   is picked for its symbolism (it is the Morse code of letter 'R') and rare
 #'   occurrence in names. In those rare cases it can be manually changed but
@@ -22,29 +31,63 @@
 #'   than it is a "good" choice.
 #'
 #' @examples
-#' rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
-#' rules_1_ref <- dplyr::funs('._.rule..1' = mean, '._.rule..2' = sd,
-#'                            .args = list(na.rm = TRUE))
-#' identical(rules_1, rules_1_ref)
+#' if (utils::packageVersion("dplyr") < "0.8.0") {
+#'   rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
+#'   rules_1_ref <- dplyr::funs('._.rule..1' = mean, '._.rule..2' = sd,
+#'                              .args = list(na.rm = TRUE))
+#'   identical(rules_1, rules_1_ref)
 #'
-#' rules_2 <- rules(mean, sd = sd, "var")
-#' rules_2_ref <- dplyr::funs(
-#'   '._.rule..1' = mean,
-#'   '._.sd' = sd,
-#'   '._.rule..3' = "var"
-#' )
-#' identical(rules_2, rules_2_ref)
+#'   rules_2 <- rules(mean, sd = sd, "var")
+#'   rules_2_ref <- dplyr::funs(
+#'     '._.rule..1' = mean,
+#'     '._.sd' = sd,
+#'     '._.rule..3' = "var"
+#'   )
+#'   identical(rules_2, rules_2_ref)
 #'
-#' rules_3 <- rules(mean, .prefix = "a_a_")
-#' rules_3_ref <- dplyr::funs('a_a_rule..1' = mean)
-#' identical(rules_3, rules_3_ref)
+#'   rules_3 <- rules(mean, .prefix = "a_a_")
+#'   rules_3_ref <- dplyr::funs('a_a_rule..1' = mean)
+#'   identical(rules_3, rules_3_ref)
+#' }
+#'
+#' if (utils::packageVersion("dplyr") >= "0.8.0") {
+#'   # `rules()` also accepts bare expression calls with `.` as input, which is
+#'   # not possible with advised `list()` approach of `dplyr`
+#'   dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
+#'
+#'   dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
+#'
+#'   # Use `...` in `summarise_all()` to supply extra arguments
+#'   dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
+#' }
 #'
 #' @export
 rules <- function(..., .args = list(), .prefix = "._.") {
   dots <- quos(...)
-  names(dots) <- enhance_names(.name = rlang::names2(dots), .prefix = .prefix,
-                               .root = "rule")
+  names(dots) <- enhance_names(
+    .name = rlang::names2(dots), .prefix = .prefix, .root = "rule"
+  )
 
-  do.call(what = dplyr::funs, args = c(dots, list(.args = .args)),
-          envir = rlang::caller_env())
+  if (utils::packageVersion("dplyr") < "0.8.0") {
+    do.call(
+      what = dplyr::funs,
+      args = c(dots, list(.args = .args)),
+      envir = rlang::caller_env()
+    )
+  } else {
+    lapply(dots, extract_formula)
+  }
+}
+
+extract_formula <- function(obj) {
+  expr <- rlang::quo_get_expr(obj)
+
+  if (rlang::is_formula(expr)) {
+    # This seems to actually recreate the formula, meaning attaching different
+    # environment. However, this shouldn't be a problem because of
+    # "explicitness" of input formula.
+    eval(expr)
+  } else {
+    obj
+  }
 }

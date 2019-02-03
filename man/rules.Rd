@@ -7,20 +7,29 @@
 rules(..., .args = list(), .prefix = "._.")
 }
 \arguments{
-\item{...}{A list of functions (as in \link[dplyr:funs]{funs}).}
+\item{...}{Element(s) suitable as \code{.funs} argument (in scoped "mutating"
+verbs) for current version of \code{dplyr}. It can also be a bare expression
+with \code{.} as input even if \code{dplyr} version is 0.8.0 or newer.}
 
 \item{.args}{A named list of additional arguments to be added to all function
-calls (as in \link[dplyr:funs]{funs}).}
+calls (as in \code{dplyr::funs()}). \strong{Note} that this argument isn't used if
+installed version of \code{dplyr} is 0.8.0 or newer. Use other methods to supply
+arguments: \code{...} argument in \link[=summarise_at]{scoped verbs} or make own
+explicit functions.}
 
 \item{.prefix}{Prefix to be added to function names.}
 }
 \description{
-\code{rules()} is a wrapper for \code{dplyr}'s \link[dplyr:funs]{funs} which provides a
-different naming scheme.
+\code{rules()} is a function designed to create input for \code{.funs} argument of
+scoped \code{dplyr} "mutating" verbs (such as
+\link[dplyr:summarise_all]{summarise_all()} and
+\link[dplyr:transmute_all]{transmute_all()}). For version of \code{dplyr} less than
+0.8.0 it is a direct wrapper for \link[dplyr:funs]{funs()} which does custom
+name repair (see 'Details'). For newer versions it \link[rlang:quos]{quotes}
+elements in \code{...} (except explicit formulas) and repairs names of the output.
 }
 \details{
-\code{rules()} behaves exactly as \code{funs()} with only difference being the
-names of the output. The following naming scheme is applied:
+\code{rules()} repairs names by the following algorithm:
 \itemize{
 \item Absent names are replaced with the 'rule..\{ind\}' where \{ind\} is the
 index of function position in the \code{...} .
@@ -35,21 +44,34 @@ than it is a "good" choice.
 }
 }
 \examples{
-rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
-rules_1_ref <- dplyr::funs('._.rule..1' = mean, '._.rule..2' = sd,
-                           .args = list(na.rm = TRUE))
-identical(rules_1, rules_1_ref)
+if (utils::packageVersion("dplyr") < "0.8.0") {
+  rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
+  rules_1_ref <- dplyr::funs('._.rule..1' = mean, '._.rule..2' = sd,
+                             .args = list(na.rm = TRUE))
+  identical(rules_1, rules_1_ref)
 
-rules_2 <- rules(mean, sd = sd, "var")
-rules_2_ref <- dplyr::funs(
-  '._.rule..1' = mean,
-  '._.sd' = sd,
-  '._.rule..3' = "var"
-)
-identical(rules_2, rules_2_ref)
+  rules_2 <- rules(mean, sd = sd, "var")
+  rules_2_ref <- dplyr::funs(
+    '._.rule..1' = mean,
+    '._.sd' = sd,
+    '._.rule..3' = "var"
+  )
+  identical(rules_2, rules_2_ref)
 
-rules_3 <- rules(mean, .prefix = "a_a_")
-rules_3_ref <- dplyr::funs('a_a_rule..1' = mean)
-identical(rules_3, rules_3_ref)
+  rules_3 <- rules(mean, .prefix = "a_a_")
+  rules_3_ref <- dplyr::funs('a_a_rule..1' = mean)
+  identical(rules_3, rules_3_ref)
+}
+
+if (utils::packageVersion("dplyr") >= "0.8.0") {
+  # `rules()` also accepts bare expression calls with `.` as input, which is
+  # not possible with advised `list()` approach of `dplyr`
+  dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
+
+  dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
+
+  # Use `...` in `summarise_all()` to supply extra arguments
+  dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
+}
 
 }

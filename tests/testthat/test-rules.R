@@ -2,7 +2,9 @@ context("rules")
 
 
 # rules -------------------------------------------------------------------
-test_that("rules works", {
+test_that("rules works with `dplyr` version lower than 0.8.0", {
+  skip_if(packageVersion("dplyr") >= "0.8.0")
+
   expect_identical(rules(), funs())
 
   output_1 <- rules(mean(.), sd = sd(., na.rm = TRUE), var, var = "var")
@@ -32,4 +34,23 @@ test_that("rules works", {
   )
 
   expect_identical(output_3, output_ref_3)
+})
+
+test_that("rules works with `dplyr` version higher than 0.8.0",  {
+  skip_if(packageVersion("dplyr") < "0.8.0")
+
+  output_1 <- rules(mean, "mean", mean(.), ~ mean(.))
+  output_ref_1 <- list(
+    ._.rule..1 = rlang::quo(mean),
+    ._.rule..2 = rlang::quo("mean"),
+    ._.rule..3 = rlang::quo(mean(.)),
+    ._.rule..4 = output_1[[4]]
+  )
+
+  expect_identical(output_1, output_ref_1)
+
+  output_2 <- rules(~ mean(.), .prefix = "a_a_")
+  output_ref_2 <- list(a_a_rule..1 = output_2[[1]])
+
+  expect_identical(output_2, output_ref_2)
 })
