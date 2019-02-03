@@ -22,7 +22,7 @@ test_that("guess_pack_type works", {
 # remove_obeyers ----------------------------------------------------------
 test_that("remove_obeyers works", {
   input_report <- tibble::tibble(
-    pack = rep("data_pack", 4), rule = paste0("rule..", 1:4),
+    pack = rep("data_pack", 4), rule = paste0("rule__", 1:4),
     var = rep(".all", 4), id = rep(0L, 4),
     value = c(TRUE, FALSE, TRUE, NA)
   )
@@ -46,8 +46,8 @@ test_that("impute_exposure_pack_names works with NULL reference exposure", {
 
   expect_identical(
     names(impute_exposure_pack_names(cur_input_single_exposures, NULL)),
-    c("data_pack..1", "cell_pack..1", "col_pack..1", "new_col_proper_sums",
-      "data_pack..2", "row_pack..1", "another_data_pack", "group_pack..1")
+    c("data_pack__1", "cell_pack__1", "col_pack__1", "new_col_proper_sums",
+      "data_pack__2", "row_pack__1", "another_data_pack", "group_pack__1")
   )
 })
 
@@ -62,8 +62,8 @@ test_that("impute_exposure_pack_names works with not NULL reference exposure", {
       cur_input_single_exposures,
       input_exposure_ref
     )),
-    c("data_pack..3", "cell_pack..2", "col_pack..3", "new_col_proper_sums",
-      "data_pack..4", "row_pack..2", "another_data_pack", "group_pack..2")
+    c("data_pack__3", "cell_pack__2", "col_pack__3", "new_col_proper_sums",
+      "data_pack__4", "row_pack__2", "another_data_pack", "group_pack__2")
   )
 })
 

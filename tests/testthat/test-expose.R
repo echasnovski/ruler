@@ -39,7 +39,7 @@ input_row_pack_report_no_remove <- tibble::tibble(
 input_cell_pack <- input_packs[["cell"]]
 input_cell_pack_report_with_remove <- input_reports[["cell"]]
 input_cell_pack_report_no_remove <- tibble::tibble(
-  rule = rep("rule..1", 160),
+  rule = rep("rule__1", 160),
   var = rep(c("mpg", "disp", "drat", "wt", "qsec"), each = 32),
   id = rep(1:32, 5),
   value = c(rep(TRUE, 17), FALSE, TRUE, FALSE, rep(TRUE, 62),
@@ -139,14 +139,14 @@ test_that("expose works", {
 
   output_ref_1 <- new_exposure(
     .packs_info = new_packs_info(
-      .names = c("data_pack..1", "my_row_pack"),
+      .names = c("data_pack__1", "my_row_pack"),
       .packs = list(input_data_pack, input_row_pack),
       .remove_obeyers = c(TRUE, TRUE)
     ),
     .report = bind_rows(
       add_pack_name_to_single_report(
         .report = input_data_pack_report_with_remove,
-        .pack_name = "data_pack..1"
+        .pack_name = "data_pack__1"
       ),
       add_pack_name_to_single_report(
         .report = input_row_pack_report_with_remove,
@@ -167,18 +167,18 @@ test_that("expose works", {
     output_ref_1,
     new_exposure(
       .packs_info = new_packs_info(
-        .names = c("data_pack..2", "col_pack..1"),
+        .names = c("data_pack__2", "col_pack__1"),
         .packs = list(input_data_pack, input_col_pack),
         .remove_obeyers = c(FALSE, FALSE)
       ),
       .report = bind_rows(
         add_pack_name_to_single_report(
           input_data_pack_report_no_remove,
-          "data_pack..2"
+          "data_pack__2"
         ),
         add_pack_name_to_single_report(
           input_col_pack_report_no_remove,
-          "col_pack..1"
+          "col_pack__1"
         )
       ) %>% add_class_cond("ruler_report")
     )
@@ -192,10 +192,10 @@ test_that("expose removes obeyers", {
   output_1 <- input_tbl %>% expose(input_data_pack, .remove_obeyers = TRUE) %>%
     get_exposure()
   output_ref_1 <- new_exposure(
-    .packs_info = new_packs_info('data_pack..1', list(input_data_pack), TRUE),
+    .packs_info = new_packs_info('data_pack__1', list(input_data_pack), TRUE),
     .report = add_pack_name_to_single_report(
         .report = input_data_pack_report_with_remove,
-        .pack_name = "data_pack..1"
+        .pack_name = "data_pack__1"
       )
     )
 
@@ -204,10 +204,10 @@ test_that("expose removes obeyers", {
   output_2 <- input_tbl %>% expose(input_data_pack, .remove_obeyers = FALSE) %>%
     get_exposure()
   output_ref_2 <- new_exposure(
-    .packs_info = new_packs_info('data_pack..1', list(input_data_pack), FALSE),
+    .packs_info = new_packs_info('data_pack__1', list(input_data_pack), FALSE),
     .report = add_pack_name_to_single_report(
       .report = input_data_pack_report_no_remove,
-      .pack_name = "data_pack..1"
+      .pack_name = "data_pack__1"
     )
   )
 
@@ -252,12 +252,12 @@ test_that("expose accounts for rule separator", {
            .remove_obeyers = TRUE) %>%
     get_exposure()
   output_ref <- new_exposure(
-    .packs_info = new_packs_info('col_pack..1',
+    .packs_info = new_packs_info('col_pack__1',
                                  list(input_packs[["col_other"]]),
                                  TRUE),
     .report = add_pack_name_to_single_report(
       .report = input_col_pack_report_with_remove,
-      .pack_name = "col_pack..1"
+      .pack_name = "col_pack__1"
     )
   )
 
@@ -482,7 +482,7 @@ test_that("expose_single.cell_pack works", {
 # interp_data_pack_out ----------------------------------------------------
 test_that("interp_data_pack_out works", {
   output_ref <- tibble::tibble(
-    rule = c("rule..1", "nrow"),
+    rule = c("rule__1", "nrow"),
     var = rep(".all", 2),
     id = rep(0L, 2),
     value = c(TRUE, FALSE)
@@ -556,7 +556,7 @@ test_that("interp_group_pack_out works", {
 # interp_col_pack_out -----------------------------------------------------
 test_that("interp_col_pack_out works", {
   output_ref <- tibble::tibble(
-    rule = c(rep("rule..1", 2), rep("not_outlier", 2)),
+    rule = c(rep("rule__1", 2), rep("not_outlier", 2)),
     var = c("vs", "am", "cyl", "vs"),
     id = rep(0L, 4),
     value = c(TRUE, FALSE, TRUE, TRUE)
@@ -582,7 +582,7 @@ test_that("interp_col_pack_out works", {
                "row")
 
   input_bad_3 <- input_col_pack_out
-  names(input_bad_3)[1] <- "vs...rule..1"
+  names(input_bad_3)[1] <- "vs...rule__1"
 
   expect_error(interp_col_pack_out(input_bad_3,
                                    inside_punct("\\._\\.")),
@@ -593,7 +593,7 @@ test_that("interp_col_pack_out works", {
 # interp_row_pack_out -----------------------------------------------------
 test_that("interp_row_pack_out works", {
   output_ref <- tibble::tibble(
-    rule = c(rep("row_rule..1", 2), rep("._.rule..2", 2)),
+    rule = c(rep("row_rule__1", 2), rep("._.rule__2", 2)),
     var = rep(".all", 4),
     id = rep(c(1, 3), 2),
     value = c(TRUE, TRUE, TRUE, FALSE)
@@ -611,7 +611,7 @@ test_that("interp_row_pack_out works", {
 # interp_cell_pack_out ----------------------------------------------------
 test_that("interp_cell_pack_out works", {
   output_ref <- tibble::tibble(
-    rule = c(rep("rule..1", 4), rep("not_outlier", 4)),
+    rule = c(rep("rule__1", 4), rep("not_outlier", 4)),
     var = c(rep("vs", 2), rep("am", 2), rep("cyl", 2), rep("vs", 2)),
     id = rep(c(1, 4), 4),
     value = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE)
@@ -629,7 +629,7 @@ test_that("interp_cell_pack_out works", {
                "logical")
 
   input_bad_2 <- input_cell_pack_out
-  names(input_bad_2)[1] <- "vs_...rule..1"
+  names(input_bad_2)[1] <- "vs_...rule__1"
 
   expect_error(interp_cell_pack_out(input_bad_2,
                                     inside_punct("\\._\\.")),

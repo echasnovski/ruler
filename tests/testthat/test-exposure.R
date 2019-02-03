@@ -6,7 +6,7 @@ input_pack <- data_packs(. %>% summarise(nrow_low = nrow(.) > 10,
                                          nrow_high = nrow(.) < 20))[[1]]
 input_remove_obeyers <- FALSE
 input_packs_info <- tibble::tibble(
-  name = "data_pack..1",
+  name = "data_pack__1",
   type = "data_pack",
   fun = list(input_pack),
   remove_obeyers = input_remove_obeyers
@@ -19,7 +19,7 @@ input_single_report <- tibble::tibble(
   value = c(TRUE, FALSE)
 )
 input_report <- input_single_report
-input_report[["pack"]] <- rep("data_pack..1", 2)
+input_report[["pack"]] <- rep("data_pack__1", 2)
 input_report <- input_report %>% select(pack, everything()) %>%
   add_class("ruler_report")
 
@@ -103,7 +103,7 @@ test_that("new_pack_info works", {
 
 # new_packs_info -----------------------------------------------------------
 test_that("new_pack_info works", {
-  output <- new_packs_info(.names = "data_pack..1",
+  output <- new_packs_info(.names = "data_pack__1",
                            .packs = list(input_pack),
                            .remove_obeyers = input_remove_obeyers)
 
@@ -111,7 +111,7 @@ test_that("new_pack_info works", {
 })
 
 test_that("new_pack_info removes names inside `.packs`", {
-  output <- new_packs_info(.names = "data_pack..1",
+  output <- new_packs_info(.names = "data_pack__1",
                            .packs = list(some_name = input_pack),
                            .remove_obeyers = input_remove_obeyers)
 

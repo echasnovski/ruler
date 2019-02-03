@@ -1,20 +1,20 @@
 # Results of some packs ---------------------------------------------------
-input_data_pack_out <- tibble::tibble('rule..1' = TRUE, 'nrow' = FALSE)
+input_data_pack_out <- tibble::tibble('rule__1' = TRUE, 'nrow' = FALSE)
 input_group_pack_out <- tibble::tibble(
   'vs' = c(0, 0, 1, 1), 'am' = c(0, 1, 0, 1),
   'n_low' = c(TRUE, FALSE, FALSE, FALSE),
   'n_high' = c(TRUE, TRUE, TRUE, TRUE)
 )
 input_col_pack_out <- tibble::tibble(
-  'vs_._.rule..1' = TRUE, 'am_._.rule..1' = FALSE,
+  'vs_._.rule__1' = TRUE, 'am_._.rule__1' = FALSE,
   'cyl_._.not_outlier' = TRUE, 'vs_._.not_outlier' = TRUE
 )
 input_row_pack_out <- tibble::tibble(
-  'row_rule..1' = rep(TRUE, 2),
-  '._.rule..2' = c(TRUE, FALSE)
+  'row_rule__1' = rep(TRUE, 2),
+  '._.rule__2' = c(TRUE, FALSE)
 ) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 3)))
 input_cell_pack_out <- tibble::tibble(
-  'vs_._.rule..1' = rep(TRUE, 2), 'am_._.rule..1' = rep(FALSE, 2),
+  'vs_._.rule__1' = rep(TRUE, 2), 'am_._.rule__1' = rep(FALSE, 2),
   'cyl_._.not_outlier' = c(TRUE, FALSE), 'vs_._.not_outlier' = c(TRUE, FALSE)
 ) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 4)))
 
@@ -93,7 +93,7 @@ input_reports <- list(
     value = rep(FALSE, 2)
   ),
   cell = tibble::tibble(
-    rule = rep("rule..1", 7),
+    rule = rep("rule__1", 7),
     var = c("mpg", "mpg", "drat", "wt", "wt", "wt", "qsec"),
     id = c(18L, 20L, 19L, 15L, 16L, 17L, 9L),
     value = rep(FALSE, 7)

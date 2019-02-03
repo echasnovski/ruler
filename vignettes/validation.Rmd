@@ -101,7 +101,7 @@ mtcars %>%
 
 ### Set pack name
 
-Notice imputed group pack name `group_pack..1`. To change it one can set name during creation with `group_packs()` or write the following:
+Notice imputed group pack name `group_pack__1`. To change it one can set name during creation with `group_packs()` or write the following:
 
 ```{r Renaming pack}
 mtcars %>%

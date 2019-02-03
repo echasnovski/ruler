@@ -82,7 +82,7 @@ compute_def_names <- function(.n = 1, .root = "", .start_ind = 1) {
   if (.n < 1) {
     return(character(0))
   } else {
-    paste0(.root, "..", seq_len(.n) + .start_ind - 1)
+    paste0(.root, "__", seq_len(.n) + .start_ind - 1)
   }
 }
 

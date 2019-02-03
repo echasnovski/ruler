@@ -120,13 +120,13 @@ The output has the following structure:
 
 In general it is hard to automatically separate output's column names into 'validated column name' and 'rule name' because default separator `_` is a commonly used one. For this reason `ruler` has function `rules()` which wraps `funs()` with the following functionality:
 
-- Impute not supplied rule names. The format is 'rule..{ind}' where {ind} is the index of function position within `rules()`'s arguments.
+- Impute not supplied rule names. The format is 'rule__{ind}' where {ind} is the index of function position within `rules()`'s arguments.
 - Add rarely used prefix `._.` (Morse code for 'R') to rule names. __Note__ that one can change this prefix with `.prefix` argument.
 
 The next code creates a list with two elements:
 
 - A column rule pack `my_col_pack_1` which checks obedience of 'integerish' columns to rule `mean_low`.
-- A nameless column rule pack which checks obedience of column `vs` to some (will be imputed as `rule..1`) rule. __Note__ the use of named argument in `vars(vs = "vs")`. This is the current way in `dplyr`'s scoped variants of `summarise` and `mutate` to force using both column and function names in output's column name.
+- A nameless column rule pack which checks obedience of column `vs` to some (will be imputed as `rule__1`) rule. __Note__ the use of named argument in `vars(vs = "vs")`. This is the current way in `dplyr`'s scoped variants of `summarise` and `mutate` to force using both column and function names in output's column name.
 
 ```{r Column rule packs}
 my_col_packs <- col_packs(
