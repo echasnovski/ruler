@@ -3,12 +3,11 @@
 language: R
 sudo: false
 cache: packages
-latex: false
 
-include:
-- r: release
-- r: oldrel
-- r: devel
+r:
+- oldrel
+- release
+- devel
 
 after_success:
   - Rscript -e 'covr::codecov()'
