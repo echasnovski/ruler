@@ -1,6 +1,6 @@
 # ruler 0.2.0.9000
 
-
+* Update logic of `rules()`: it now only converts bare expressions with `.` as input into formulas.
 
 # ruler 0.2.0
 

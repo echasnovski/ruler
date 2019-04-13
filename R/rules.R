@@ -5,8 +5,8 @@
 #' [summarise_all()][dplyr::summarise_all()] and
 #' [transmute_all()][dplyr::transmute_all()]). For version of `dplyr` less than
 #' 0.8.0 it is a direct wrapper for [funs()][dplyr::funs()] which does custom
-#' name repair (see 'Details'). For newer versions it [quotes][rlang::quos()]
-#' elements in `...` (except explicit formulas) and repairs names of the output.
+#' name repair (see 'Details'). For newer versions it converts bare expressions
+#' with `.` as input into formulas and repairs names of the output.
 #'
 #' @param ... Element(s) suitable as `.funs` argument (in scoped "mutating"
 #'   verbs) for current version of `dplyr`. It can also be a bare expression
@@ -75,19 +75,54 @@ rules <- function(..., .args = list(), .prefix = "._.") {
       envir = rlang::caller_env()
     )
   } else {
-    lapply(dots, extract_formula)
+    lapply(dots, extract_funs_input)
   }
 }
 
-extract_formula <- function(obj) {
+extract_funs_input <- function(obj) {
   expr <- rlang::quo_get_expr(obj)
+  obj_function <- quo_get_function(obj)
 
-  if (rlang::is_formula(expr)) {
+  if (!is.null(obj_function)) {
+    obj_function
+  } else if (rlang::is_formula(expr)) {
     # This seems to actually recreate the formula, meaning attaching different
     # environment. However, this shouldn't be a problem because of
     # "explicitness" of input formula.
     eval(expr)
+  } else if (has_dot_symbol(expr)) {
+    stats::as.formula(
+      object = paste0("~", rlang::expr_text(expr)),
+      env = rlang::quo_get_env(obj)
+    )
+  } else if (is.character(expr) && (length(expr) == 1)) {
+    expr
   } else {
-    obj
+    stop(
+      "Wrong input `", rlang::expr_text(expr), "` to `rules()`.",
+      call. = FALSE
+    )
   }
+}
+
+has_dot_symbol <- function(x) {
+  x_parts <- vapply(squash_expr(x), rlang::expr_text, character(1))
+
+  any(x_parts == ".")
+}
+
+squash_expr <- function(x) {
+  if (rlang::is_syntactic_literal(x) || rlang::is_symbol(x)) {
+    return(x)
+  }
+
+  unlist(lapply(as.list(x), squash_expr))
+}
+
+quo_get_function <- function(x) {
+  get0(
+    x = rlang::expr_text(rlang::quo_get_expr(x)),
+    envir = rlang::quo_get_env(x),
+    mode = "function"
+  )
 }

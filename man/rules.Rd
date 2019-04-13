@@ -25,8 +25,8 @@ scoped \code{dplyr} "mutating" verbs (such as
 \link[dplyr:summarise_all]{summarise_all()} and
 \link[dplyr:transmute_all]{transmute_all()}). For version of \code{dplyr} less than
 0.8.0 it is a direct wrapper for \link[dplyr:funs]{funs()} which does custom
-name repair (see 'Details'). For newer versions it \link[rlang:quos]{quotes}
-elements in \code{...} (except explicit formulas) and repairs names of the output.
+name repair (see 'Details'). For newer versions it converts bare expressions
+with \code{.} as input into formulas and repairs names of the output.
 }
 \details{
 \code{rules()} repairs names by the following algorithm:
