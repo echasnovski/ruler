@@ -1,25 +1,39 @@
 
-ruler: Rule Your Data
-=====================
+# ruler: Rule Your Data
 
-[![Travis-CI Build Status](https://travis-ci.org/echasnovski/ruler.svg?branch=master)](https://travis-ci.org/echasnovski/ruler) [![Coverage Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://codecov.io/github/echasnovski/ruler?branch=master)
+[![Travis-CI Build
+Status](https://travis-ci.org/echasnovski/ruler.svg?branch=master)](https://travis-ci.org/echasnovski/ruler)
+[![Coverage
+Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://codecov.io/github/echasnovski/ruler?branch=master)
 
-`ruler` offers a set of tools for creating tidy data validation reports using [dplyr](http://dplyr.tidyverse.org) grammar of data manipulation. It is structured to be flexible and extendable in terms of creating rules and using their output.
+`ruler` offers a set of tools for creating tidy data validation reports
+using [dplyr](http://dplyr.tidyverse.org) grammar of data manipulation.
+It is structured to be flexible and extendable in terms of creating
+rules and using their output.
 
-To fully use this package a solid knowledge of `dplyr` is required. The key idea behind `ruler`'s design is to validate data by modifying regular `dplyr` code with as little overhead as possible.
+To fully use this package a solid knowledge of `dplyr` is required. The
+key idea behind `ruler`’s design is to validate data by modifying
+regular `dplyr` code with as little overhead as possible.
 
-Some functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder) package. It is highly recommended to use its supported functions during rule construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rules.
+Some functionality is powered by the
+[keyholder](https://echasnovski.github.io/keyholder) package. It is
+highly recommended to use its supported functions during rule
+construction. All one- and two-table `dplyr` verbs applied to local data
+frames are supported and considered the most appropriate way to create
+rules.
 
 This README is structured as follows:
 
--   **Installation** shows ways to install package.
--   **Example** shows the basic usage of `ruler` for exploration of obeying user-defined rules and its automatic validation.
--   **Overview** explains basic data and function types with design behind them.
--   **Usage** describes `ruler`'s capabilities in more detail.
--   **Other packages for validation and assertions** lists alternatives for described tasks.
+  - **Installation** shows ways to install package.
+  - **Example** shows the basic usage of `ruler` for exploration of
+    obeying user-defined rules and its automatic validation.
+  - **Overview** explains basic data and function types with design
+    behind them.
+  - **Usage** describes `ruler`’s capabilities in more detail.
+  - **Other packages for validation and assertions** lists alternatives
+    for described tasks.
 
-Installation
-------------
+## Installation
 
 You can install current stable version from CRAN with:
 
@@ -34,8 +48,7 @@ Also you can install development version from github with:
 devtools::install_github("echasnovski/ruler")
 ```
 
-Example
--------
+## Example
 
 ``` r
 # Utilities functions
@@ -96,11 +109,12 @@ mtcars_exposed %>% get_exposure()
 #> 4 enough_col_sum  is_enough  am        0 FALSE
 #> 5 enough_row_sum  is_enough  .all     19 FALSE
 #> 6 dbl_not_outlier is_not_out mpg      15 FALSE
-#> # ... with 111 more rows
+#> # … with 111 more rows
 
 # Assert any breaker
 invisible(mtcars_exposed %>% assert_any_breaker())
 #>   Breakers report
+#> Tidy data validation report:
 #> # A tibble: 117 x 5
 #>   pack            rule       var      id value
 #>   <chr>           <chr>      <chr> <int> <lgl>
@@ -110,44 +124,71 @@ invisible(mtcars_exposed %>% assert_any_breaker())
 #> 4 enough_col_sum  is_enough  am        0 FALSE
 #> 5 enough_row_sum  is_enough  .all     19 FALSE
 #> 6 dbl_not_outlier is_not_out mpg      15 FALSE
-#> # ... with 111 more rows
+#> # … with 111 more rows
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
-Overview
---------
+## Overview
 
-**Rule** is a function which converts data unit of interest (data, group, column, row, cell) to logical value indicating whether this object satisfies certain condition.
+**Rule** is a function which converts data unit of interest (data,
+group, column, row, cell) to logical value indicating whether this
+object satisfies certain condition.
 
-**Rule pack** is a function which combines several rules into one functional block. The recommended way of creating rules is by creating packs right away with the use of `dplyr` and [magrittr](http://magrittr.tidyverse.org/)'s pipe operator.
+**Rule pack** is a function which combines several rules into one
+functional block. The recommended way of creating rules is by creating
+packs right away with the use of `dplyr` and
+[magrittr](http://magrittr.tidyverse.org/)’s pipe operator.
 
-**Exposing** data to rules means applying rules to data, collecting results in common format and attaching them to the data as an `exposure` attribute. In this way actual exposure can be done in multiple steps and also be a part of a general data preparation pipeline.
+**Exposing** data to rules means applying rules to data, collecting
+results in common format and attaching them to the data as an `exposure`
+attribute. In this way actual exposure can be done in multiple steps and
+also be a part of a general data preparation pipeline.
 
-**Exposure** is a format designed to contain uniform information about validation of different data units. For reproducibilty it also saves information about applied packs. Basically exposure is a list with two elements:
+**Exposure** is a format designed to contain uniform information about
+validation of different data units. For reproducibility it also saves
+information about applied packs. Basically exposure is a list with two
+elements:
 
-1.  **Packs info**: a [tibble](http://tibble.tidyverse.org/) with the following structure:
-    -   *name* &lt;chr&gt; : Name of the pack. If not set manually it will be imputed during exposure.
-    -   *type* &lt;chr&gt; : Name of pack type. Indicates which data unit pack checks.
-    -   *fun* &lt;list&gt; : List of rule pack functions.
-    -   *remove\_obeyers* &lt;lgl&gt; : Whether rows about obeyers (data units that obey certain rule) were removed from report after applying pack.
-2.  **Tidy data validation report**: a `tibble` with the following structure:
-    -   *pack* &lt;chr&gt; : Name of rule pack from column 'name' in packs info.
-    -   *rule* &lt;chr&gt; : Name of the rule defined in rule pack.
-    -   *var* &lt;chr&gt; : Name of the variable which validation result is reported. Value '.all' is reserved and interpreted as 'all columns as a whole'. **Note** that *var* doesn't always represent the actual column in data frame: for group packs it represents the created group name.
-    -   *id* &lt;int&gt; : Index of the row in tested data frame which validation result is reported. Value 0 is reserved and interpreted as 'all rows as a whole'.
-    -   *value* &lt;lgl&gt; : Whether the described data unit obeys the rule.
+1.  **Packs info**: a [tibble](http://tibble.tidyverse.org/) with the
+    following structure:
+      - *name* \<chr\> : Name of the pack. If not set manually it will
+        be imputed during exposure.
+      - *type* \<chr\> : Name of pack type. Indicates which data unit
+        pack checks.
+      - *fun* \<list\> : List of rule pack functions.
+      - *remove\_obeyers* \<lgl\> : Whether rows about obeyers (data
+        units that obey certain rule) were removed from report after
+        applying pack.
+2.  **Tidy data validation report**: a `tibble` with the following
+    structure:
+      - *pack* \<chr\> : Name of rule pack from column ‘name’ in packs
+        info.
+      - *rule* \<chr\> : Name of the rule defined in rule pack.
+      - *var* \<chr\> : Name of the variable which validation result is
+        reported. Value ‘.all’ is reserved and interpreted as ‘all
+        columns as a whole’. **Note** that *var* doesn’t always
+        represent the actual column in data frame: for group packs it
+        represents the created group name.
+      - *id* \<int\> : Index of the row in tested data frame which
+        validation result is reported. Value 0 is reserved and
+        interpreted as ‘all rows as a whole’.
+      - *value* \<lgl\> : Whether the described data unit obeys the
+        rule.
 
-There are four basic combinations of `var` and `id` values which define five basic data units:
+There are four basic combinations of `var` and `id` values which define
+five basic data units:
 
--   `var == '.all'` and `id == 0`: Data as a whole.
--   `var != '.all'` and `id == 0`: Group (`var` shouldn't be an actual column name) or column (`var` should be an actual column name) as a whole.
--   `var == '.all'` and `id != 0`: Row as a whole.
--   `var != '.all'` and `id != 0`: Described cell.
+  - `var == '.all'` and `id == 0`: Data as a whole.
+  - `var != '.all'` and `id == 0`: Group (`var` shouldn’t be an actual
+    column name) or column (`var` should be an actual column name) as a
+    whole.
+  - `var == '.all'` and `id != 0`: Row as a whole.
+  - `var != '.all'` and `id != 0`: Described cell.
 
-With exposure attached to data one can perform different kinds of actions: exploration, assertion, imputation and so on.
+With exposure attached to data one can perform different kinds of
+actions: exploration, assertion, imputation and so on.
 
-Usage
------
+## Usage
 
 ### Creating packs
 
@@ -260,15 +301,15 @@ mtcars %>%
 #>   <chr>         <chr>      <list>           <lgl>         
 #> 1 data_dims     data_pack  <S3: data_pack>  TRUE          
 #> 2 vs_1          data_pack  <S3: data_pack>  TRUE          
-#> 3 group_pack..1 group_pack <S3: group_pack> TRUE          
+#> 3 group_pack__1 group_pack <S3: group_pack> TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 3 x 5
 #>   pack          rule      var      id value
 #>   <chr>         <chr>     <chr> <int> <lgl>
 #> 1 data_dims     ncol      .all      0 FALSE
-#> 2 group_pack..1 any_cyl_6 0.0       0 FALSE
-#> 3 group_pack..1 any_cyl_6 1.1       0 FALSE
+#> 2 group_pack__1 any_cyl_6 0.0       0 FALSE
+#> 3 group_pack__1 any_cyl_6 1.1       0 FALSE
 ```
 
 One can leave obeyers by setting `.remove_obeyers` to `FALSE`.
@@ -285,7 +326,7 @@ mtcars %>%
 #>   <chr>         <chr>      <list>           <lgl>         
 #> 1 data_dims     data_pack  <S3: data_pack>  FALSE         
 #> 2 vs_1          data_pack  <S3: data_pack>  FALSE         
-#> 3 group_pack..1 group_pack <S3: group_pack> FALSE         
+#> 3 group_pack__1 group_pack <S3: group_pack> FALSE         
 #> 
 #> Tidy data validation report:
 #> # A tibble: 8 x 5
@@ -295,12 +336,14 @@ mtcars %>%
 #> 2 data_dims     nrow      .all      0 TRUE 
 #> 3 vs_1          nrow_low  .all      0 TRUE 
 #> 4 vs_1          nrow_high .all      0 TRUE 
-#> 5 group_pack..1 any_cyl_6 0.0       0 FALSE
-#> 6 group_pack..1 any_cyl_6 0.1       0 TRUE 
-#> # ... with 2 more rows
+#> 5 group_pack__1 any_cyl_6 0.0       0 FALSE
+#> 6 group_pack__1 any_cyl_6 0.1       0 TRUE 
+#> # … with 2 more rows
 ```
 
-By default `expose()` guesses the pack type if 'not-pack' function is supplied. This behaviour has some edge cases but is useful for interactive use.
+By default `expose()` guesses the pack type if ‘not-pack’ function is
+supplied. This behaviour has some edge cases but is useful for
+interactive use.
 
 ``` r
 mtcars %>%
@@ -323,7 +366,7 @@ mtcars %>%
 #>   pack           rule    var      id value
 #>   <chr>          <chr>   <chr> <int> <lgl>
 #> 1 some_data_pack nrow    .all      0 FALSE
-#> 2 some_col_pack  rule..1 vs        0 FALSE
+#> 2 some_col_pack  rule__1 vs        0 FALSE
 ```
 
 To write strict and robust code one can set `.guess` to `FALSE`.
@@ -341,12 +384,19 @@ mtcars %>%
 
 ### Acting after exposure
 
-General actions are recommended to be done with `act_after_exposure()`. It takes two arguments:
+General actions are recommended to be done with `act_after_exposure()`.
+It takes two arguments:
 
--   `.trigger` - a function which takes the data with attached exposure and returns `TRUE` if some action should be made.
--   `.actor` - a function which takes the same argument as `.trigger` and performs some action.
+  - `.trigger` - a function which takes the data with attached exposure
+    and returns `TRUE` if some action should be made.
+  - `.actor` - a function which takes the same argument as `.trigger`
+    and performs some action.
 
-If trigger didn't notify then the input data is returned untouched. Otherwise the output of `.actor()` is returned. **Note** that `act_after_exposure()` is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe).
+If trigger didn’t notify then the input data is returned untouched.
+Otherwise the output of `.actor()` is returned. **Note** that
+`act_after_exposure()` is often used for creating side effects
+(printing, throwing error etc.) and in that case should invisibly return
+its input (to be able to use it with pipe).
 
 ``` r
 trigger_one_pack <- function(.tbl) {
@@ -373,37 +423,38 @@ mtcars %>%
 #> More than one pack was applied.
 ```
 
-`ruler` has function `assert_any_breaker()` which can notify about presence of any breaker in exposure.
+`ruler` has function `assert_any_breaker()` which can notify about
+presence of any breaker in exposure.
 
 ``` r
 mtcars %>%
   expose(my_col_packs, my_row_packs) %>%
   assert_any_breaker()
 #>   Breakers report
+#> Tidy data validation report:
 #> # A tibble: 4 x 5
 #>   pack       rule               var      id value
 #>   <chr>      <chr>              <chr> <int> <lgl>
 #> 1 sum_bounds sum_low            cyl       0 FALSE
 #> 2 sum_bounds sum_low            carb      0 FALSE
-#> 3 vs_mean    rule..1            vs        0 FALSE
+#> 3 vs_mean    rule__1            vs        0 FALSE
 #> 4 row_mean   is_common_row_mean .all     15 FALSE
 #> Error: assert_any_breaker: Some breakers found in exposure.
 ```
 
-Other packages for validation and assertions
---------------------------------------------
+## Other packages for validation and assertions
 
 More leaned towards assertions:
 
--   [assertr](https://github.com/ropensci/assertr)
--   [assertthat](https://github.com/hadley/assertthat)
--   [checkmate](https://github.com/mllg/checkmate)
--   [ensurer](https://github.com/smbache/ensurer)
--   [tester](https://github.com/gastonstat/tester)
--   [sealr](https://github.com/uribo/sealr)
+  - [assertr](https://github.com/ropensci/assertr)
+  - [assertthat](https://github.com/hadley/assertthat)
+  - [checkmate](https://github.com/mllg/checkmate)
+  - [ensurer](https://github.com/smbache/ensurer)
+  - [tester](https://github.com/gastonstat/tester)
+  - [sealr](https://github.com/uribo/sealr)
 
 More leaned towards validation:
 
--   [naniar](https://github.com/njtierney/naniar)
--   [skimr](https://github.com/ropenscilabs/skimr)
--   [validate](https://github.com/data-cleaning/validate)
+  - [naniar](https://github.com/njtierney/naniar)
+  - [skimr](https://github.com/ropenscilabs/skimr)
+  - [validate](https://github.com/data-cleaning/validate)

@@ -105,7 +105,7 @@ pipe operator.
 
 __Exposing__ data to rules means applying rules to data, collecting results in common format and attaching them to the data as an `exposure` attribute. In this way actual exposure can be done in multiple steps and also be a part of a general data preparation pipeline.
 
-__Exposure__ is a format designed to contain uniform information about validation of different data units. For reproducibilty it also saves information about applied packs. Basically exposure is a list with two elements:
+__Exposure__ is a format designed to contain uniform information about validation of different data units. For reproducibility it also saves information about applied packs. Basically exposure is a list with two elements:
 
 1. __Packs info__: a [tibble](http://tibble.tidyverse.org/) with the following structure:
     - _name_ \<chr\> : Name of the pack. If not set manually it will be imputed during exposure.
