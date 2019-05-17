@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
       <h1>Validation</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2019-02-16</h4>
+            <h4 class="date">2019-05-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/validation.Rmd"><code>vignettes/validation.Rmd</code></a></small>
       <div class="hidden name"><code>validation.Rmd</code></div>
@@ -123,135 +123,135 @@
 <li>It is guaranteed that its output is equivalent to the input data frame: only attribute <code>exposure</code> might change. If input has already <code>exposure</code> attached to it then the new one is binded with it.</li>
 </ul>
 <p>Simple example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_group_packs) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()
-<span class="co">#&gt;   Exposure</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Packs info:</span>
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;   name          type       fun              remove_obeyers</span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;           &lt;lgl&gt;         </span>
-<span class="co">#&gt; 1 group_pack__1 group_pack &lt;S3: group_pack&gt; TRUE          </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;   pack          rule      var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack__1 any_cyl_6 0.0       0 FALSE</span>
-<span class="co">#&gt; 2 group_pack__1 any_cyl_6 1.1       0 FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_group_packs) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;   Exposure</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Packs info:</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; # A tibble: 1 x 4</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;   name          type       fun        remove_obeyers</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;     &lt;lgl&gt;         </span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; 1 group_pack__1 group_pack &lt;grop_pck&gt; TRUE          </span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;   pack          rule      var      id value</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; 1 group_pack__1 any_cyl_6 0.0       0 FALSE</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; 2 group_pack__1 any_cyl_6 1.1       0 FALSE</span></a></code></pre></div>
 </div>
 <div id="dont-remove-obeyers" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dont-remove-obeyers" class="anchor"></a>Don’t remove obeyers</h3>
 <p>By default exposing removes obeyers. One can leave obeyers by setting <code>.remove_obeyers</code> to <code>FALSE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_group_packs, <span class="dt">.remove_obeyers =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()
-<span class="co">#&gt;   Exposure</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Packs info:</span>
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;   name          type       fun              remove_obeyers</span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;           &lt;lgl&gt;         </span>
-<span class="co">#&gt; 1 group_pack__1 group_pack &lt;S3: group_pack&gt; FALSE         </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 4 x 5</span>
-<span class="co">#&gt;   pack          rule      var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 group_pack__1 any_cyl_6 0.0       0 FALSE</span>
-<span class="co">#&gt; 2 group_pack__1 any_cyl_6 0.1       0 TRUE </span>
-<span class="co">#&gt; 3 group_pack__1 any_cyl_6 1.0       0 TRUE </span>
-<span class="co">#&gt; 4 group_pack__1 any_cyl_6 1.1       0 FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_group_packs, <span class="dt">.remove_obeyers =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   Exposure</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; Packs info:</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # A tibble: 1 x 4</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;   name          type       fun        remove_obeyers</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;list&gt;     &lt;lgl&gt;         </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; 1 group_pack__1 group_pack &lt;grop_pck&gt; FALSE         </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; # A tibble: 4 x 5</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;   pack          rule      var      id value</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 1 group_pack__1 any_cyl_6 0.0       0 FALSE</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 2 group_pack__1 any_cyl_6 0.1       0 TRUE </span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 3 group_pack__1 any_cyl_6 1.0       0 TRUE </span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 4 group_pack__1 any_cyl_6 1.1       0 FALSE</span></a></code></pre></div>
 </div>
 <div id="set-pack-name" class="section level3">
 <h3 class="hasAnchor">
 <a href="#set-pack-name" class="anchor"></a>Set pack name</h3>
 <p>Notice imputed group pack name <code>group_pack__1</code>. To change it one can set name during creation with <code><a href="../reference/rule-packs.html">group_packs()</a></code> or write the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">new_group_pack =</span> my_group_packs[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;   pack           rule      var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 new_group_pack any_cyl_6 0.0       0 FALSE</span>
-<span class="co">#&gt; 2 new_group_pack any_cyl_6 1.1       0 FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">new_group_pack =</span> my_group_packs[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   pack           rule      var      id value</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 1 new_group_pack any_cyl_6 0.0       0 FALSE</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 2 new_group_pack any_cyl_6 1.1       0 FALSE</span></a></code></pre></div>
 </div>
 <div id="expose-step-by-step" class="section level3">
 <h3 class="hasAnchor">
 <a href="#expose-step-by-step" class="anchor"></a>Expose step by step</h3>
 <p>One can expose to several packs at ones or do it step by step:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_one_step &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_data_packs, my_col_packs)
-
-mtcars_two_step &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_data_packs) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(mtcars_one_step, mtcars_two_step)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">mtcars_one_step &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_data_packs, my_col_packs)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">mtcars_two_step &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_data_packs) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(mtcars_one_step, mtcars_two_step)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="guessing" class="section level3">
 <h3 class="hasAnchor">
 <a href="#guessing" class="anchor"></a>Guessing</h3>
 <p>By default <code><a href="../reference/expose.html">expose()</a></code> guesses which type of pack function represents (if it is not set manually). This is useful for interactive experiments. Guess is based on features of pack’s output structures (see <code><a href="../reference/expose.html">?expose</a></code> for more details).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()
-<span class="co">#&gt;   Exposure</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Packs info:</span>
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;   name           type      fun             remove_obeyers</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;list&gt;          &lt;lgl&gt;         </span>
-<span class="co">#&gt; 1 some_data_pack data_pack &lt;S3: data_pack&gt; TRUE          </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   pack           rule  var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 some_data_pack nrow  .all      0 FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;   Exposure</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; Packs info:</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; # A tibble: 1 x 4</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   name           type      fun        remove_obeyers</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;list&gt;     &lt;lgl&gt;         </span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 1 some_data_pack data_pack &lt;data_pck&gt; TRUE          </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; # A tibble: 1 x 5</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   pack           rule  var      id value</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 1 some_data_pack nrow  .all      0 FALSE</span></a></code></pre></div>
 <p>However there are some edge cases (especially for group packs). To write strict and robust code one should use <code>.guess = FALSE</code> option.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),
-         <span class="dt">.guess =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt; Error in expose_single.default(X[[i]], ...): There is unsupported class of rule pack.</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">         <span class="dt">.guess =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Error in expose_single.default(X[[i]], ...): There is unsupported class of rule pack.</span></a></code></pre></div>
 </div>
 <div id="using-different-rule-separator" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-different-rule-separator" class="anchor"></a>Using different rule separator</h3>
-<p>If for some reason not default rule separator was used in <code><a href="../reference/rules.html">rules()</a></code> one should take this into consideration by using argument <code>.rule_sep</code>. It takes regular expression describing the separator. <strong>Note</strong> that by default it is a string ’._.‘surrounded by any number of ’non alpha-numeric characters’ (with use of <code><a href="../reference/inside_punct.html">inside_punct()</a></code>). This is done to take account of the <code>dplyr</code>’s default separator <code>_</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(
-  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))
-)
-
-irregular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(
-  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">.prefix =</span> <span class="st">"a_a_"</span>))
-)
-
-regular_report &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(regular_col_packs) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
-
-irregular_report &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(irregular_col_packs, <span class="dt">.rule_sep =</span> <span class="kw"><a href="../reference/inside_punct.html">inside_punct</a></span>(<span class="st">"a_a_"</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(regular_report, irregular_report)
-<span class="co">#&gt; [1] TRUE</span>
-
-<span class="co"># Note suffix '_' after column names</span>
-mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(irregular_col_packs, <span class="dt">.rule_sep =</span> <span class="st">"a_a_"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;   pack        rule    var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 col_pack__1 rule__1 vs_       0 FALSE</span>
-<span class="co">#&gt; 2 col_pack__1 rule__1 am_       0 FALSE</span></code></pre></div>
+<p>If for some reason not default rule separator was used in <code><a href="../reference/rules.html">rules()</a></code> one should take this into consideration by using argument <code>.rule_sep</code>. It takes regular expression describing the separator. <strong>Note</strong> that by default it is a string ‘._.’ surrounded by any number of ‘non alpha-numeric characters’ (with use of <code><a href="../reference/inside_punct.html">inside_punct()</a></code>). This is done to take account of the <code>dplyr</code>’s default separator <code>_</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">regular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">irregular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">.prefix =</span> <span class="st">"a_a_"</span>))</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">regular_report &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(regular_col_packs) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">irregular_report &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(irregular_col_packs, <span class="dt">.rule_sep =</span> <span class="kw"><a href="../reference/inside_punct.html">inside_punct</a></span>(<span class="st">"a_a_"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(regular_report, irregular_report)</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co"># Note suffix '_' after column names</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(irregular_col_packs, <span class="dt">.rule_sep =</span> <span class="st">"a_a_"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt;   pack        rule    var      id value</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; 1 col_pack__1 rule__1 vs_       0 FALSE</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; 2 col_pack__1 rule__1 am_       0 FALSE</span></a></code></pre></div>
 </div>
 </div>
 <div id="acting-after-exposure" class="section level2">
@@ -269,46 +269,46 @@ mtcars <span class="op">%&gt;%</span>
 <code>.actor</code> - a function which takes the same argument as <code>.trigger</code> and performs some action.</li>
 </ul>
 <p>If trigger didn’t notify then the input data is returned untouched. Otherwise the output of <code>.actor()</code> is returned. <strong>Note</strong> that <code><a href="../reference/act_after_exposure.html">act_after_exposure()</a></code> is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe <code>%&gt;%</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trigger_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {
-  packs_number &lt;-<span class="st"> </span>.tbl <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="../reference/packs_info.html">get_packs_info</a></span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>()
-  
-  packs_number <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>
-}
-
-actor_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {
-  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"More than one pack was applied.</span><span class="ch">\n</span><span class="st">"</span>)
-  
-  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>(.tbl)
-}
-
-mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs, my_row_packs) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/act_after_exposure.html">act_after_exposure</a></span>(
-    <span class="dt">.trigger =</span> trigger_one_pack,
-    <span class="dt">.actor =</span> actor_one_pack
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>()
-<span class="co">#&gt; More than one pack was applied.</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">trigger_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  packs_number &lt;-<span class="st"> </span>.tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/packs_info.html">get_packs_info</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>()</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">  packs_number <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">actor_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"More than one pack was applied.</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>(.tbl)</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs, my_row_packs) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../reference/act_after_exposure.html">act_after_exposure</a></span>(</a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">    <span class="dt">.trigger =</span> trigger_one_pack,</a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">    <span class="dt">.actor =</span> actor_one_pack</a>
+<a class="sourceLine" id="cb8-20" data-line-number="20">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>()</a>
+<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; More than one pack was applied.</span></a></code></pre></div>
 </div>
 <div id="assert-presence-of-rule-breaker" class="section level3">
 <h3 class="hasAnchor">
 <a href="#assert-presence-of-rule-breaker" class="anchor"></a>Assert presence of rule breaker</h3>
 <p><code>ruler</code> has function <code><a href="../reference/assert_any_breaker.html">assert_any_breaker()</a></code> which can notify about presence of any breaker in exposure.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs, my_row_packs) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/assert_any_breaker.html">assert_any_breaker</a></span>()
-<span class="co">#&gt;   Breakers report</span>
-<span class="co">#&gt; Tidy data validation report:</span>
-<span class="co">#&gt; # A tibble: 4 x 5</span>
-<span class="co">#&gt;   pack          rule               var      id value</span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 my_col_pack_1 mean_low           vs        0 FALSE</span>
-<span class="co">#&gt; 2 my_col_pack_1 mean_low           am        0 FALSE</span>
-<span class="co">#&gt; 3 col_pack__2   rule__1            vs        0 FALSE</span>
-<span class="co">#&gt; 4 my_row_pack_1 is_common_row_mean .all     15 FALSE</span>
-<span class="co">#&gt; Error: assert_any_breaker: Some breakers found in exposure.</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs, my_row_packs) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/assert_any_breaker.html">assert_any_breaker</a></span>()</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   Breakers report</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; Tidy data validation report:</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; # A tibble: 4 x 5</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;   pack          rule               var      id value</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 1 my_col_pack_1 mean_low           vs        0 FALSE</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 2 my_col_pack_1 mean_low           am        0 FALSE</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 3 col_pack__2   rule__1            vs        0 FALSE</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; 4 my_row_pack_1 is_common_row_mean .all     15 FALSE</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; Error: assert_any_breaker: Some breakers found in exposure.</span></a></code></pre></div>
 </div>
 </div>
   </div>

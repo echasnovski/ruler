@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
       <h1>Rule Packs</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2019-02-16</h4>
+            <h4 class="date">2019-05-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/rule-packs.Rmd"><code>vignettes/rule-packs.Rmd</code></a></small>
       <div class="hidden name"><code>rule-packs.Rmd</code></div>
@@ -116,13 +116,13 @@
 <h2 class="hasAnchor">
 <a href="#data-rule-packs" class="anchor"></a>Data rule packs</h2>
 <p>To check whether dimensions of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(
-  <span class="dt">nrow_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,
-  <span class="dt">nrow_high =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,
-  <span class="dt">ncol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span>
-)
-<span class="co">#&gt;   nrow_low nrow_high  ncol</span>
-<span class="co">#&gt; 1     TRUE     FALSE FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="dt">nrow_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="dt">nrow_high =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="dt">ncol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;   nrow_low nrow_high  ncol</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; 1     TRUE     FALSE FALSE</span></a></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>one</strong>.</li>
@@ -131,28 +131,28 @@
 </ul>
 <p>There is an easy way to transform this pipeline into a function to be used for any data: <code>mtcars</code> should be replaced with <code>.</code> character. To indicate that this function is a rule pack for data unit ‘data’ it should be wrapped with <code><a href="../reference/rule-packs.html">data_packs()</a></code>.</p>
 <p>The next code creates a list <code>my_data_packs</code> with one data rule pack named <code>my_data_pack_1</code>. That rule pack defines rules with names <code>nrow_low</code>, <code>nrow_high</code>, <code>ncol</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">data_packs</a></span>(
-  <span class="dt">my_data_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(
-    <span class="dt">nrow_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,
-    <span class="dt">nrow_high =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,
-    <span class="dt">ncol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span>
-  )
-)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">my_data_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">data_packs</a></span>(</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">my_data_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="dt">nrow_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">nrow_high =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="dt">ncol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  )</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">)</a></code></pre></div>
 </div>
 <div id="group-rule-packs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#group-rule-packs" class="anchor"></a>Group rule packs</h2>
 <p>To check whether certain groups of rows of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/any">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>))
-<span class="co">#&gt; # A tibble: 4 x 3</span>
-<span class="co">#&gt; # Groups:   vs [2]</span>
-<span class="co">#&gt;      vs    am any_cyl_6</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1     0     0 FALSE    </span>
-<span class="co">#&gt; 2     0     1 TRUE     </span>
-<span class="co">#&gt; 3     1     0 TRUE     </span>
-<span class="co">#&gt; 4     1     1 FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/any">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # Groups:   vs [2]</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;      vs    am any_cyl_6</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 1     0     0 FALSE    </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 2     0     1 TRUE     </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 3     1     0 TRUE     </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 4     1     1 FALSE</span></a></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Some columns define group levels (<code>vs</code> and <code>am</code> in this case).</li>
@@ -161,11 +161,11 @@
 <li>Values indicate whether the <strong>group as a whole</strong> follows the rule.</li>
 </ul>
 <p>The next code creates a list with one nameless group rule pack (the name will be imputed during exposure). This pack contains one rule <code>any_cyl_6</code> which checks every group defined by <code>vs</code> and <code>am</code> columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_group_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">group_packs</a></span>(
-  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/any">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>)),
-  <span class="dt">.group_vars =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"vs"</span>, <span class="st">"am"</span>)
-)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">my_group_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">group_packs</a></span>(</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/any">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>)),</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">.group_vars =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"vs"</span>, <span class="st">"am"</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
 <p><strong>Notes</strong>:</p>
 <ul>
 <li>In this example pack’s output is a grouped tibble. It doesn’t affect anything because during exposure this output is <code>ungroup</code>ed.</li>
@@ -177,23 +177,23 @@
 <h2 class="hasAnchor">
 <a href="#column-rule-packs" class="anchor"></a>Column rule packs</h2>
 <p>To check whether certain columns of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_integerish &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all">all</a></span>(x <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(x))}
-
-mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise_if</span>(is_integerish, <span class="kw">funs</span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>))
-<span class="co">#&gt; Warning: funs() is soft deprecated as of dplyr 0.8.0</span>
-<span class="co">#&gt; please use list() instead</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; # Before:</span>
-<span class="co">#&gt; funs(name = f(.)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; # After: </span>
-<span class="co">#&gt; list(name = ~f(.))</span>
-<span class="co">#&gt; This warning is displayed once per session.</span>
-<span class="co">#&gt;   cyl_mean_low hp_mean_low vs_mean_low am_mean_low gear_mean_low</span>
-<span class="co">#&gt; 1         TRUE        TRUE       FALSE       FALSE          TRUE</span>
-<span class="co">#&gt;   carb_mean_low</span>
-<span class="co">#&gt; 1          TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">is_integerish &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all">all</a></span>(x <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(x))}</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise_if</span>(is_integerish, <span class="kw">funs</span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: funs() is soft deprecated as of dplyr 0.8.0</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; please use list() instead</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   # Before:</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;   funs(name = f(.))</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   # After: </span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   list(name = ~ f(.))</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   cyl_mean_low hp_mean_low vs_mean_low am_mean_low gear_mean_low</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 1         TRUE        TRUE       FALSE       FALSE          TRUE</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;   carb_mean_low</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 1          TRUE</span></a></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>one</strong>.</li>
@@ -210,31 +210,31 @@ mtcars <span class="op">%&gt;%</span>
 <li>A column rule pack <code>my_col_pack_1</code> which checks obedience of ‘integerish’ columns to rule <code>mean_low</code>.</li>
 <li>A nameless column rule pack which checks obedience of column <code>vs</code> to some (will be imputed as <code>rule__1</code>) rule. <strong>Note</strong> the use of named argument in <code>vars(vs = "vs")</code>. This is the current way in <code>dplyr</code>’s scoped variants of <code>summarise</code> and <code>mutate</code> to force using both column and function names in output’s column name.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(
-  <span class="dt">my_col_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_if</span>(
-    is_integerish,
-    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)
-  ),
-  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="dt">vs =</span> <span class="st">"vs"</span>), <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span>))
-)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">my_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">my_col_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_if</span>(</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    is_integerish,</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  ),</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="dt">vs =</span> <span class="st">"vs"</span>), <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span>))</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">)</a></code></pre></div>
 </div>
 <div id="row-rule-pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#row-rule-pack" class="anchor"></a>Row rule pack</h2>
 <p>To check whether certain rows of <code>mtcars</code> are not outliers one can write the next dplyr pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {(x <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(x)) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/sd">sd</a></span>(x)}
-
-mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colSums">rowMeans</a></span>(.)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)
-<span class="co">#&gt;   is_common_row_mean</span>
-<span class="co">#&gt; 1               TRUE</span>
-<span class="co">#&gt; 2               TRUE</span>
-<span class="co">#&gt; 3               TRUE</span>
-<span class="co">#&gt; 4               TRUE</span>
-<span class="co">#&gt; 5               TRUE</span>
-<span class="co">#&gt; 6              FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {(x <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(x)) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/sd">sd</a></span>(x)}</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colSums">rowMeans</a></span>(.)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;   is_common_row_mean</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 1               TRUE</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 2               TRUE</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 3               TRUE</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 4               TRUE</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 5               TRUE</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 6              FALSE</span></a></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of checked rows</strong>.</li>
@@ -244,33 +244,33 @@ mtcars <span class="op">%&gt;%</span>
 <p>Pipeline like the one above is quite common: for every row compute some value based on all rows and then validate only some of them. However in the validation report column <code>id</code> should represent the row index <em>in the original data frame</em> and this information is missing after applying <code>slice()</code>.</p>
 <p>This problem is solved by using <a href="https://echasnovski.github.io/keyholder">keyholder</a> package. Its main purpose is to track information about rows while modifying data frame. During exposure pack is applied to the <strong>keyed</strong> version of input data with key equals to row index. <strong>Note</strong> that to use this feature one should create rule packs using composition of functions supported by <code>keyholder</code>.</p>
 <p>The next code creates a list with one row pack <code>my_row_pack_1</code>. It contains one rule <code>is_common_row_mean</code> that checks 6 rows (from 10 to 15) for not being an outlier (based on information from all rows) in terms of row means.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_row_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">row_packs</a></span>(
-  <span class="dt">my_row_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colSums">rowMeans</a></span>(.)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)
-)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">my_row_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">row_packs</a></span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">my_row_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colSums">rowMeans</a></span>(.)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">)</a></code></pre></div>
 </div>
 <div id="cell-rule-pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cell-rule-pack" class="anchor"></a>Cell rule pack</h2>
 <p>To check whether certain cells of <code>mtcars</code> are not outliers one can write the next dplyr pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(
-    is_integerish,
-    <span class="kw">funs</span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)
-  ) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)
-<span class="co">#&gt;   cyl_is_common hp_is_common vs_is_common am_is_common gear_is_common</span>
-<span class="co">#&gt; 1         FALSE        FALSE        FALSE        FALSE           TRUE</span>
-<span class="co">#&gt; 2         FALSE         TRUE        FALSE         TRUE           TRUE</span>
-<span class="co">#&gt; 3         FALSE         TRUE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt; 4         FALSE         TRUE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt; 5         FALSE        FALSE         TRUE         TRUE           TRUE</span>
-<span class="co">#&gt;   carb_is_common</span>
-<span class="co">#&gt; 1          FALSE</span>
-<span class="co">#&gt; 2          FALSE</span>
-<span class="co">#&gt; 3           TRUE</span>
-<span class="co">#&gt; 4           TRUE</span>
-<span class="co">#&gt; 5           TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">    is_integerish,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="kw">funs</span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   cyl_is_common hp_is_common vs_is_common am_is_common gear_is_common</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 1         FALSE        FALSE        FALSE        FALSE           TRUE</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 2         FALSE         TRUE        FALSE         TRUE           TRUE</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 3         FALSE         TRUE         TRUE         TRUE           TRUE</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 4         FALSE         TRUE         TRUE         TRUE           TRUE</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 5         FALSE        FALSE         TRUE         TRUE           TRUE</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;   carb_is_common</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1          FALSE</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2          FALSE</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3           TRUE</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4           TRUE</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5           TRUE</span></a></code></pre></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of rows for checked cells</strong>.</li>
@@ -283,13 +283,13 @@ mtcars <span class="op">%&gt;%</span>
 <li>Using functions supported by <code>keyholder</code>.</li>
 </ul>
 <p>The next code creates a list with one cell pack <code>my_cell_pack_1</code>. It checks cells of every integer-like column in rows 20-24 for not being an outlier within column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_cell_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">cell_packs</a></span>(
-  <span class="dt">my_cell_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(
-    is_integerish,
-    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)
-  ) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)
-)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">my_cell_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">cell_packs</a></span>(</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="dt">my_cell_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    is_integerish,</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">)</a></code></pre></div>
 </div>
   </div>
 

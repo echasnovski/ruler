@@ -72,7 +72,7 @@ expose() with which pack was applied.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -203,11 +203,11 @@ column. During <a href='expose.html'>exposure</a> <code>fun</code> is always cre
 
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_packs_info</span>()</div><div class='output co'>#&gt; Packs info:
 #&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
-#&gt;   name           type      fun             remove_obeyers
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>         
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> data_dims      data_pack </span><span style='color: #949494;'>&lt;S3: data_pack&gt;</span><span> FALSE         
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> row_mean_props row_pack  </span><span style='color: #949494;'>&lt;S3: row_pack&gt;</span><span>  TRUE          
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> row_outlier    row_pack  </span><span style='color: #949494;'>&lt;S3: row_pack&gt;</span><span>  TRUE          </div><div class='input'>
+#&gt;   name           type      fun        remove_obeyers
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>         
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> data_dims      data_pack </span><span style='color: #949494;'>&lt;data_pck&gt;</span><span> FALSE         
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> row_mean_props row_pack  </span><span style='color: #949494;'>&lt;row_pack&gt;</span><span> TRUE          
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> row_outlier    row_pack  </span><span style='color: #949494;'>&lt;row_pack&gt;</span><span> TRUE          </div><div class='input'>
 <span class='no'>mtcars_exposed</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_packs_info</span>() <span class='kw'>%&gt;%</span> <span class='fu'>is_packs_info</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></span></code></pre>
   </div>

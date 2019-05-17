@@ -39,8 +39,8 @@ scoped dplyr &quot;mutating&quot; verbs (such as
 summarise_all() and
 transmute_all()). For version of dplyr less than
 0.8.0 it is a direct wrapper for funs() which does custom
-name repair (see 'Details'). For newer versions it quotes
-elements in ... (except explicit formulas) and repairs names of the output." />
+name repair (see 'Details'). For newer versions it converts bare expressions
+with . as input into formulas and repairs names of the output." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -71,7 +71,7 @@ elements in ... (except explicit formulas) and repairs names of the output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -140,8 +140,8 @@ scoped <code>dplyr</code> "mutating" verbs (such as
 <a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_all()</a> and
 <a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_all()</a>). For version of <code>dplyr</code> less than
 0.8.0 it is a direct wrapper for <a href='https://dplyr.tidyverse.org/reference/funs.html'>funs()</a> which does custom
-name repair (see 'Details'). For newer versions it <a href='https://rlang.r-lib.org/reference/quotation.html'>quotes</a>
-elements in <code>...</code> (except explicit formulas) and repairs names of the output.</p>
+name repair (see 'Details'). For newer versions it converts bare expressions
+with <code>.</code> as input into formulas and repairs names of the output.</p>
     
     </div>
 
