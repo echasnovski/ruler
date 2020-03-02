@@ -365,7 +365,7 @@ test_that("expose_single.data_pack works", {
 
   expect_error_expose_single(
     .tbl = input_tbl_keyed,
-    .pack = data_packs(. %>% transmute_at("vs", funs(. > 0)))[[1]],
+    .pack = data_packs(. %>% transmute_at("vs", list(~ . > 0)))[[1]],
     .error = "row"
   )
 })
@@ -426,7 +426,7 @@ test_that("expose_single.col_pack works", {
 
   expect_error_expose_single(
     .tbl = input_tbl_keyed,
-    .pack = col_packs(. %>% summarise_at("vs", funs(sum = sum(.) > 0)))[[1]],
+    .pack = col_packs(. %>% summarise_at("vs", list(sum = ~ sum(.) > 0)))[[1]],
     .error = "separator"
   )
 })
@@ -473,7 +473,7 @@ test_that("expose_single.cell_pack works", {
     .tbl = input_tbl_keyed,
     .pack = cell_packs(. %>%
                          mutate(row_mean = rowMeans(.)) %>%
-                         transmute_at("qsec", funs(. > row_mean)))[[1]],
+                         transmute_at("qsec", list(~ . > row_mean)))[[1]],
     .error = "separator"
   )
 })
