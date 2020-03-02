@@ -1,4 +1,6 @@
-# ruler (development version)
+# ruler 0.2.2
+
+* Reaction to `tibble` 3.0.0.
 
 # ruler 0.2.1
 
