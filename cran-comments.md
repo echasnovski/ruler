@@ -1,13 +1,13 @@
 ## Submission details
 
-This version is reaction to changes in 'dplyr' 0.8.1.
+This submission is reaction to upcoming changes in 'tibble' 3.0.0.
 
 ## Test environments
 
-* Ubuntu 18.04 LTS (local install), R 3.6.0
-* macOS 10.11 El Capitan (64-bit) (on R-hub), R 3.6.0 (2019-04-26)
-* x86_64-pc-linux-gnu 64-bit (on Travis), R-devel (2019-05-16 r76516)
-* win-builder, R-devel (2019-05-14 r76503)
+* Local Ubuntu 18.04 install, R 3.6.2
+* Debian on R-hub, R development version (2020-03-01 r77879)
+* macOS 10.11 on R-hub, R 3.6.2
+* win-builder, release and development version (2020-01-28 r77738)
 
 ## R CMD check results
 
