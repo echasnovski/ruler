@@ -1,26 +1,35 @@
 Package: ruler
 Title: Tidy Data Validation Reports
 Version: 0.2.1.9000
-Authors@R: person("Evgeni", "Chasnovski", email = "evgeni.chasnovski@gmail.com",
-    role = c("aut", "cre"))
-Description: Tools for creating data validation pipelines and tidy reports. This
-    package offers a framework for exploring and validating data frame like
-    objects using 'dplyr' grammar of data manipulation.
-Depends: R (>= 3.4.0)
+Authors@R: 
+    person(given = "Evgeni",
+           family = "Chasnovski",
+           role = c("aut", "cre"),
+           email = "evgeni.chasnovski@gmail.com")
+Description: Tools for creating data validation pipelines and
+    tidy reports. This package offers a framework for exploring and
+    validating data frame like objects using 'dplyr' grammar of data
+    manipulation.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-URL: https://echasnovski.github.io/ruler/, https://github.com/echasnovski/ruler
+URL: https://echasnovski.github.io/ruler/,
+    https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
-RoxygenNote: 6.1.1
-Roxygen: list(markdown = TRUE)
-Imports: keyholder,
+Depends: 
+    R (>= 3.4.0)
+Imports: 
     dplyr (>= 0.7.0),
+    keyholder,
     rlang,
     tibble,
     tidyr (>= 0.7.0)
-Suggests: knitr,
+Suggests: 
+    covr,
+    knitr,
     rmarkdown,
-    testthat,
-    covr
-VignetteBuilder: knitr
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
