@@ -71,10 +71,10 @@ NULL
 #'
 #' An S3 class `packs_info` to represent information about packs in [exposure].
 #' It is a tibble with the following structure:
-#' - __name__ <chr> : Name of the pack.
-#' - __type__ <chr> : [Pack type][rule-packs].
-#' - __fun__ <list> : List (preferably unnamed) of rule pack functions.
-#' - __remove_obeyers__ <lgl> : value of `.remove_obeyers` argument of
+#' - __name__ `<chr>` : Name of the pack.
+#' - __type__ `<chr>` : [Pack type][rule-packs].
+#' - __fun__ `<list>` : List (preferably unnamed) of rule pack functions.
+#' - __remove_obeyers__ `<lgl>` : value of `.remove_obeyers` argument of
 #' [expose()] with which pack was applied.
 #'
 #' @param .x Object to test.
@@ -120,17 +120,17 @@ NULL
 #'
 #' A tibble representing the data validation result of certain data units in
 #' tidy way:
-#' - __pack__ <chr> : Name of rule pack from column 'name' of corresponding
+#' - __pack__ `<chr>` : Name of rule pack from column 'name' of corresponding
 #' [packs_info] object.
-#' - __rule__ <chr> : Name of the rule defined in rule pack.
-#' - __var__ <chr> : Name of the variable which validation result is reported.
+#' - __rule__ `<chr>` : Name of the rule defined in rule pack.
+#' - __var__ `<chr>` : Name of the variable which validation result is reported.
 #' Value '.all' is reserved and interpreted as 'all columns as a whole'.
 #' __Note__ that `var` doesn't always represent the actual column in data frame
 #' (see [group packs][group-pack]).
-#' - __id__ <int> : Index of the row in tested data frame which validation
+#' - __id__ `<int>` : Index of the row in tested data frame which validation
 #' result is reported. Value 0 is reserved and interpreted as 'all rows as a
 #' whole'.
-#' - __value__ <lgl> : Whether the described data unit obeys the rule.
+#' - __value__ `<lgl>` : Whether the described data unit obeys the rule.
 #'
 #' @param .x Object to test.
 #' @param .object Object to get `report` value from `exposure` attribute.

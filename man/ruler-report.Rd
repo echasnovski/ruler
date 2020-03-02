@@ -25,17 +25,17 @@ exposure and of its 'exposure' attribute otherwise.
 A tibble representing the data validation result of certain data units in
 tidy way:
 \itemize{
-\item \strong{pack} <chr> : Name of rule pack from column 'name' of corresponding
+\item \strong{pack} \verb{<chr>} : Name of rule pack from column 'name' of corresponding
 \link{packs_info} object.
-\item \strong{rule} <chr> : Name of the rule defined in rule pack.
-\item \strong{var} <chr> : Name of the variable which validation result is reported.
+\item \strong{rule} \verb{<chr>} : Name of the rule defined in rule pack.
+\item \strong{var} \verb{<chr>} : Name of the variable which validation result is reported.
 Value '.all' is reserved and interpreted as 'all columns as a whole'.
 \strong{Note} that \code{var} doesn't always represent the actual column in data frame
 (see \link[=group-pack]{group packs}).
-\item \strong{id} <int> : Index of the row in tested data frame which validation
+\item \strong{id} \verb{<int>} : Index of the row in tested data frame which validation
 result is reported. Value 0 is reserved and interpreted as 'all rows as a
 whole'.
-\item \strong{value} <lgl> : Whether the described data unit obeys the rule.
+\item \strong{value} \verb{<lgl>} : Whether the described data unit obeys the rule.
 }
 }
 \details{

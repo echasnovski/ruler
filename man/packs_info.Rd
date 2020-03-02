@@ -25,10 +25,10 @@ is exposure and of its 'exposure' attribute otherwise.
 An S3 class \code{packs_info} to represent information about packs in \link{exposure}.
 It is a tibble with the following structure:
 \itemize{
-\item \strong{name} <chr> : Name of the pack.
-\item \strong{type} <chr> : \link[=rule-packs]{Pack type}.
-\item \strong{fun} <list> : List (preferably unnamed) of rule pack functions.
-\item \strong{remove_obeyers} <lgl> : value of \code{.remove_obeyers} argument of
+\item \strong{name} \verb{<chr>} : Name of the pack.
+\item \strong{type} \verb{<chr>} : \link[=rule-packs]{Pack type}.
+\item \strong{fun} \verb{<list>} : List (preferably unnamed) of rule pack functions.
+\item \strong{remove_obeyers} \verb{<lgl>} : value of \code{.remove_obeyers} argument of
 \code{\link[=expose]{expose()}} with which pack was applied.
 }
 }
