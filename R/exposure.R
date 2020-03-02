@@ -209,9 +209,6 @@ new_pack_info <- function(.pack, .remove_obeyers) {
 
 new_packs_info <- function(.names, .packs, .remove_obeyers) {
   packs_type <- vapply(.packs, function(x) {class(x)[1]}, "chr")
-  # List-column 'fun' shouldn't have names because
-  # pack name is stored in 'name' column.
-  names(.packs) <- NULL
 
   tibble::tibble(name = .names,
          type = packs_type,

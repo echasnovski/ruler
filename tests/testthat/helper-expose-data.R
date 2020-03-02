@@ -116,21 +116,31 @@ exposure_names <- c("data_dims", "cell_not_outlier", "col_proper_sums",
 
 input_single_exposures <- mapply(
   new_single_exposure,
-  input_packs[single_exposure_inds], input_remove_obeyers[single_exposure_inds],
-  input_reports[single_exposure_inds],
+  # `unname()` is needed to ensure that input vectors have no names. Otherwise
+  # there can be issues with `dplyr::bind_rows()` (powered by
+  # `vctrs::vec_rbind()`) removing those names but 'tibble'>=3.0.0 keeping them.
+  unname(input_packs[single_exposure_inds]),
+  unname(input_remove_obeyers[single_exposure_inds]),
+  unname(input_reports[single_exposure_inds]),
   SIMPLIFY = FALSE
 ) %>%
   setNames(exposure_names)
 
 input_exposures <- mapply(
   new_exposure,
-  mapply(new_packs_info,
-         exposure_names, lapply(input_packs[single_exposure_inds], list),
-         input_remove_obeyers[single_exposure_inds],
-         SIMPLIFY = FALSE),
-  mapply(add_pack_name_to_single_report,
-         input_reports[single_exposure_inds], exposure_names,
-         SIMPLIFY = FALSE),
+  mapply(
+    new_packs_info,
+    exposure_names,
+    # `unname()` is needed to ensure that input vectors have no names
+    lapply(unname(input_packs[single_exposure_inds]), list),
+    unname(input_remove_obeyers[single_exposure_inds]),
+    SIMPLIFY = FALSE),
+  mapply(
+    add_pack_name_to_single_report,
+    # `unname()` is needed to ensure that input vectors have no names
+    unname(input_reports[single_exposure_inds]),
+    exposure_names,
+    SIMPLIFY = FALSE),
   SIMPLIFY = FALSE
 ) %>%
   setNames(exposure_names)
@@ -140,10 +150,19 @@ exposure_ref_pack_names <- c("col_pack_n1", "col_pack_n2", "cell_pack_n1",
                              "data_pack_n1", "data_pack_n2", "row_pack_n1",
                              "group_pack_n1")
 input_exposure_ref <- new_exposure(
-  new_packs_info(exposure_ref_pack_names, input_packs[exposure_ref_inds],
-                 input_remove_obeyers[exposure_ref_inds]),
-  mapply(add_pack_name_to_single_report,
-         input_reports[exposure_ref_inds], exposure_ref_pack_names,
-         SIMPLIFY = FALSE) %>%
-    dplyr::bind_rows() %>% as_report(.validate = FALSE)
+  new_packs_info(
+    exposure_ref_pack_names,
+    # `unname()` is needed to ensure that input vectors have no names
+    unname(input_packs[exposure_ref_inds]),
+    unname(input_remove_obeyers[exposure_ref_inds])
+  ),
+  mapply(
+    add_pack_name_to_single_report,
+    # `unname()` is needed to ensure that input vectors have no names
+    unname(input_reports[exposure_ref_inds]),
+    exposure_ref_pack_names,
+    SIMPLIFY = FALSE
+  ) %>%
+    dplyr::bind_rows() %>%
+    as_report(.validate = FALSE)
 )
