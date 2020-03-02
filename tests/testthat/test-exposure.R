@@ -163,7 +163,7 @@ test_that("is_exposure works", {
   expect_false(is_exposure(output_2))
 
   output_3 <- output
-  output_3$packs_info[[1]] <- mean
+  output_3$packs_info[[1]] <- 1L
 
   expect_false(is_exposure(output_3))
 
