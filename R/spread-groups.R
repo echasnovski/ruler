@@ -66,7 +66,7 @@ spread_groups <- function(.tbl, ..., .group_sep = ".", .col_sep = "._.") {
     tidyr::gather(key = "rule_name", value = "value",
                   !!! rule_syms) %>%
     tidyr::unite(col = "var_rule",
-                 !!! group_id_sym, .data[["rule_name"]],
+                 !! group_id_sym, .data[["rule_name"]],
                  sep = .col_sep, remove = TRUE) %>%
     # For preserving ordering by rule and then by variable
     mutate(var_rule = factor(.data$var_rule,
