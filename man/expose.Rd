@@ -42,7 +42,7 @@ function. In case of missing name it is imputed based on possibly existing
 exposure attribute in \code{.tbl} and supplied rule packs. Imputation is similar
 to one in \code{\link[=rules]{rules()}} but applied to every pack type separately.
 
-Default value for \code{.rule_sep} is the regular expression \code{characters ._. surrounded by non alphanumeric characters}. It is picked to be used
+Default value for \code{.rule_sep} is the regular expression \verb{characters ._. surrounded by non alphanumeric characters}. It is picked to be used
 smoothly with \code{dplyr}'s \link[dplyr:scoped]{scoped verbs} and \code{\link[=rules]{rules()}} instead
 of \link[dplyr:funs]{funs()}. In most cases it shouldn't be changed but if
 needed it should align with \code{.prefix} in \code{\link[=rules]{rules()}}.
