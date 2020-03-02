@@ -91,13 +91,13 @@ mtcars_exposed %>% get_exposure()
 #> 
 #> Packs info:
 #> # A tibble: 5 x 4
-#>   name            type       fun              remove_obeyers
-#>   <chr>           <chr>      <list>           <lgl>         
-#> 1 dims            data_pack  <S3: data_pack>  TRUE          
-#> 2 vs_am_num       group_pack <S3: group_pack> TRUE          
-#> 3 enough_col_sum  col_pack   <S3: col_pack>   TRUE          
-#> 4 enough_row_sum  row_pack   <S3: row_pack>   TRUE          
-#> 5 dbl_not_outlier cell_pack  <S3: cell_pack>  TRUE          
+#>   name            type       fun        remove_obeyers
+#>   <chr>           <chr>      <list>     <lgl>         
+#> 1 dims            data_pack  <data_pck> TRUE          
+#> 2 vs_am_num       group_pack <grop_pck> TRUE          
+#> 3 enough_col_sum  col_pack   <col_pack> TRUE          
+#> 4 enough_row_sum  row_pack   <row_pack> TRUE          
+#> 5 dbl_not_outlier cell_pack  <cell_pck> TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 117 x 5
@@ -297,11 +297,11 @@ mtcars %>%
 #> 
 #> Packs info:
 #> # A tibble: 3 x 4
-#>   name          type       fun              remove_obeyers
-#>   <chr>         <chr>      <list>           <lgl>         
-#> 1 data_dims     data_pack  <S3: data_pack>  TRUE          
-#> 2 vs_1          data_pack  <S3: data_pack>  TRUE          
-#> 3 group_pack__1 group_pack <S3: group_pack> TRUE          
+#>   name          type       fun        remove_obeyers
+#>   <chr>         <chr>      <list>     <lgl>         
+#> 1 data_dims     data_pack  <data_pck> TRUE          
+#> 2 vs_1          data_pack  <data_pck> TRUE          
+#> 3 group_pack__1 group_pack <grop_pck> TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 3 x 5
@@ -322,11 +322,11 @@ mtcars %>%
 #> 
 #> Packs info:
 #> # A tibble: 3 x 4
-#>   name          type       fun              remove_obeyers
-#>   <chr>         <chr>      <list>           <lgl>         
-#> 1 data_dims     data_pack  <S3: data_pack>  FALSE         
-#> 2 vs_1          data_pack  <S3: data_pack>  FALSE         
-#> 3 group_pack__1 group_pack <S3: group_pack> FALSE         
+#>   name          type       fun        remove_obeyers
+#>   <chr>         <chr>      <list>     <lgl>         
+#> 1 data_dims     data_pack  <data_pck> FALSE         
+#> 2 vs_1          data_pack  <data_pck> FALSE         
+#> 3 group_pack__1 group_pack <grop_pck> FALSE         
 #> 
 #> Tidy data validation report:
 #> # A tibble: 8 x 5
@@ -356,10 +356,10 @@ mtcars %>%
 #> 
 #> Packs info:
 #> # A tibble: 2 x 4
-#>   name           type      fun             remove_obeyers
-#>   <chr>          <chr>     <list>          <lgl>         
-#> 1 some_data_pack data_pack <S3: data_pack> TRUE          
-#> 2 some_col_pack  col_pack  <S3: col_pack>  TRUE          
+#>   name           type      fun        remove_obeyers
+#>   <chr>          <chr>     <list>     <lgl>         
+#> 1 some_data_pack data_pack <data_pck> TRUE          
+#> 2 some_col_pack  col_pack  <col_pack> TRUE          
 #> 
 #> Tidy data validation report:
 #> # A tibble: 2 x 5
