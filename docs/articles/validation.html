@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Validation • ruler</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Validation">
 <meta property="og:description" content="">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -39,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +72,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/echasnovski/ruler">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -84,13 +85,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Validation</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2019-05-17</h4>
+            <h4 class="date">2020-03-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/validation.Rmd"><code>vignettes/validation.Rmd</code></a></small>
       <div class="hidden name"><code>validation.Rmd</code></div>
@@ -190,7 +192,7 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_data_packs) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(my_col_packs)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(mtcars_one_step, mtcars_two_step)</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(mtcars_one_step, mtcars_two_step)</a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="guessing" class="section level3">
@@ -198,7 +200,7 @@
 <a href="#guessing" class="anchor"></a>Guessing</h3>
 <p>By default <code><a href="../reference/expose.html">expose()</a></code> guesses which type of pack function represents (if it is not set manually). This is useful for interactive experiments. Guess is based on features of pack’s output structures (see <code><a href="../reference/expose.html">?expose</a></code> for more details).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/exposure.html">get_exposure</a></span>()</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;   Exposure</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; </span></a>
@@ -215,7 +217,7 @@
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 1 some_data_pack nrow  .all      0 FALSE</span></a></code></pre></div>
 <p>However there are some edge cases (especially for group packs). To write strict and robust code one should use <code>.guess = FALSE</code> option.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(<span class="dt">some_data_pack =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">nrow =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">         <span class="dt">.guess =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Error in expose_single.default(X[[i]], ...): There is unsupported class of rule pack.</span></a></code></pre></div>
 </div>
@@ -224,11 +226,11 @@
 <a href="#using-different-rule-separator" class="anchor"></a>Using different rule separator</h3>
 <p>If for some reason not default rule separator was used in <code><a href="../reference/rules.html">rules()</a></code> one should take this into consideration by using argument <code>.rule_sep</code>. It takes regular expression describing the separator. <strong>Note</strong> that by default it is a string ‘._.’ surrounded by any number of ‘non alpha-numeric characters’ (with use of <code><a href="../reference/inside_punct.html">inside_punct()</a></code>). This is done to take account of the <code>dplyr</code>’s default separator <code>_</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">regular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">irregular_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">.prefix =</span> <span class="st">"a_a_"</span>))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(<span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">.prefix =</span> <span class="st">"a_a_"</span>))</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">regular_report &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
@@ -239,7 +241,7 @@
 <a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="../reference/expose.html">expose</a></span>(irregular_col_packs, <span class="dt">.rule_sep =</span> <span class="kw"><a href="../reference/inside_punct.html">inside_punct</a></span>(<span class="st">"a_a_"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="../reference/ruler-report.html">get_report</a></span>()</a>
 <a class="sourceLine" id="cb7-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(regular_report, irregular_report)</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(regular_report, irregular_report)</a>
 <a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"></a>
 <a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co"># Note suffix '_' after column names</span></a>
@@ -268,19 +270,19 @@
 <li>
 <code>.actor</code> - a function which takes the same argument as <code>.trigger</code> and performs some action.</li>
 </ul>
-<p>If trigger didn’t notify then the input data is returned untouched. Otherwise the output of <code>.actor()</code> is returned. <strong>Note</strong> that <code><a href="../reference/act_after_exposure.html">act_after_exposure()</a></code> is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe <code>%&gt;%</code>).</p>
+<p>If trigger didn’t notify then the input data is returned untouched. Otherwise the output of <code>.actor()</code> is returned. <strong>Note</strong> that <code><a href="../reference/act_after_exposure.html">act_after_exposure()</a></code> is often used for creating side effects (printing, throwing error etc.) and in that case should invisibly return its input (to be able to use it with pipe <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code>).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">trigger_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">  packs_number &lt;-<span class="st"> </span>.tbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/packs_info.html">get_packs_info</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>()</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>()</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  </a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">  packs_number <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb8-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9">actor_one_pack &lt;-<span class="st"> </span><span class="cf">function</span>(.tbl) {</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"More than one pack was applied.</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"More than one pack was applied.</span><span class="ch">\n</span><span class="st">"</span>)</a>
 <a class="sourceLine" id="cb8-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>(.tbl)</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">  <span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(.tbl)</a>
 <a class="sourceLine" id="cb8-13" data-line-number="13">}</a>
 <a class="sourceLine" id="cb8-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb8-15" data-line-number="15">mtcars <span class="op">%&gt;%</span></a>
@@ -289,7 +291,7 @@
 <a class="sourceLine" id="cb8-18" data-line-number="18">    <span class="dt">.trigger =</span> trigger_one_pack,</a>
 <a class="sourceLine" id="cb8-19" data-line-number="19">    <span class="dt">.actor =</span> actor_one_pack</a>
 <a class="sourceLine" id="cb8-20" data-line-number="20">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>()</a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>()</a>
 <a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; More than one pack was applied.</span></a></code></pre></div>
 </div>
 <div id="assert-presence-of-rule-breaker" class="section level3">
@@ -314,12 +316,13 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#exposure">Exposure</a></li>
-      <li><a href="#acting-after-exposure">Acting after exposure</a></li>
+<li class="toc-lev1"><a href="#exposure">Exposure</a></li>
+      <li class="toc-lev1"><a href="#acting-after-exposure">Acting after exposure</a></li>
       </ul>
 </div>
       </div>
@@ -327,17 +330,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Evgeni Chasnovski.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
