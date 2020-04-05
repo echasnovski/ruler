@@ -358,47 +358,57 @@ test_that("print.exposure passes tibble options", {
   output_ref_packs_info_n <- capture_output(
     print(input_print_pack_info_tbl, n = 13)
   )
+  expect_output(
+    print(input_print_exposure, n_packs_info = 13),
+    output_ref_packs_info_n,
+    fixed = TRUE
+  )
+
   output_ref_report_n <- capture_output(
     print(input_print_report_tbl, n = 23)
   )
-
   expect_output(
-    print(input_print_exposure, n_packs_info = 13, n_report = 23),
-    paste0(c("Exposure", "Packs info", output_ref_packs_info_n,
-             "Tidy data validation report", output_ref_report_n),
-           collapse = ".*")
+    print(input_print_exposure, n_report = 23),
+    output_ref_report_n,
+    fixed = TRUE
   )
 
   # Option `width`
   output_ref_packs_info_width <- capture_output(
     print(input_print_pack_info_tbl, width = 30)
   )
+  expect_output(
+    print(input_print_exposure, width_packs_info = 30),
+    output_ref_packs_info_width,
+    fixed = TRUE
+  )
+
   output_ref_report_width <- capture_output(
     print(input_print_report_tbl, width = 20)
   )
-
   expect_output(
-    print(input_print_exposure, width_packs_info = 30, width_report = 20),
-    paste0(c("Exposure", "Packs info", output_ref_packs_info_width,
-             "Tidy data validation report", output_ref_report_width),
-           collapse = ".*")
+    print(input_print_exposure, width_report = 20),
+    output_ref_report_width,
+    fixed = TRUE
   )
 
   # Option `n_extra`
   output_ref_packs_info_n_extra <- capture_output(
     print(input_print_pack_info_tbl, width = 30, n_extra = 1)
   )
+  expect_output(
+    print(input_print_exposure, width_packs_info = 30, n_extra_packs_info = 1),
+    output_ref_packs_info_n_extra,
+    fixed = TRUE
+  )
+
   output_ref_report_n_extra <- capture_output(
     print(input_print_report_tbl, width = 20, n_extra = 1)
   )
-
   expect_output(
-    print(input_print_exposure,
-          width_packs_info = 30, n_extra_packs_info = 1,
-          width_report = 20, n_extra_report = 1),
-    paste0(c("Exposure", "Packs info", output_ref_packs_info_n_extra,
-             "Tidy data validation report", output_ref_report_n_extra),
-           collapse = ".*")
+    print(input_print_exposure, width_report = 20, n_extra_report = 1),
+    output_ref_report_n_extra,
+    fixed = TRUE
   )
 })
 
@@ -429,10 +439,10 @@ test_that("print.packs_info handles extra arguments", {
   output_ref_packs_info_n <- capture_output(
     print(input_print_packs_info_tbl, n = 11)
   )
-
   expect_output(
     print(input_print_packs_info, n = 11),
-    paste0("Packs info.*", output_ref_packs_info_n)
+    output_ref_packs_info_n,
+    fixed = TRUE
   )
 })
 
@@ -463,9 +473,9 @@ test_that("print.ruler_report handles extra arguments", {
   output_ref_ruler_report_n <- capture_output(
     print(input_print_ruler_report_tbl, n = 11)
   )
-
   expect_output(
     print(input_print_ruler_report, n = 11),
-    paste0("Tidy data validation report.*", output_ref_ruler_report_n)
+    output_ref_ruler_report_n,
+    fixed = TRUE
   )
 })

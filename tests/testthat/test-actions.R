@@ -66,7 +66,8 @@ test_that("act_after_exposure works", {
   expect_output(
     output_2 <- act_after_exposure(mtcars_exposed, trigger_nrow_10,
                                    actor_print),
-    output_ref
+    output_ref,
+    fixed = TRUE
   )
   expect_identical(output_2, mtcars_exposed)
 })
