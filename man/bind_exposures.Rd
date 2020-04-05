@@ -16,8 +16,9 @@ output is exposure.}
 Function to bind several exposures into one.
 }
 \details{
-\strong{Note} that the output doesn't have names in list-column \code{fun} in
-\link[=packs_info]{packs info}.
+\strong{Note} that the output might not have names in list-column \code{fun}
+in \link[=packs_info]{packs info}, which depends on version of
+\link[dplyr:dplyr-package]{dplyr} package.
 }
 \examples{
 my_data_packs <- data_packs(

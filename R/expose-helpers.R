@@ -118,8 +118,9 @@ add_pack_names <- function(.single_exposures) {
 #' @param .validate_output Whether to validate with [is_exposure()] if the
 #'   output is exposure.
 #'
-#' @details __Note__ that the output doesn't have names in list-column `fun` in
-#'   [packs info][packs_info].
+#' @details __Note__ that the output might not have names in list-column `fun`
+#'   in [packs info][packs_info], which depends on version of
+#'   [dplyr][dplyr::dplyr-package] package.
 #'
 #' @examples
 #' my_data_packs <- data_packs(

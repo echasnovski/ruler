@@ -101,23 +101,6 @@ test_that("bind_exposures works", {
                    output_ref)
 })
 
-test_that("bind_exposures removes names from list-column `fun`", {
-  input_named_exposure_ref <- input_exposure_ref
-  names(input_named_exposure_ref[["packs_info"]][["fun"]]) <-
-    letters[nrow(input_named_exposure_ref[["packs_info"]])]
-
-  output_1 <- bind_exposures(input_named_exposure_ref, NULL)
-
-  expect_identical(output_1 %>% get_packs_info() %>% pull(fun) %>% names(),
-                   NULL)
-
-  output_2 <- bind_exposures(input_named_exposure_ref,
-                             input_named_exposure_ref)
-
-  expect_identical(output_2 %>% get_packs_info() %>% pull(fun) %>% names(),
-                   NULL)
-})
-
 
 # filter_not_null ---------------------------------------------------------
 test_that("filter_not_null works", {
