@@ -153,8 +153,11 @@ bind_exposures <- function(..., .validate_output = TRUE) {
 
   binded_packs_info <- lapply(exposures, `[[`, "packs_info") %>% bind_rows() %>%
     as_packs_info(.validate = FALSE)
+  row.names(binded_packs_info) <- NULL
+
   binded_report <- lapply(exposures, `[[`, "report") %>% bind_rows() %>%
     as_report(.validate = FALSE)
+  row.names(binded_report) <- NULL
 
   new_exposure(binded_packs_info, binded_report, .validate = .validate_output)
 }
