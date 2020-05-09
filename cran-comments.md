@@ -1,13 +1,13 @@
 ## Submission details
 
-This submission is reaction to upcoming changes in 'tibble' 3.0.0.
+This submission is reaction to upcoming changes in 'dplyr' 1.0.0.
 
 ## Test environments
 
-* Local Ubuntu 18.04 install, R 3.6.2
-* Debian on R-hub, R development version (2020-03-01 r77879)
-* macOS 10.11 on R-hub, R 3.6.2
-* win-builder, release and development version (2020-01-28 r77738)
+* Local Ubuntu 18.04 install, R 3.6.3
+* Debian on R-hub, R development version (2020-05-07 r78381)
+* macOS 10.13.6 on R-hub, R 4.0.0
+* win-builder, release and development version (2020-05-08 r78391)
 
 ## R CMD check results
 
