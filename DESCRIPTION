@@ -1,6 +1,6 @@
 Package: ruler
 Title: Tidy Data Validation Reports
-Version: 0.2.3
+Version: 0.2.3.9000
 Authors@R: 
     person(given = "Evgeni",
            family = "Chasnovski",

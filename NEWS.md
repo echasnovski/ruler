@@ -1,3 +1,5 @@
+# ruler (development version)
+
 # ruler 0.2.3
 
 * Reaction to `dplyr` 1.0.0.
