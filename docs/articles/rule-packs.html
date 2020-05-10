@@ -6,20 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rule Packs • ruler</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Rule Packs">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="ruler">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/echasnovski/ruler">
+  <a href="https://github.com/echasnovski/ruler/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -89,10 +89,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Rule Packs</h1>
+      <h1 data-toc-skip>Rule Packs</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2020-03-03</h4>
+            <h4 class="date">2020-05-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/rule-packs.Rmd"><code>vignettes/rule-packs.Rmd</code></a></small>
       <div class="hidden name"><code>rule-packs.Rmd</code></div>
@@ -118,13 +118,13 @@
 <h2 class="hasAnchor">
 <a href="#data-rule-packs" class="anchor"></a>Data rule packs</h2>
 <p>To check whether dimensions of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="dt">nrow_low =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="dt">nrow_high =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="dt">ncol =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;   nrow_low nrow_high  ncol</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; 1     TRUE     FALSE FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><code class = "r"><span class="no">mtcars</span> <span class="kw">%&gt;%</span> <span class="fu">summarise</span>(
+  <span class="kw">nrow_low</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.</span>) <span class="kw">&gt;</span> <span class="fl">10</span>,
+  <span class="kw">nrow_high</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.</span>) <span class="kw">&lt;</span> <span class="fl">30</span>,
+  <span class="kw">ncol</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">.</span>) <span class="kw">==</span> <span class="fl">12</span>
+)
+<span class="co">#&gt;   nrow_low nrow_high  ncol</span>
+<span class="co">#&gt; 1     TRUE     FALSE FALSE</span></code></pre></body></html></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>one</strong>.</li>
@@ -133,28 +133,29 @@
 </ul>
 <p>There is an easy way to transform this pipeline into a function to be used for any data: <code>mtcars</code> should be replaced with <code>.</code> character. To indicate that this function is a rule pack for data unit ‘data’ it should be wrapped with <code><a href="../reference/rule-packs.html">data_packs()</a></code>.</p>
 <p>The next code creates a list <code>my_data_packs</code> with one data rule pack named <code>my_data_pack_1</code>. That rule pack defines rules with names <code>nrow_low</code>, <code>nrow_high</code>, <code>ncol</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">my_data_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">data_packs</a></span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">my_data_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="dt">nrow_low =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">nrow_high =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.) <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="dt">ncol =</span> <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(.) <span class="op">==</span><span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  )</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><code class = "r"><span class="no">my_data_packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rule-packs.html">data_packs</a></span>(
+  <span class="kw">my_data_pack_1</span> <span class="kw">=</span> <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">summarise</span>(
+    <span class="kw">nrow_low</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.</span>) <span class="kw">&gt;</span> <span class="fl">10</span>,
+    <span class="kw">nrow_high</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.</span>) <span class="kw">&lt;</span> <span class="fl">30</span>,
+    <span class="kw">ncol</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">.</span>) <span class="kw">==</span> <span class="fl">12</span>
+  )
+)</code></pre></body></html></div>
 </div>
 <div id="group-rule-packs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#group-rule-packs" class="anchor"></a>Group rule packs</h2>
 <p>To check whether certain groups of rows of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://rdrr.io/r/base/any.html">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # Groups:   vs [2]</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;      vs    am any_cyl_6</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 1     0     0 FALSE    </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 2     0     1 TRUE     </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 3     1     0 TRUE     </span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 4     1     1 FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><code class = "r"><span class="no">mtcars</span> <span class="kw">%&gt;%</span> <span class="fu">group_by</span>(<span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
+    <span class="fu">summarise</span>(<span class="kw">any_cyl_6</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span>(<span class="no">cyl</span> <span class="kw">==</span> <span class="fl">6</span>))
+<span class="co">#&gt; `summarise()` regrouping by 'vs' (override with `.groups` argument)</span>
+<span class="co">#&gt; # A tibble: 4 x 3</span>
+<span class="co">#&gt; # Groups:   vs [2]</span>
+<span class="co">#&gt;      vs    am any_cyl_6</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    </span>
+<span class="co">#&gt; 1     0     0 FALSE    </span>
+<span class="co">#&gt; 2     0     1 TRUE     </span>
+<span class="co">#&gt; 3     1     0 TRUE     </span>
+<span class="co">#&gt; 4     1     1 FALSE</span></code></pre></body></html></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Some columns define group levels (<code>vs</code> and <code>am</code> in this case).</li>
@@ -163,11 +164,11 @@
 <li>Values indicate whether the <strong>group as a whole</strong> follows the rule.</li>
 </ul>
 <p>The next code creates a list with one nameless group rule pack (the name will be imputed during exposure). This pack contains one rule <code>any_cyl_6</code> which checks every group defined by <code>vs</code> and <code>am</code> columns.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">my_group_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">group_packs</a></span>(</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(vs, am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">any_cyl_6 =</span> <span class="kw"><a href="https://rdrr.io/r/base/any.html">any</a></span>(cyl <span class="op">==</span><span class="st"> </span><span class="dv">6</span>)),</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">.group_vars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"vs"</span>, <span class="st">"am"</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><code class = "r"><span class="no">my_group_packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rule-packs.html">group_packs</a></span>(
+  <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">group_by</span>(<span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
+    <span class="fu">summarise</span>(<span class="kw">any_cyl_6</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span>(<span class="no">cyl</span> <span class="kw">==</span> <span class="fl">6</span>)),
+  <span class="kw">.group_vars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"vs"</span>, <span class="st">"am"</span>)
+)</code></pre></body></html></div>
 <p><strong>Notes</strong>:</p>
 <ul>
 <li>In this example pack’s output is a grouped tibble. It doesn’t affect anything because during exposure this output is <code>ungroup</code>ed.</li>
@@ -179,24 +180,25 @@
 <h2 class="hasAnchor">
 <a href="#column-rule-packs" class="anchor"></a>Column rule packs</h2>
 <p>To check whether certain columns of <code>mtcars</code> obey some rules one can write the next dplyr pipeline:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">is_integerish &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="kw"><a href="https://rdrr.io/r/base/all.html">all</a></span>(x <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(x))}</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise_if</span>(is_integerish, <span class="kw">funs</span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: funs() is soft deprecated as of dplyr 0.8.0</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; Please use a list of either functions or lambdas: </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   # Simple named list: </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;   list(mean = mean, median = median)</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   # Auto named with `tibble::lst()`: </span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   tibble::lst(mean, median)</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   # Using lambdas</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; This warning is displayed once per session.</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;   cyl_mean_low hp_mean_low vs_mean_low am_mean_low gear_mean_low carb_mean_low</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 1         TRUE        TRUE       FALSE       FALSE          TRUE          TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><code class = "r"><span class="no">is_integerish</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {<span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span>(<span class="no">x</span> <span class="kw">==</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="no">x</span>))}
+
+<span class="no">mtcars</span> <span class="kw">%&gt;%</span>
+  <span class="fu">summarise_if</span>(<span class="no">is_integerish</span>, <span class="fu">funs</span>(<span class="kw">mean_low</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">.</span>) <span class="kw">&gt;</span> <span class="fl">0.5</span>))
+<span class="co">#&gt; Warning: `funs()` is deprecated as of dplyr 0.8.0.</span>
+<span class="co">#&gt; Please use a list of either functions or lambdas: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   # Simple named list: </span>
+<span class="co">#&gt;   list(mean = mean, median = median)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   # Auto named with `tibble::lst()`: </span>
+<span class="co">#&gt;   tibble::lst(mean, median)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   # Using lambdas</span>
+<span class="co">#&gt;   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</span>
+<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
+<span class="co">#&gt;   cyl_mean_low hp_mean_low vs_mean_low am_mean_low gear_mean_low carb_mean_low</span>
+<span class="co">#&gt; 1         TRUE        TRUE       FALSE       FALSE          TRUE          TRUE</span></code></pre></body></html></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>one</strong>.</li>
@@ -213,31 +215,31 @@
 <li>A column rule pack <code>my_col_pack_1</code> which checks obedience of ‘integerish’ columns to rule <code>mean_low</code>.</li>
 <li>A nameless column rule pack which checks obedience of column <code>vs</code> to some (will be imputed as <code>rule__1</code>) rule. <strong>Note</strong> the use of named argument in <code>vars(vs = "vs")</code>. This is the current way in <code>dplyr</code>’s scoped variants of <code>summarise</code> and <code>mutate</code> to force using both column and function names in output’s column name.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">my_col_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">col_packs</a></span>(</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">my_col_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_if</span>(</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    is_integerish,</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">mean_low =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">  ),</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="dt">vs =</span> <span class="st">"vs"</span>), <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span>))</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><code class = "r"><span class="no">my_col_packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rule-packs.html">col_packs</a></span>(
+  <span class="kw">my_col_pack_1</span> <span class="kw">=</span> <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">summarise_if</span>(
+    <span class="no">is_integerish</span>,
+    <span class="fu"><a href="../reference/rules.html">rules</a></span>(<span class="kw">mean_low</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">.</span>) <span class="kw">&gt;</span> <span class="fl">0.5</span>)
+  ),
+  <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="kw">vs</span> <span class="kw">=</span> <span class="st">"vs"</span>), <span class="fu"><a href="../reference/rules.html">rules</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">.</span>) <span class="kw">&gt;</span> <span class="fl">300</span>))
+)</code></pre></body></html></div>
 </div>
 <div id="row-rule-pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#row-rule-pack" class="anchor"></a>Row rule pack</h2>
 <p>To check whether certain rows of <code>mtcars</code> are not outliers one can write the next dplyr pipeline:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {(x <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(x)) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(x)}</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowMeans</a></span>(.)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;   is_common_row_mean</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 1               TRUE</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 2               TRUE</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 3               TRUE</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 4               TRUE</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 5               TRUE</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 6              FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><code class = "r"><span class="no">z_score</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {(<span class="no">x</span> - <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>)) / <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">x</span>)}
+
+<span class="no">mtcars</span> <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">rowMean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowMeans</a></span>(<span class="no">.</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">transmute</span>(<span class="kw">is_common_row_mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu">z_score</span>(<span class="no">rowMean</span>)) <span class="kw">&lt;</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">slice</span>(<span class="fl">10</span>:<span class="fl">15</span>)
+<span class="co">#&gt;                    is_common_row_mean</span>
+<span class="co">#&gt; Merc 280                         TRUE</span>
+<span class="co">#&gt; Merc 280C                        TRUE</span>
+<span class="co">#&gt; Merc 450SE                       TRUE</span>
+<span class="co">#&gt; Merc 450SL                       TRUE</span>
+<span class="co">#&gt; Merc 450SLC                      TRUE</span>
+<span class="co">#&gt; Cadillac Fleetwood              FALSE</span></code></pre></body></html></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of checked rows</strong>.</li>
@@ -247,33 +249,33 @@
 <p>Pipeline like the one above is quite common: for every row compute some value based on all rows and then validate only some of them. However in the validation report column <code>id</code> should represent the row index <em>in the original data frame</em> and this information is missing after applying <code>slice()</code>.</p>
 <p>This problem is solved by using <a href="https://echasnovski.github.io/keyholder">keyholder</a> package. Its main purpose is to track information about rows while modifying data frame. During exposure pack is applied to the <strong>keyed</strong> version of input data with key equals to row index. <strong>Note</strong> that to use this feature one should create rule packs using composition of functions supported by <code>keyholder</code>.</p>
 <p>The next code creates a list with one row pack <code>my_row_pack_1</code>. It contains one rule <code>is_common_row_mean</code> that checks 6 rows (from 10 to 15) for not being an outlier (based on information from all rows) in terms of row means.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">my_row_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">row_packs</a></span>(</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">my_row_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">rowMean =</span> <span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowMeans</a></span>(.)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">transmute</span>(<span class="dt">is_common_row_mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">z_score</span>(rowMean)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><code class = "r"><span class="no">my_row_packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rule-packs.html">row_packs</a></span>(
+  <span class="kw">my_row_pack_1</span> <span class="kw">=</span> <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">mutate</span>(<span class="kw">rowMean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowMeans</a></span>(<span class="no">.</span>)) <span class="kw">%&gt;%</span>
+    <span class="fu">transmute</span>(<span class="kw">is_common_row_mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu">z_score</span>(<span class="no">rowMean</span>)) <span class="kw">&lt;</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
+    <span class="fu">slice</span>(<span class="fl">10</span>:<span class="fl">15</span>)
+)</code></pre></body></html></div>
 </div>
 <div id="cell-rule-pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cell-rule-pack" class="anchor"></a>Cell rule pack</h2>
 <p>To check whether certain cells of <code>mtcars</code> are not outliers one can write the next dplyr pipeline:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">    is_integerish,</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="kw">funs</span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   cyl_is_common hp_is_common vs_is_common am_is_common gear_is_common</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 1         FALSE        FALSE        FALSE        FALSE           TRUE</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 2         FALSE         TRUE        FALSE         TRUE           TRUE</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 3         FALSE         TRUE         TRUE         TRUE           TRUE</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 4         FALSE         TRUE         TRUE         TRUE           TRUE</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 5         FALSE        FALSE         TRUE         TRUE           TRUE</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;   carb_is_common</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1          FALSE</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2          FALSE</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3           TRUE</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4           TRUE</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5           TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><code class = "r"><span class="no">mtcars</span> <span class="kw">%&gt;%</span> <span class="fu">transmute_if</span>(
+    <span class="no">is_integerish</span>,
+    <span class="fu">funs</span>(<span class="kw">is_common</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu">z_score</span>(<span class="no">.</span>)) <span class="kw">&lt;</span> <span class="fl">1</span>)
+  ) <span class="kw">%&gt;%</span>
+    <span class="fu">slice</span>(<span class="fl">20</span>:<span class="fl">24</span>)
+<span class="co">#&gt;                  cyl_is_common hp_is_common vs_is_common am_is_common</span>
+<span class="co">#&gt; Toyota Corolla           FALSE        FALSE        FALSE        FALSE</span>
+<span class="co">#&gt; Toyota Corona            FALSE         TRUE        FALSE         TRUE</span>
+<span class="co">#&gt; Dodge Challenger         FALSE         TRUE         TRUE         TRUE</span>
+<span class="co">#&gt; AMC Javelin              FALSE         TRUE         TRUE         TRUE</span>
+<span class="co">#&gt; Camaro Z28               FALSE        FALSE         TRUE         TRUE</span>
+<span class="co">#&gt;                  gear_is_common carb_is_common</span>
+<span class="co">#&gt; Toyota Corolla             TRUE          FALSE</span>
+<span class="co">#&gt; Toyota Corona              TRUE          FALSE</span>
+<span class="co">#&gt; Dodge Challenger           TRUE           TRUE</span>
+<span class="co">#&gt; AMC Javelin                TRUE           TRUE</span>
+<span class="co">#&gt; Camaro Z28                 TRUE           TRUE</span></code></pre></body></html></div>
 <p>The output has the following structure:</p>
 <ul>
 <li>Number of rows equals to <strong>number of rows for checked cells</strong>.</li>
@@ -286,31 +288,21 @@
 <li>Using functions supported by <code>keyholder</code>.</li>
 </ul>
 <p>The next code creates a list with one cell pack <code>my_cell_pack_1</code>. It checks cells of every integer-like column in rows 20-24 for not being an outlier within column.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">my_cell_packs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rule-packs.html">cell_packs</a></span>(</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="dt">my_cell_pack_1 =</span> . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute_if</span>(</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">    is_integerish,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw"><a href="../reference/rules.html">rules</a></span>(<span class="dt">is_common =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">z_score</span>(.)) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">24</span>)</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><code class = "r"><span class="no">my_cell_packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/rule-packs.html">cell_packs</a></span>(
+  <span class="kw">my_cell_pack_1</span> <span class="kw">=</span> <span class="no">.</span> <span class="kw">%&gt;%</span> <span class="fu">transmute_if</span>(
+    <span class="no">is_integerish</span>,
+    <span class="fu"><a href="../reference/rules.html">rules</a></span>(<span class="kw">is_common</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu">z_score</span>(<span class="no">.</span>)) <span class="kw">&lt;</span> <span class="fl">1</span>)
+  ) <span class="kw">%&gt;%</span>
+    <span class="fu">slice</span>(<span class="fl">20</span>:<span class="fl">24</span>)
+)</code></pre></body></html></div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li class="toc-lev1"><a href="#overview">Overview</a></li>
-      <li class="toc-lev1"><a href="#data-rule-packs">Data rule packs</a></li>
-      <li class="toc-lev1"><a href="#group-rule-packs">Group rule packs</a></li>
-      <li class="toc-lev1"><a href="#column-rule-packs">Column rule packs</a></li>
-      <li class="toc-lev1"><a href="#row-rule-pack">Row rule pack</a></li>
-      <li class="toc-lev1"><a href="#cell-rule-pack">Cell rule pack</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -321,7 +313,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

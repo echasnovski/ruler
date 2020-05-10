@@ -3,8 +3,12 @@
     border-color: #008080;
 }
 
-.nav-stacked a {
+#toc {
   font-size: 150%;
+}
+
+#toc .nav a {
+  font-size: 100%;
 }
 
 pre {
