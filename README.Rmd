@@ -16,9 +16,13 @@ options(tibble.print_min = 6, tibble.print_max = 6)
 
 # ruler: Rule Your Data
 
+<!-- badges: start -->
 [![Travis-CI Build Status](https://travis-ci.org/echasnovski/ruler.svg?branch=master)](https://travis-ci.org/echasnovski/ruler)
 [![Coverage Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://codecov.io/github/echasnovski/ruler?branch=master)
 [![CRAN](https://www.r-pkg.org/badges/version/ruler?color=blue)](https://cran.r-project.org/package=ruler)
+[![Dependencies](https://tinyverse.netlify.com/badge/ruler)](https://CRAN.R-project.org/package=ruler)
+[![Downloads](http://cranlogs.r-pkg.org/badges/ruler)](https://cran.r-project.org/package=ruler)
+<!-- badges: end -->
 
 `ruler` offers a set of tools for creating tidy data validation reports using 
 [dplyr](http://dplyr.tidyverse.org) grammar of data manipulation. It is structured to be flexible and extendable in terms of creating rules and using their output.
