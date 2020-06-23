@@ -15,7 +15,7 @@ should return a data frame with the following properties:
 }
 }
 \details{
-This format is inspired by \link[dplyr:transmute_all]{scoped variants of transmute()}.
+This format is inspired by \link[dplyr:mutate_all]{scoped variants of transmute()}.
 
 The most common way to define cell pack is by creating a \link[magrittr:pipe]{functional sequence} containing one of:
 \itemize{
@@ -34,7 +34,7 @@ current way of dealing with this is to name the input column (see examples).
 
 Using \code{\link[=rules]{rules()}} to create list of functions for scoped \code{dplyr} "mutating"
 verbs (such as \link[dplyr:summarise_all]{summarise_all()} and
-\link[dplyr:transmute_all]{transmute_all()}) is recommended because:
+\link[dplyr:mutate_all]{transmute_all()}) is recommended because:
 \itemize{
 \item It is a convenient way to ensure consistent naming of rules without manual
 name.

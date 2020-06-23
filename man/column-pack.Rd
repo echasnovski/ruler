@@ -36,7 +36,7 @@ of dealing with this is to name the input column (see examples).
 
 Using \code{\link[=rules]{rules()}} to create list of functions for scoped \code{dplyr} "mutating"
 verbs (such as \link[dplyr:summarise_all]{summarise_all()} and
-\link[dplyr:transmute_all]{transmute_all()}) is recommended because:
+\link[dplyr:mutate_all]{transmute_all()}) is recommended because:
 \itemize{
 \item It is a convenient way to ensure consistent naming of rules without manual
 name.

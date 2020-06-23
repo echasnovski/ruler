@@ -14,7 +14,7 @@ values. It should return a data frame with the following properties:
 }
 }
 \details{
-This format is inspired by \code{dplyr}'s \link[dplyr:transmute]{transmute()}.
+This format is inspired by \code{dplyr}'s \link[dplyr:mutate]{transmute()}.
 
 The most common way to define row pack is by creating a \link[magrittr:pipe]{functional sequence} containing \code{transmute(...)}.
 }

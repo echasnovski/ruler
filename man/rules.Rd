@@ -23,7 +23,7 @@ explicit functions.}
 \code{rules()} is a function designed to create input for \code{.funs} argument of
 scoped \code{dplyr} "mutating" verbs (such as
 \link[dplyr:summarise_all]{summarise_all()} and
-\link[dplyr:transmute_all]{transmute_all()}). For version of \code{dplyr} less than
+\link[dplyr:mutate_all]{transmute_all()}). For version of \code{dplyr} less than
 0.8.0 it is a direct wrapper for \link[dplyr:funs]{funs()} which does custom
 name repair (see 'Details'). For newer versions it converts bare expressions
 with \code{.} as input into formulas and repairs names of the output.

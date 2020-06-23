@@ -44,7 +44,7 @@ interpretation of their output.
 }
 \details{
 These functions convert \code{...} to list, apply \code{rlang}'s
-\link[rlang:squash]{squash()} and add appropriate classes (\code{group_packs()} also
+\link[rlang:flatten]{squash()} and add appropriate classes (\code{group_packs()} also
 adds necessary attributes). Also they are only constructors and do not check
 for validity of certain pack. \strong{Note} that it is allowed for elements of
 \code{...} to not have names: they will be computed during exposure. However it is
