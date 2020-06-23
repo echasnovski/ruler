@@ -5,6 +5,8 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/echasnovski/ruler.svg?branch=master)](https://travis-ci.org/echasnovski/ruler)
+[![R build
+status](https://github.com/echasnovski/ruler/workflows/R-CMD-check/badge.svg)](https://github.com/echasnovski/ruler/actions)
 [![Coverage
 Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://codecov.io/github/echasnovski/ruler?branch=master)
 [![CRAN](https://www.r-pkg.org/badges/version/ruler?color=blue)](https://cran.r-project.org/package=ruler)
