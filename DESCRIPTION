@@ -5,7 +5,8 @@ Authors@R:
     person(given = "Evgeni",
            family = "Chasnovski",
            role = c("aut", "cre"),
-           email = "evgeni.chasnovski@gmail.com")
+           email = "evgeni.chasnovski@gmail.com",
+           comment = c(ORCID = "0000-0002-1617-4019"))
 Description: Tools for creating data validation pipelines and
     tidy reports. This package offers a framework for exploring and
     validating data frame like objects using 'dplyr' grammar of data
