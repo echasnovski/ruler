@@ -17,7 +17,8 @@ should return a data frame with the following properties:
 This format is inspired by \code{dplyr}'s \link[dplyr:summarise]{summarise()} applied
 to non-grouped data.
 
-The most common way to define data pack is by creating a \link[magrittr:pipe]{functional sequence} with no grouping and ending with
+The most common way to define data pack is by creating a
+\link[magrittr:pipe]{functional sequence} with no grouping and ending with
 \code{summarise(...)}.
 }
 \examples{

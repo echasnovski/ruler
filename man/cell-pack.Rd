@@ -17,7 +17,8 @@ should return a data frame with the following properties:
 \details{
 This format is inspired by \link[dplyr:mutate_all]{scoped variants of transmute()}.
 
-The most common way to define cell pack is by creating a \link[magrittr:pipe]{functional sequence} containing one of:
+The most common way to define cell pack is by creating a
+\link[magrittr:pipe]{functional sequence} containing one of:
 \itemize{
 \item \code{transmute_all(.funs = rules(...))}.
 \item \code{transmute_if(.predicate, .funs = rules(...))}.

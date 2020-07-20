@@ -19,7 +19,7 @@
 #' It is a good idea that `.actor` should be doing one of two things:
 #' - Making side effects. For example throwing an error (if condition in
 #' `.trigger` is met), printing some information and so on. In this case it
-#' should return `.tbl` to be used properly inside a [pipe][magrittr::pipe].
+#' should return `.tbl` to be used properly inside a \link[magrittr:pipe]{pipe}.
 #' - Changing `.tbl` based on exposure information. In this case it should
 #' return the imputed version of `.tbl`.
 #'
@@ -74,7 +74,7 @@ act_after_exposure <- function(.tbl, .trigger, .actor) {
 #' - In case `.silent` is `FALSE` print rows from exposure
 #' [report][ruler-report] corresponding to rule breakers.
 #' - Make assertion of the chosen `.type` about breaker presence in exposure.
-#' - Return `.tbl` (for using inside a [pipe][magrittr::pipe]).
+#' - Return `.tbl` (for using inside a \link[magrittr:pipe]{pipe}).
 #'
 #' If there are no breakers only `.tbl` is returned.
 #'

@@ -21,7 +21,8 @@ describe group. They should be defined during creation with
 This format is inspired by \code{dplyr}'s \link[dplyr:summarise]{summarise()} applied
 to grouped data.
 
-The most common way to define data pack is by creating a \link[magrittr:pipe]{functional sequence} with grouping and ending with
+The most common way to define data pack is by creating a
+\link[magrittr:pipe]{functional sequence} with grouping and ending with
 \code{summarise(...)}.
 }
 \section{Interpretation}{

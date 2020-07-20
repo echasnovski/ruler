@@ -123,8 +123,8 @@ print.cell_pack <- function(x, ...) {
 #' This format is inspired by `dplyr`'s [summarise()][dplyr::summarise] applied
 #' to non-grouped data.
 #'
-#' The most common way to define data pack is by creating a [functional
-#' sequence][magrittr::pipe] with no grouping and ending with
+#' The most common way to define data pack is by creating a
+#' \link[magrittr:pipe]{functional sequence} with no grouping and ending with
 #' \code{summarise(...)}.
 #'
 #' @examples
@@ -165,8 +165,8 @@ NULL
 #' This format is inspired by `dplyr`'s [summarise()][dplyr::summarise] applied
 #' to grouped data.
 #'
-#' The most common way to define data pack is by creating a [functional
-#' sequence][magrittr::pipe] with grouping and ending with
+#' The most common way to define data pack is by creating a
+#' \link[magrittr:pipe]{functional sequence} with grouping and ending with
 #' \code{summarise(...)}.
 #'
 #' @section Interpretation:
@@ -213,8 +213,9 @@ NULL
 #' [scoped variants of summarise()][dplyr::summarise_all] applied to non-grouped
 #' data.
 #'
-#' The most common way to define column pack is by creating a [functional
-#' sequence][magrittr::pipe] with no grouping and ending with one of:
+#' The most common way to define column pack is by creating a
+#' \link[magrittr:pipe]{functional sequence} with no grouping and ending with
+#' one of:
 #'   - \code{summarise_all(.funs = rules(...))}.
 #'   - \code{summarise_if(.predicate, .funs = rules(...))}.
 #'   - \code{summarise_at(.vars, .funs = rules(...))}.
@@ -284,8 +285,8 @@ NULL
 #'
 #' This format is inspired by `dplyr`'s [transmute()][dplyr::transmute].
 #'
-#' The most common way to define row pack is by creating a [functional
-#' sequence][magrittr::pipe] containing \code{transmute(...)}.
+#' The most common way to define row pack is by creating a
+#' \link[magrittr:pipe]{functional sequence} containing \code{transmute(...)}.
 #'
 #' @section Note about rearranging rows:
 #' __Note__ that during exposure packs are applied to [keyed
@@ -330,8 +331,8 @@ NULL
 #' This format is inspired by [scoped variants of
 #' transmute()][dplyr::transmute_all].
 #'
-#' The most common way to define cell pack is by creating a [functional
-#' sequence][magrittr::pipe] containing one of:
+#' The most common way to define cell pack is by creating a
+#' \link[magrittr:pipe]{functional sequence} containing one of:
 #' - \code{transmute_all(.funs = rules(...))}.
 #' - \code{transmute_if(.predicate, .funs = rules(...))}.
 #' - \code{transmute_at(.vars, .funs = rules(...))}.
