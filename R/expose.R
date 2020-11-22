@@ -63,20 +63,26 @@
 #' my_data_packs <- data_packs(my_data_pack_1 = my_rule_pack)
 #'
 #' # These pipes give identical results
-#' mtcars %>% expose(my_data_packs) %>% get_report()
+#' mtcars %>%
+#'   expose(my_data_packs) %>%
+#'   get_report()
 #'
-#' mtcars %>% expose(my_data_pack_1 = my_rule_pack) %>% get_report()
+#' mtcars %>%
+#'   expose(my_data_pack_1 = my_rule_pack) %>%
+#'   get_report()
 #'
 #' # This throws an error because no pack type is specified for my_rule_pack
 #' \dontrun{
-#'   mtcars %>% expose(my_data_pack_1 = my_rule_pack, .guess = FALSE)
-#'}
+#' mtcars %>% expose(my_data_pack_1 = my_rule_pack, .guess = FALSE)
+#' }
 #'
 #' # Edge cases against using 'guess = TRUE' for robust code
-#' group_rule_pack <- . %>% dplyr::mutate(vs_one = vs == 1) %>%
+#' group_rule_pack <- . %>%
+#'   dplyr::mutate(vs_one = vs == 1) %>%
 #'   dplyr::group_by(vs_one, am) %>%
 #'   dplyr::summarise(n_low = dplyr::n() > 10)
-#' group_rule_pack_dummy <- . %>% dplyr::mutate(vs_one = vs == 1) %>%
+#' group_rule_pack_dummy <- . %>%
+#'   dplyr::mutate(vs_one = vs == 1) %>%
 #'   dplyr::group_by(mpg, vs_one, wt) %>%
 #'   dplyr::summarise(n_low = dplyr::n() > 10)
 #' row_rule_pack <- . %>% dplyr::transmute(neg_row_sum = rowSums(.) < 0)
@@ -84,9 +90,9 @@
 #'
 #' # Only column 'am' is guessed as grouping which defines non-unique levels.
 #' \dontrun{
-#'   mtcars %>%
-#'     expose(group_rule_pack, .remove_obeyers = FALSE, .guess = TRUE) %>%
-#'     get_report()
+#' mtcars %>%
+#'   expose(group_rule_pack, .remove_obeyers = FALSE, .guess = TRUE) %>%
+#'   get_report()
 #' }
 #'
 #' # Values in `var` should contain combination of three grouping columns but
@@ -97,29 +103,40 @@
 #'   get_report()
 #'
 #' # Results should have in column 'id' value 1 and not 0.
-#' mtcars %>% dplyr::slice(1) %>% expose(row_rule_pack) %>% get_report()
+#' mtcars %>%
+#'   dplyr::slice(1) %>%
+#'   expose(row_rule_pack) %>%
+#'   get_report()
 #'
-#' mtcars %>% dplyr::slice(1) %>% expose(cell_rule_pack) %>% get_report()
-#'
+#' mtcars %>%
+#'   dplyr::slice(1) %>%
+#'   expose(cell_rule_pack) %>%
+#'   get_report()
 #' @export
 expose <- function(.tbl, ..., .rule_sep = inside_punct("\\._\\."),
                    .remove_obeyers = TRUE, .guess = TRUE) {
   present_exposure <- get_exposure(.tbl)
 
-  tbl_keyed <- .tbl %>% unkey() %>% use_id()
+  tbl_keyed <- .tbl %>%
+    unkey() %>%
+    use_id()
   packs <- rlang::dots_list(...) %>%
     rlang::squash()
 
   res_exposure <- lapply(
-    packs, expose_single, .tbl = tbl_keyed, .rule_sep = .rule_sep,
+    packs, expose_single,
+    .tbl = tbl_keyed, .rule_sep = .rule_sep,
     .remove_obeyers = .remove_obeyers, .guess = .guess
   ) %>%
     impute_exposure_pack_names(.exposure_ref = present_exposure) %>%
     add_pack_names() %>%
     bind_exposures()
 
-  output_exposure <- bind_exposures(present_exposure, res_exposure,
-                                    .validate_output = TRUE)
+  output_exposure <- bind_exposures(
+    present_exposure,
+    res_exposure,
+    .validate_output = TRUE
+  )
 
   set_exposure(.tbl, output_exposure)
 }
@@ -156,8 +173,10 @@ expose_single.default <- function(.tbl, .pack, .rule_sep,
   if (pack_out_type == "group_pack") {
     # Grouping variables are guessed as being the only non-logical
     pack_group_vars <- colnames(pack_out)[!vapply(pack_out, is.logical, TRUE)]
-    assert_positive_length(pack_group_vars,
-                           "Pack group variables during guessing")
+    assert_positive_length(
+      pack_group_vars,
+      "Pack group variables during guessing"
+    )
 
     pack_group_sep <- "."
 
@@ -186,7 +205,9 @@ expose_single.default <- function(.tbl, .pack, .rule_sep,
 #' @export
 expose_single.data_pack <- function(.tbl, .pack, .rule_sep,
                                     .remove_obeyers, ...) {
-  pack_report <- .tbl %>% .pack() %>% interp_data_pack_out() %>%
+  pack_report <- .tbl %>%
+    .pack() %>%
+    interp_data_pack_out() %>%
     remove_obeyers(.do_remove = .remove_obeyers)
 
   new_single_exposure(.pack = .pack, .remove_obeyers, pack_report)
@@ -205,7 +226,8 @@ expose_single.group_pack <- function(.tbl, .pack, .rule_sep,
   assert_length(pack_group_sep, 1L, "Group separator of group pack")
 
   # Expose single pack
-  pack_report <- .tbl %>% .pack() %>%
+  pack_report <- .tbl %>%
+    .pack() %>%
     interp_group_pack_out(
       .group_vars = pack_group_vars,
       .group_sep = pack_group_sep,
@@ -220,7 +242,8 @@ expose_single.group_pack <- function(.tbl, .pack, .rule_sep,
 #' @export
 expose_single.col_pack <- function(.tbl, .pack, .rule_sep,
                                    .remove_obeyers, ...) {
-  pack_report <- .tbl %>% .pack() %>%
+  pack_report <- .tbl %>%
+    .pack() %>%
     interp_col_pack_out(.rule_sep = .rule_sep) %>%
     remove_obeyers(.do_remove = .remove_obeyers)
 
@@ -230,7 +253,9 @@ expose_single.col_pack <- function(.tbl, .pack, .rule_sep,
 #' @export
 expose_single.row_pack <- function(.tbl, .pack, .rule_sep,
                                    .remove_obeyers, ...) {
-  pack_report <- .tbl %>% .pack() %>% interp_row_pack_out() %>%
+  pack_report <- .tbl %>%
+    .pack() %>%
+    interp_row_pack_out() %>%
     remove_obeyers(.do_remove = .remove_obeyers)
 
   new_single_exposure(.pack = .pack, .remove_obeyers, pack_report)
@@ -239,7 +264,8 @@ expose_single.row_pack <- function(.tbl, .pack, .rule_sep,
 #' @export
 expose_single.cell_pack <- function(.tbl, .pack, .rule_sep,
                                     .remove_obeyers, ...) {
-  pack_report <- .tbl %>% .pack() %>%
+  pack_report <- .tbl %>%
+    .pack() %>%
     interp_cell_pack_out(.rule_sep = .rule_sep) %>%
     remove_obeyers(.do_remove = .remove_obeyers)
 
@@ -254,17 +280,21 @@ interp_data_pack_out <- function(.pack_out) {
 
   .pack_out %>%
     tibble::as_tibble() %>%
-    tidyr::gather(key = "rule", value = "value",
-                  !!! rlang::syms(colnames(.pack_out))) %>%
+    tidyr::gather(
+      key = "rule", value = "value",
+      !!!rlang::syms(colnames(.pack_out))
+    ) %>%
     mutate(var = ".all", id = 0L) %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
 
 interp_group_pack_out <- function(.pack_out, .group_vars, .group_sep,
                                   .col_sep = "@_-_@") {
-  .pack_out %>% tibble::as_tibble() %>% ungroup() %>%
+  .pack_out %>%
+    tibble::as_tibble() %>%
+    ungroup() %>%
     spread_groups(
-      !!! rlang::syms(.group_vars),
+      !!!rlang::syms(.group_vars),
       .group_sep = .group_sep,
       .col_sep = .col_sep
     ) %>%
@@ -281,8 +311,10 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
   rule_sep_regex <- paste0("(^.*?)", .rule_sep, "(.*$)")
   .pack_out %>%
     tibble::as_tibble() %>%
-    tidyr::gather(key = "var_rule", value = "value",
-                  !!! rlang::syms(colnames(.pack_out))) %>%
+    tidyr::gather(
+      key = "var_rule", value = "value",
+      !!!rlang::syms(colnames(.pack_out))
+    ) %>%
     tidyr::extract(
       col = "var_rule", into = c("var", "rule"),
       regex = rule_sep_regex
@@ -298,8 +330,10 @@ interp_row_pack_out <- function(.pack_out) {
     tibble::as_tibble() %>%
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
-    tidyr::gather(key = "rule", value = "value",
-                  !!! rlang::syms(colnames(.pack_out))) %>%
+    tidyr::gather(
+      key = "rule", value = "value",
+      !!!rlang::syms(colnames(.pack_out))
+    ) %>%
     mutate(var = ".all") %>%
     select(.data$rule, .data$var, .data$id, .data$value)
 }
@@ -315,8 +349,10 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
     tibble::as_tibble() %>%
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
-    tidyr::gather(key = "var_rule", value = "value",
-                  !!! rlang::syms(colnames(.pack_out))) %>%
+    tidyr::gather(
+      key = "var_rule", value = "value",
+      !!!rlang::syms(colnames(.pack_out))
+    ) %>%
     tidyr::extract(
       col = "var_rule", into = c("var", "rule"),
       regex = rule_sep_regex

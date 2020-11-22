@@ -39,11 +39,13 @@ return the imputed version of \code{.tbl}.
 }
 }
 \examples{
-exposure_printer <- function(.tbl) {print(get_exposure(.tbl)); .tbl}
+exposure_printer <- function(.tbl) {
+  print(get_exposure(.tbl))
+  .tbl
+}
 mtcars_exposed <- mtcars \%>\%
   expose(data_packs(. \%>\% dplyr::summarise(nrow_low = nrow(.) > 50))) \%>\%
   act_after_exposure(any_breaker, exposure_printer)
-
 }
 \seealso{
 \link{any_breaker} for trigger which returns \code{TRUE} in case any rule

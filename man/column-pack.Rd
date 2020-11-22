@@ -77,7 +77,6 @@ proper_pack <- . \%>\% dplyr::summarise_at(
 mtcars \%>\%
   expose(col_packs(improper_pack, proper_pack)) \%>\%
   get_report()
-
 }
 \seealso{
 \link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=row-pack]{row pack}, \link[=cell-pack]{cell pack}.

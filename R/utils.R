@@ -14,7 +14,6 @@ dplyr::`%>%`
 #' inside_punct()
 #'
 #' inside_punct("abc")
-#'
 #' @export
 inside_punct <- function(.x = "\\._\\.") {
   paste0("[^[:alnum:]]*", .x, "[^[:alnum:]]*")

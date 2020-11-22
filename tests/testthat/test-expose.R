@@ -14,7 +14,8 @@ input_data_pack_report_no_remove <- tibble::tibble(
   value = c(TRUE, FALSE, TRUE, FALSE)
 )
 
-group_pack_ref <- . %>% group_by(vs, am) %>%
+group_pack_ref <- . %>%
+  group_by(vs, am) %>%
   summarise(n_low = dplyr::n() > 10, n_high = dplyr::n() < 15) %>%
   ungroup()
 input_group_pack <- input_packs[["group"]]
@@ -42,9 +43,11 @@ input_cell_pack_report_no_remove <- tibble::tibble(
   rule = rep("rule__1", 160),
   var = rep(c("mpg", "disp", "drat", "wt", "qsec"), each = 32),
   id = rep(1:32, 5),
-  value = c(rep(TRUE, 17), FALSE, TRUE, FALSE, rep(TRUE, 62),
-            FALSE, rep(TRUE, 27), rep(FALSE, 3), rep(TRUE, 23),
-            FALSE, rep(TRUE, 23))
+  value = c(
+    rep(TRUE, 17), FALSE, TRUE, FALSE, rep(TRUE, 62),
+    FALSE, rep(TRUE, 27), rep(FALSE, 3), rep(TRUE, 23),
+    FALSE, rep(TRUE, 23)
+  )
 )
 
 
@@ -72,9 +75,11 @@ expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
   )
 
   expect_identical(
-    expose_single(.tbl = .tbl, .pack = .used_pack,
-                  .rule_sep = .rule_sep,
-                  .remove_obeyers = TRUE, .guess = TRUE),
+    expose_single(
+      .tbl = .tbl, .pack = .used_pack,
+      .rule_sep = .rule_sep,
+      .remove_obeyers = TRUE, .guess = TRUE
+    ),
     output_ref_remove
   )
 
@@ -85,9 +90,11 @@ expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
   )
 
   expect_identical(
-    expose_single(.tbl = .tbl, .pack = .used_pack,
-                  .rule_sep = .rule_sep,
-                  .remove_obeyers = FALSE, .guess = TRUE),
+    expose_single(
+      .tbl = .tbl, .pack = .used_pack,
+      .rule_sep = .rule_sep,
+      .remove_obeyers = FALSE, .guess = TRUE
+    ),
     output_ref_no_remove
   )
 
@@ -134,8 +141,12 @@ expect_expose_guesses <- function(.tbl, .pack) {
 test_that("expose works", {
   # First expose
   expose_res_1 <- input_tbl %>%
-    expose(input_data_pack, list(my_row_pack = input_row_pack),
-           .remove_obeyers = TRUE, .guess = TRUE)
+    expose(
+      input_data_pack,
+      list(my_row_pack = input_row_pack),
+      .remove_obeyers = TRUE,
+      .guess = TRUE
+    )
 
   output_ref_1 <- new_exposure(
     .packs_info = new_packs_info(
@@ -160,8 +171,11 @@ test_that("expose works", {
 
   # Second expose
   expose_res_2 <- expose_res_1 %>%
-    expose(input_data_pack, list(list(input_col_pack)),
-           .remove_obeyers = FALSE)
+    expose(
+      input_data_pack,
+      list(list(input_col_pack)),
+      .remove_obeyers = FALSE
+    )
 
   output_ref_2 <- bind_exposures(
     output_ref_1,
@@ -189,22 +203,24 @@ test_that("expose works", {
 })
 
 test_that("expose removes obeyers", {
-  output_1 <- input_tbl %>% expose(input_data_pack, .remove_obeyers = TRUE) %>%
+  output_1 <- input_tbl %>%
+    expose(input_data_pack, .remove_obeyers = TRUE) %>%
     get_exposure()
   output_ref_1 <- new_exposure(
-    .packs_info = new_packs_info('data_pack__1', list(input_data_pack), TRUE),
+    .packs_info = new_packs_info("data_pack__1", list(input_data_pack), TRUE),
     .report = add_pack_name_to_single_report(
-        .report = input_data_pack_report_with_remove,
-        .pack_name = "data_pack__1"
-      )
+      .report = input_data_pack_report_with_remove,
+      .pack_name = "data_pack__1"
     )
+  )
 
   expect_identical(output_1, output_ref_1)
 
-  output_2 <- input_tbl %>% expose(input_data_pack, .remove_obeyers = FALSE) %>%
+  output_2 <- input_tbl %>%
+    expose(input_data_pack, .remove_obeyers = FALSE) %>%
     get_exposure()
   output_ref_2 <- new_exposure(
-    .packs_info = new_packs_info('data_pack__1', list(input_data_pack), FALSE),
+    .packs_info = new_packs_info("data_pack__1", list(input_data_pack), FALSE),
     .report = add_pack_name_to_single_report(
       .report = input_data_pack_report_no_remove,
       .pack_name = "data_pack__1"
@@ -216,10 +232,12 @@ test_that("expose removes obeyers", {
 
 test_that("expose preserves pack names", {
   output <- input_tbl %>%
-    expose(my_data_pack = input_data_pack,
-           list(my_col_pack = input_col_pack),
-           list(list(my_row_pack = input_row_pack)),
-           .remove_obeyers = TRUE) %>%
+    expose(
+      my_data_pack = input_data_pack,
+      list(my_col_pack = input_col_pack),
+      list(list(my_row_pack = input_row_pack)),
+      .remove_obeyers = TRUE
+    ) %>%
     get_exposure()
   output_ref <- new_exposure(
     .packs_info = new_packs_info(
@@ -248,13 +266,17 @@ test_that("expose preserves pack names", {
 
 test_that("expose accounts for rule separator", {
   output <- input_tbl %>%
-    expose(input_packs[["col_other"]], .rule_sep = inside_punct("_\\._"),
-           .remove_obeyers = TRUE) %>%
+    expose(input_packs[["col_other"]],
+      .rule_sep = inside_punct("_\\._"),
+      .remove_obeyers = TRUE
+    ) %>%
     get_exposure()
   output_ref <- new_exposure(
-    .packs_info = new_packs_info('col_pack__1',
-                                 list(input_packs[["col_other"]]),
-                                 TRUE),
+    .packs_info = new_packs_info(
+      "col_pack__1",
+      list(input_packs[["col_other"]]),
+      TRUE
+    ),
     .report = add_pack_name_to_single_report(
       .report = input_col_pack_report_with_remove,
       .pack_name = "col_pack__1"
@@ -380,20 +402,28 @@ test_that("expose_single.group_pack works", {
   )
 
   bad_pack_1 <- `attr<-`(input_group_pack, "group_vars", 1L)
-  expect_error_expose_single(.tbl = input_tbl_keyed, .pack = bad_pack_1,
-                             .error = "[Gg]roup var.*should.*character")
+  expect_error_expose_single(
+    .tbl = input_tbl_keyed, .pack = bad_pack_1,
+    .error = "[Gg]roup var.*should.*character"
+  )
 
   bad_pack_2 <- `attr<-`(input_group_pack, "group_vars", character(0))
-  expect_error_expose_single(.tbl = input_tbl_keyed, .pack = bad_pack_2,
-                             .error = "[Gg]roup var.*should.*positive.*length")
+  expect_error_expose_single(
+    .tbl = input_tbl_keyed, .pack = bad_pack_2,
+    .error = "[Gg]roup var.*should.*positive.*length"
+  )
 
   bad_pack_3 <- `attr<-`(input_group_pack, "group_sep", 1L)
-  expect_error_expose_single(.tbl = input_tbl_keyed, .pack = bad_pack_3,
-                             .error = "[Gg]roup sep.*should.*character")
+  expect_error_expose_single(
+    .tbl = input_tbl_keyed, .pack = bad_pack_3,
+    .error = "[Gg]roup sep.*should.*character"
+  )
 
   bad_pack_4 <- `attr<-`(input_group_pack, "group_sep", c(".", "+"))
-  expect_error_expose_single(.tbl = input_tbl_keyed, .pack = bad_pack_4,
-                             .error = "[Gg]roup sep.*should.*length.*1")
+  expect_error_expose_single(
+    .tbl = input_tbl_keyed, .pack = bad_pack_4,
+    .error = "[Gg]roup sep.*should.*length.*1"
+  )
 })
 
 
@@ -471,9 +501,11 @@ test_that("expose_single.cell_pack works", {
 
   expect_error_expose_single(
     .tbl = input_tbl_keyed,
-    .pack = cell_packs(. %>%
-                         mutate(row_mean = rowMeans(.)) %>%
-                         transmute_at("qsec", list(~ . > row_mean)))[[1]],
+    .pack = cell_packs(
+      . %>%
+        mutate(row_mean = rowMeans(.)) %>%
+        transmute_at("qsec", list(~ . > row_mean))
+    )[[1]],
     .error = "separator"
   )
 })
@@ -488,8 +520,7 @@ test_that("interp_data_pack_out works", {
     value = c(TRUE, FALSE)
   )
 
-  expect_identical(interp_data_pack_out(input_data_pack_out),
-                   output_ref)
+  expect_identical(interp_data_pack_out(input_data_pack_out), output_ref)
 
   input_bad_1 <- input_data_pack_out
   input_bad_1[[1]][1] <- "a"
@@ -518,8 +549,11 @@ test_that("interp_group_pack_out works", {
   )
 
   expect_identical(
-    interp_group_pack_out(input_group_pack_out, .group_vars = c("vs", "am"),
-                          .group_sep = "."),
+    interp_group_pack_out(
+      input_group_pack_out,
+      .group_vars = c("vs", "am"),
+      .group_sep = "."
+    ),
     output_ref_1
   )
   expect_identical(
@@ -534,14 +568,20 @@ test_that("interp_group_pack_out works", {
   output_ref_2[["var"]] <- gsub("\\.", "__", output_ref_2[["var"]])
 
   expect_identical(
-    interp_group_pack_out(input_group_pack_out, .group_vars = c("vs", "am"),
-                          .group_sep = "__"),
+    interp_group_pack_out(
+      input_group_pack_out,
+      .group_vars = c("vs", "am"),
+      .group_sep = "__"
+    ),
     output_ref_2
   )
 
   expect_error(
-    interp_group_pack_out(input_group_pack_out, .group_vars = "vs",
-                          .group_sep = "."),
+    interp_group_pack_out(
+      input_group_pack_out,
+      .group_vars = "vs",
+      .group_sep = "."
+    ),
     "non-unique"
   )
   expect_error(
@@ -563,30 +603,32 @@ test_that("interp_col_pack_out works", {
   )
 
   expect_identical(
-    interp_col_pack_out(input_col_pack_out,
-                        inside_punct("\\._\\.")),
+    interp_col_pack_out(input_col_pack_out, inside_punct("\\._\\.")),
     output_ref
   )
 
   input_bad_1 <- input_col_pack_out
   input_bad_1[[1]][1] <- "a"
 
-  expect_error(interp_col_pack_out(input_bad_1,
-                                   inside_punct("\\._\\.")),
-               "logical")
+  expect_error(
+    interp_col_pack_out(input_bad_1, inside_punct("\\._\\.")),
+    "logical"
+  )
 
   input_bad_2 <- bind_rows(input_col_pack_out, input_col_pack_out)
 
-  expect_error(interp_col_pack_out(input_bad_2,
-                                   inside_punct("\\._\\.")),
-               "row")
+  expect_error(
+    interp_col_pack_out(input_bad_2, inside_punct("\\._\\.")),
+    "row"
+  )
 
   input_bad_3 <- input_col_pack_out
   names(input_bad_3)[1] <- "vs...rule__1"
 
-  expect_error(interp_col_pack_out(input_bad_3,
-                                   inside_punct("\\._\\.")),
-               "separator")
+  expect_error(
+    interp_col_pack_out(input_bad_3, inside_punct("\\._\\.")),
+    "separator"
+  )
 })
 
 
@@ -617,21 +659,24 @@ test_that("interp_cell_pack_out works", {
     value = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE)
   )
 
-  expect_identical(interp_cell_pack_out(input_cell_pack_out,
-                                        inside_punct("\\._\\.")),
-                   output_ref)
+  expect_identical(
+    interp_cell_pack_out(input_cell_pack_out, inside_punct("\\._\\.")),
+    output_ref
+  )
 
   input_bad_1 <- input_cell_pack_out
   input_bad_1[[1]] <- c("c", "d")
 
-  expect_error(interp_cell_pack_out(input_bad_1,
-                                    inside_punct("\\._\\.")),
-               "logical")
+  expect_error(
+    interp_cell_pack_out(input_bad_1, inside_punct("\\._\\.")),
+    "logical"
+  )
 
   input_bad_2 <- input_cell_pack_out
   names(input_bad_2)[1] <- "vs_...rule__1"
 
-  expect_error(interp_cell_pack_out(input_bad_2,
-                                    inside_punct("\\._\\.")),
-               "separator")
+  expect_error(
+    interp_cell_pack_out(input_bad_2, inside_punct("\\._\\.")),
+    "separator"
+  )
 })

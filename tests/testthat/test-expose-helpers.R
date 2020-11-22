@@ -13,9 +13,13 @@ test_that("guess_pack_type works", {
   names(input_col_pack_out_1) <-
     gsub("\\._\\.", "\\.___\\.", names(input_col_pack_out_1))
 
-  expect_identical(guess_pack_type(input_col_pack_out_1,
-                                   inside_punct("\\.___\\.")),
-                   "col_pack")
+  expect_identical(
+    guess_pack_type(
+      input_col_pack_out_1,
+      inside_punct("\\.___\\.")
+    ),
+    "col_pack"
+  )
 })
 
 
@@ -46,8 +50,10 @@ test_that("impute_exposure_pack_names works with NULL reference exposure", {
 
   expect_identical(
     names(impute_exposure_pack_names(cur_input_single_exposures, NULL)),
-    c("data_pack__1", "cell_pack__1", "col_pack__1", "new_col_proper_sums",
-      "data_pack__2", "row_pack__1", "another_data_pack", "group_pack__1")
+    c(
+      "data_pack__1", "cell_pack__1", "col_pack__1", "new_col_proper_sums",
+      "data_pack__2", "row_pack__1", "another_data_pack", "group_pack__1"
+    )
   )
 })
 
@@ -62,8 +68,10 @@ test_that("impute_exposure_pack_names works with not NULL reference exposure", {
       cur_input_single_exposures,
       input_exposure_ref
     )),
-    c("data_pack__3", "cell_pack__2", "col_pack__3", "new_col_proper_sums",
-      "data_pack__4", "row_pack__2", "another_data_pack", "group_pack__2")
+    c(
+      "data_pack__3", "cell_pack__2", "col_pack__3", "new_col_proper_sums",
+      "data_pack__4", "row_pack__2", "another_data_pack", "group_pack__2"
+    )
   )
 })
 
@@ -79,10 +87,14 @@ test_that("add_pack_names works", {
 
 # bind_exposures ----------------------------------------------------------
 test_that("bind_exposures works", {
-  expect_identical(bind_exposures(list(input_exposure_ref, NULL)),
-                   input_exposure_ref)
-  expect_identical(bind_exposures(list(NULL, NULL)),
-                   NULL)
+  expect_identical(
+    bind_exposures(list(input_exposure_ref, NULL)),
+    input_exposure_ref
+  )
+  expect_identical(
+    bind_exposures(list(NULL, NULL)),
+    NULL
+  )
 
   output_ref <- new_exposure(
     .packs_info = new_packs_info(
@@ -90,15 +102,21 @@ test_that("bind_exposures works", {
       c(input_exposure_ref$packs_info$fun, input_exposure_ref$packs_info$fun),
       rep(input_exposure_ref$packs_info$remove_obeyers, 2)
     ),
-    .report = bind_rows(input_exposure_ref$report,
-                        input_exposure_ref$report) %>%
+    .report = bind_rows(
+      input_exposure_ref$report,
+      input_exposure_ref$report
+    ) %>%
       add_class_cond("ruler_report")
   )
 
-  expect_identical(bind_exposures(list(input_exposure_ref, input_exposure_ref)),
-                   output_ref)
-  expect_identical(bind_exposures(input_exposure_ref, input_exposure_ref),
-                   output_ref)
+  expect_identical(
+    bind_exposures(list(input_exposure_ref, input_exposure_ref)),
+    output_ref
+  )
+  expect_identical(
+    bind_exposures(input_exposure_ref, input_exposure_ref),
+    output_ref
+  )
 })
 
 
@@ -114,8 +132,10 @@ test_that("filter_not_null works", {
 # assert_pack_out_one_row -------------------------------------------------
 test_that("assert_pack_out_one_row works", {
   expect_silent(assert_pack_out_one_row(input_data_pack_out, "data_pack"))
-  expect_error(assert_pack_out_one_row(input_row_pack_out, "row_pack"),
-               "row_pack.*not.*row")
+  expect_error(
+    assert_pack_out_one_row(input_row_pack_out, "row_pack"),
+    "row_pack.*not.*row"
+  )
 })
 
 
@@ -125,8 +145,10 @@ test_that("assert_pack_out_all_logical works", {
 
   input_bad <- tibble::tibble(good = c(TRUE, FALSE), bad = 1:2)
 
-  expect_error(assert_pack_out_all_logical(input_bad, "cell_pack"),
-               "cell_pack.*not.*logical")
+  expect_error(
+    assert_pack_out_all_logical(input_bad, "cell_pack"),
+    "cell_pack.*not.*logical"
+  )
 })
 
 

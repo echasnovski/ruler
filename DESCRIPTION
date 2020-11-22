@@ -1,7 +1,7 @@
 Package: ruler
 Title: Tidy Data Validation Reports
 Version: 0.2.3.9000
-Authors@R: 
+Authors@R:
     person(given = "Evgeni",
            family = "Chasnovski",
            role = c("aut", "cre"),
@@ -15,20 +15,20 @@ License: MIT + file LICENSE
 URL: https://echasnovski.github.io/ruler/,
     https://github.com/echasnovski/ruler
 BugReports: https://github.com/echasnovski/ruler/issues
-Depends: 
+Depends:
     R (>= 3.4.0)
-Imports: 
+Imports:
     dplyr (>= 0.7.0),
     keyholder,
     rlang,
     tibble,
     tidyr (>= 0.7.0)
-Suggests: 
+Suggests:
     covr,
     knitr,
     rmarkdown,
     testthat
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true

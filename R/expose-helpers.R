@@ -52,8 +52,10 @@ impute_exposure_pack_names <- function(.single_exposures, .exposure_ref) {
   if (!identical(.exposure_ref, NULL)) {
     ref_pack_types <- .exposure_ref[["packs_info"]][["type"]]
     ref_pack_types_table <- table(ref_pack_types)
-    common_pack_types <- intersect(unique_pack_types,
-                                   names(ref_pack_types_table))
+    common_pack_types <- intersect(
+      unique_pack_types,
+      names(ref_pack_types_table)
+    )
 
     start_ind_vec[common_pack_types] <-
       ref_pack_types_table[common_pack_types] + 1
@@ -128,34 +130,43 @@ add_pack_names <- function(.single_exposures) {
 #'   data_sum = . %>% dplyr::summarise(sum = sum(.) < 1000)
 #' )
 #'
-#' ref_exposure <- mtcars %>% expose(my_data_packs) %>% get_exposure()
+#' ref_exposure <- mtcars %>%
+#'   expose(my_data_packs) %>%
+#'   get_exposure()
 #'
-#' exposure_1 <- mtcars %>% expose(my_data_packs[1]) %>% get_exposure()
-#' exposure_2 <- mtcars %>% expose(my_data_packs[2]) %>% get_exposure()
+#' exposure_1 <- mtcars %>%
+#'   expose(my_data_packs[1]) %>%
+#'   get_exposure()
+#' exposure_2 <- mtcars %>%
+#'   expose(my_data_packs[2]) %>%
+#'   get_exposure()
 #' exposure_binded <- bind_exposures(exposure_1, exposure_2)
 #'
 #' exposure_pipe <- mtcars %>%
-#'   expose(my_data_packs[1]) %>% expose(my_data_packs[2]) %>%
+#'   expose(my_data_packs[1]) %>%
+#'   expose(my_data_packs[2]) %>%
 #'   get_exposure()
 #'
 #' identical(exposure_binded, ref_exposure)
 #'
 #' identical(exposure_pipe, ref_exposure)
-#'
 #' @export
 bind_exposures <- function(..., .validate_output = TRUE) {
-  exposures <- rlang::dots_list(...) %>% rlang::squash() %>%
+  exposures <- rlang::dots_list(...) %>%
+    rlang::squash() %>%
     filter_not_null()
 
   if (length(exposures) == 0) {
     return(NULL)
   }
 
-  binded_packs_info <- lapply(exposures, `[[`, "packs_info") %>% bind_rows() %>%
+  binded_packs_info <- lapply(exposures, `[[`, "packs_info") %>%
+    bind_rows() %>%
     as_packs_info(.validate = FALSE)
   row.names(binded_packs_info) <- NULL
 
-  binded_report <- lapply(exposures, `[[`, "report") %>% bind_rows() %>%
+  binded_report <- lapply(exposures, `[[`, "report") %>%
+    bind_rows() %>%
     as_report(.validate = FALSE)
   row.names(binded_report) <- NULL
 
@@ -195,7 +206,8 @@ assert_pack_out_all_have_separator <-
     if (all(has_sep)) {
       return(TRUE)
     } else {
-      stop(paste0("In some ", .pack_type, " not all columns contain rule ",
-                  "separator"))
+      stop(paste0(
+        "In some ", .pack_type, " not all columns contain rule separator"
+      ))
     }
   }

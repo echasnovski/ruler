@@ -3,11 +3,16 @@ context("actions")
 
 # Input data --------------------------------------------------------------
 mtcars_exposed <- mtcars %>% set_exposure(input_exposure_ref)
-rule_breakers <- input_exposure_ref %>% get_report() %>%
+rule_breakers <- input_exposure_ref %>%
+  get_report() %>%
   filter(!(value %in% TRUE))
 
-trigger_nrow_30 <- function(.tbl) {nrow(get_report(.tbl)) > 40}
-trigger_nrow_10 <- function(.tbl) {nrow(get_report(.tbl)) > 10}
+trigger_nrow_30 <- function(.tbl) {
+  nrow(get_report(.tbl)) > 40
+}
+trigger_nrow_10 <- function(.tbl) {
+  nrow(get_report(.tbl)) > 10
+}
 actor_print <- function(.tbl) {
   print(get_exposure(.tbl))
 
@@ -18,9 +23,11 @@ assert_text <- "assert_any_breaker: Some breakers found in exposure."
 
 exposure_no_breakers <- input_exposure_ref
 exposure_no_breakers$packs_info <- exposure_no_breakers$packs_info %>%
-  slice(1) %>% as_packs_info()
+  slice(1) %>%
+  as_packs_info()
 exposure_no_breakers$report <- exposure_no_breakers$report %>%
-  slice(c(1, 2, 5)) %>% as_report()
+  slice(c(1, 2, 5)) %>%
+  as_report()
 
 mtcars_exposed_no_breakers <- set_exposure(mtcars, exposure_no_breakers)
 
@@ -46,26 +53,34 @@ expect_asserts <- function(input, type, silent = FALSE, result = input,
 
 # act_after_exposure ------------------------------------------------------
 test_that("act_after_exposure works", {
-  expect_error(act_after_exposure(mtcars, trigger_nrow_30, actor_print),
-               "act_after_exposure:.*not.*have")
+  expect_error(
+    act_after_exposure(mtcars, trigger_nrow_30, actor_print),
+    "act_after_exposure:.*not.*have"
+  )
 
   input_bad <- mtcars
   attr(input_bad, "exposure") <- "a"
 
-  expect_error(act_after_exposure(input_bad, trigger_nrow_30, actor_print),
-               "act_after_exposure:.*not.*proper.*exposure")
+  expect_error(
+    act_after_exposure(input_bad, trigger_nrow_30, actor_print),
+    "act_after_exposure:.*not.*proper.*exposure"
+  )
 
   expect_silent(
-    output_1 <- act_after_exposure(mtcars_exposed, trigger_nrow_30,
-                                   actor_print)
+    output_1 <- act_after_exposure(
+      mtcars_exposed, trigger_nrow_30,
+      actor_print
+    )
   )
   expect_identical(output_1, mtcars_exposed)
 
   output_ref <- capture_output(print(input_exposure_ref))
 
   expect_output(
-    output_2 <- act_after_exposure(mtcars_exposed, trigger_nrow_10,
-                                   actor_print),
+    output_2 <- act_after_exposure(
+      mtcars_exposed, trigger_nrow_10,
+      actor_print
+    ),
     output_ref,
     fixed = TRUE
   )
@@ -92,48 +107,82 @@ test_that("assert_any_breaker works", {
   )
 
   # Warning and message assertions
-  expect_asserts(mtcars_exposed, "warning",
-                 output_report = output_ref,
-                 warnings = assert_text)
-  expect_asserts(mtcars_exposed, "message",
-                 output_report = output_ref,
-                 messages = paste0(assert_text, "\n"))
+  expect_asserts(
+    mtcars_exposed,
+    "warning",
+    output_report = output_ref,
+    warnings = assert_text
+  )
+  expect_asserts(
+    mtcars_exposed,
+    "message",
+    output_report = output_ref,
+    messages = paste0(assert_text, "\n")
+  )
 
   # Absence of printing
-  expect_asserts(mtcars_exposed, "warning", silent = TRUE,
-                 output_name = "",
-                 output_report = "",
-                 warnings = assert_text)
-  expect_asserts(mtcars_exposed, "message", silent = TRUE,
-                 output_name = "",
-                 output_report = "",
-                 messages = paste0(assert_text, "\n"))
+  expect_asserts(
+    mtcars_exposed,
+    "warning",
+    silent = TRUE,
+    output_name = "",
+    output_report = "",
+    warnings = assert_text
+  )
+  expect_asserts(
+    mtcars_exposed,
+    "message",
+    silent = TRUE,
+    output_name = "",
+    output_report = "",
+    messages = paste0(assert_text, "\n")
+  )
 
   # Absence of assertions
-  expect_asserts(mtcars_exposed_no_breakers, "error",
-                 output_name = "", output_report = "")
-  expect_asserts(mtcars_exposed_no_breakers, "warning",
-                 output_name = "", output_report = "")
-  expect_asserts(mtcars_exposed_no_breakers, "message",
-                 output_name = "", output_report = "")
+  expect_asserts(
+    mtcars_exposed_no_breakers,
+    "error",
+    output_name = "",
+    output_report = ""
+  )
+  expect_asserts(
+    mtcars_exposed_no_breakers,
+    "warning",
+    output_name = "",
+    output_report = ""
+  )
+  expect_asserts(
+    mtcars_exposed_no_breakers,
+    "message",
+    output_name = "",
+    output_report = ""
+  )
 })
 
 test_that("assert_any_breaker accounts for printing options", {
   output_ref <- capture_output(print(rule_breakers, n = 3))
 
   expect_error(
-    expect_output(assert_any_breaker(mtcars_exposed, "error", n = 3),
-                  output_ref),
+    expect_output(
+      assert_any_breaker(mtcars_exposed, "error", n = 3),
+      output_ref
+    ),
     assert_text
   )
-  expect_asserts(mtcars_exposed, "warning",
-                 output_report = output_ref,
-                 warnings = assert_text,
-                 n = 3)
-  expect_asserts(mtcars_exposed, "message",
-                 output_report = output_ref,
-                 messages = paste0(assert_text, "\n"),
-                 n = 3)
+  expect_asserts(
+    mtcars_exposed,
+    "warning",
+    output_report = output_ref,
+    warnings = assert_text,
+    n = 3
+  )
+  expect_asserts(
+    mtcars_exposed,
+    "message",
+    output_report = output_ref,
+    messages = paste0(assert_text, "\n"),
+    n = 3
+  )
 })
 
 

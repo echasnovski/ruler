@@ -17,5 +17,4 @@ characters' + 'some characters' + 'non alpha-numeric characters'.
 inside_punct()
 
 inside_punct("abc")
-
 }

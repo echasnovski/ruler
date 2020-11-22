@@ -73,7 +73,6 @@ proper_pack <- . \%>\% dplyr::transmute_at(
 mtcars[1:2, ] \%>\%
   expose(cell_packs(improper_pack, proper_pack)) \%>\%
   get_report()
-
 }
 \seealso{
 \link[=data-pack]{Data pack}, \link[=group-pack]{group pack}, \link[=column-pack]{column pack}, \link[=row-pack]{row pack}.

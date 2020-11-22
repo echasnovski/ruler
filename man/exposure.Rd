@@ -47,5 +47,4 @@ is_exposure(mtcars_exposure)
 identical(remove_exposure(mtcars_exposed), mtcars)
 
 identical(get_exposure(mtcars_exposure), mtcars_exposure)
-
 }

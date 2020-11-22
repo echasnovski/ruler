@@ -1,21 +1,21 @@
 # Results of some packs ---------------------------------------------------
-input_data_pack_out <- tibble::tibble('rule__1' = TRUE, 'nrow' = FALSE)
+input_data_pack_out <- tibble::tibble("rule__1" = TRUE, "nrow" = FALSE)
 input_group_pack_out <- tibble::tibble(
-  'vs' = c(0, 0, 1, 1), 'am' = c(0, 1, 0, 1),
-  'n_low' = c(TRUE, FALSE, FALSE, FALSE),
-  'n_high' = c(TRUE, TRUE, TRUE, TRUE)
+  "vs" = c(0, 0, 1, 1), "am" = c(0, 1, 0, 1),
+  "n_low" = c(TRUE, FALSE, FALSE, FALSE),
+  "n_high" = c(TRUE, TRUE, TRUE, TRUE)
 )
 input_col_pack_out <- tibble::tibble(
-  'vs_._.rule__1' = TRUE, 'am_._.rule__1' = FALSE,
-  'cyl_._.not_outlier' = TRUE, 'vs_._.not_outlier' = TRUE
+  "vs_._.rule__1" = TRUE, "am_._.rule__1" = FALSE,
+  "cyl_._.not_outlier" = TRUE, "vs_._.not_outlier" = TRUE
 )
 input_row_pack_out <- tibble::tibble(
-  'row_rule__1' = rep(TRUE, 2),
-  '._.rule__2' = c(TRUE, FALSE)
+  "row_rule__1" = rep(TRUE, 2),
+  "._.rule__2" = c(TRUE, FALSE)
 ) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 3)))
 input_cell_pack_out <- tibble::tibble(
-  'vs_._.rule__1' = rep(TRUE, 2), 'am_._.rule__1' = rep(FALSE, 2),
-  'cyl_._.not_outlier' = c(TRUE, FALSE), 'vs_._.not_outlier' = c(TRUE, FALSE)
+  "vs_._.rule__1" = rep(TRUE, 2), "am_._.rule__1" = rep(FALSE, 2),
+  "cyl_._.not_outlier" = c(TRUE, FALSE), "vs_._.not_outlier" = c(TRUE, FALSE)
 ) %>% keyholder::assign_keys(tibble::tibble(.id = c(1, 4)))
 
 
@@ -34,8 +34,10 @@ input_packs <- list(
     .group_vars = c("vs", "am"), .group_sep = "."
   )[[1]],
   col = col_packs(
-    . %>% dplyr::summarise_if(rlang::is_integerish,
-                              rules(tot_sum = sum(.) > 100))
+    . %>% dplyr::summarise_if(
+      rlang::is_integerish,
+      rules(tot_sum = sum(.) > 100)
+    )
   )[[1]],
   row = row_packs(
     . %>% dplyr::transmute(row_sum = rowSums(.)) %>%
@@ -53,20 +55,25 @@ input_packs <- list(
   col_other = col_packs(
     . %>% dplyr::summarise_if(
       rlang::is_integerish,
-      rules(tot_sum = sum(.) > 100,
-            .prefix = "_._")
+      rules(
+        tot_sum = sum(.) > 100,
+        .prefix = "_._"
+      )
     )
   )[[1]],
   cell_other = cell_packs(
     . %>% dplyr::transmute_if(
       Negate(rlang::is_integerish),
       rules(abs(. - mean(.)) / sd(.) < 2,
-            .prefix = "_._")
+        .prefix = "_._"
+      )
     )
   )[[1]]
 )
-input_remove_obeyers <- c(data = TRUE, group = FALSE, col = FALSE,
-                          row = TRUE, cell = TRUE)
+input_remove_obeyers <- c(
+  data = TRUE, group = FALSE, col = FALSE,
+  row = TRUE, cell = TRUE
+)
 input_reports <- list(
   data = tibble::tibble(
     rule = c("nrow_high", "ncol_high"),
@@ -108,11 +115,15 @@ add_pack_name_to_single_report <- function(.report, .pack_name) {
   res[, c("pack", colnames(.report))] %>% add_class("ruler_report")
 }
 
-single_exposure_inds <- c("data", "cell", "col", "col", "data", "row", "data",
-                          "group")
-exposure_names <- c("data_dims", "cell_not_outlier", "col_proper_sums",
-                    "new_col_proper_sums", "new_data_pack", "row_not_outlier",
-                    "another_data_pack", "first_group_pack")
+single_exposure_inds <- c(
+  "data", "cell", "col", "col", "data", "row", "data",
+  "group"
+)
+exposure_names <- c(
+  "data_dims", "cell_not_outlier", "col_proper_sums",
+  "new_col_proper_sums", "new_data_pack", "row_not_outlier",
+  "another_data_pack", "first_group_pack"
+)
 
 input_single_exposures <- mapply(
   new_single_exposure,
@@ -134,21 +145,25 @@ input_exposures <- mapply(
     # `unname()` is needed to ensure that input vectors have no names
     lapply(unname(input_packs[single_exposure_inds]), list),
     unname(input_remove_obeyers[single_exposure_inds]),
-    SIMPLIFY = FALSE),
+    SIMPLIFY = FALSE
+  ),
   mapply(
     add_pack_name_to_single_report,
     # `unname()` is needed to ensure that input vectors have no names
     unname(input_reports[single_exposure_inds]),
     exposure_names,
-    SIMPLIFY = FALSE),
+    SIMPLIFY = FALSE
+  ),
   SIMPLIFY = FALSE
 ) %>%
   setNames(exposure_names)
 
 exposure_ref_inds <- c("col", "col", "cell", "data", "data", "row", "group")
-exposure_ref_pack_names <- c("col_pack_n1", "col_pack_n2", "cell_pack_n1",
-                             "data_pack_n1", "data_pack_n2", "row_pack_n1",
-                             "group_pack_n1")
+exposure_ref_pack_names <- c(
+  "col_pack_n1", "col_pack_n2", "cell_pack_n1",
+  "data_pack_n1", "data_pack_n2", "row_pack_n1",
+  "group_pack_n1"
+)
 input_exposure_ref <- new_exposure(
   new_packs_info(
     exposure_ref_pack_names,

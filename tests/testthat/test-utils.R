@@ -7,17 +7,21 @@ df <- mtcars
 
 # inside_punct ------------------------------------------------------------
 test_that("inside_punct works", {
-  input1 <- c("._.", "._.a", "a._.", "a._.a",
-              "a_._.a", "a._._a", "a_._._a",
-              "a__._._a", "a_._.__a", "a__._.__a",
-              "._.*_.", "._.._.",
-              "__.a", ".__a", "...", "a_a")
+  input1 <- c(
+    "._.", "._.a", "a._.", "a._.a",
+    "a_._.a", "a._._a", "a_._._a",
+    "a__._._a", "a_._.__a", "a__._.__a",
+    "._.*_.", "._.._.",
+    "__.a", ".__a", "...", "a_a"
+  )
 
   expect_identical(grep(inside_punct(), input1), 1:12)
 
-  input2 <- c("a", "_a", "a_", "_a_",
-              "__a", "a__", "__a__",
-              "_")
+  input2 <- c(
+    "a", "_a", "a_", "_a_",
+    "__a", "a__", "__a__",
+    "_"
+  )
 
   expect_identical(grep(inside_punct("a"), input2), 1:7)
 })
@@ -54,8 +58,10 @@ test_that("negate_select_cols works", {
 
 # assert_positive_length --------------------------------------------------
 test_that("assert_positive_length works", {
-  expect_error(assert_positive_length(list(), "Some name"),
-               "^Some name.*positive.*length")
+  expect_error(
+    assert_positive_length(list(), "Some name"),
+    "^Some name.*positive.*length"
+  )
 
   expect_identical(assert_positive_length(1:2, "Some name"), 1:2)
   expect_identical(assert_positive_length(list(1:2), "Some name"), list(1:2))
@@ -64,10 +70,14 @@ test_that("assert_positive_length works", {
 
 # assert_length -----------------------------------------------------------
 test_that("assert_length works", {
-  expect_error(assert_length(c("a", "b"), 1, "New name"),
-               "^New name.*length.*1")
-  expect_error(assert_length(1, 2, "New name"),
-               "^New name.*length.*2")
+  expect_error(
+    assert_length(c("a", "b"), 1, "New name"),
+    "^New name.*length.*1"
+  )
+  expect_error(
+    assert_length(1, 2, "New name"),
+    "^New name.*length.*2"
+  )
 
   expect_identical(assert_length(list("c"), 1, "New name"), list("c"))
 })
@@ -75,10 +85,14 @@ test_that("assert_length works", {
 
 # assert_character --------------------------------------------------------
 test_that("assert_character works", {
-  expect_error(assert_character(1L, "Tmp name"),
-               "Tmp name.*character")
-  expect_error(assert_character(list("a"), "Tmp name"),
-               "Tmp name.*character")
+  expect_error(
+    assert_character(1L, "Tmp name"),
+    "Tmp name.*character"
+  )
+  expect_error(
+    assert_character(list("a"), "Tmp name"),
+    "Tmp name.*character"
+  )
 
   expect_identical(assert_positive_length(c("a", "A"), "Tmp name"), c("a", "A"))
 })
@@ -110,12 +124,15 @@ test_that("remove_class_cond works", {
 test_that("compute_def_names works", {
   expect_identical(compute_def_names(0), character(0))
   expect_identical(compute_def_names(10), paste0("__", seq_len(10)))
-  expect_identical(compute_def_names(10, "base"),
-                   paste0("base__", seq_len(10)))
-  expect_identical(compute_def_names(10, .start_ind = 4),
-                   paste0("__", seq_len(10) + 3))
-  expect_identical(compute_def_names(10, "base", 4),
-                   paste0("base__", seq_len(10) + 3))
+  expect_identical(compute_def_names(10, "base"), paste0("base__", seq_len(10)))
+  expect_identical(
+    compute_def_names(10, .start_ind = 4),
+    paste0("__", seq_len(10) + 3)
+  )
+  expect_identical(
+    compute_def_names(10, "base", 4),
+    paste0("base__", seq_len(10) + 3)
+  )
 })
 
 

@@ -34,9 +34,9 @@ If there are no breakers only \code{.tbl} is returned.
 }
 \examples{
 \dontrun{
-  mtcars \%>\%
-    expose(data_packs(. \%>\% dplyr::summarise(nrow_low = nrow(.) > 50))) \%>\%
-    assert_any_breaker()
+mtcars \%>\%
+  expose(data_packs(. \%>\% dplyr::summarise(nrow_low = nrow(.) > 50))) \%>\%
+  assert_any_breaker()
 }
 }
 \seealso{

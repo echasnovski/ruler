@@ -46,20 +46,22 @@ than it is a "good" choice.
 \examples{
 if (utils::packageVersion("dplyr") < "0.8.0") {
   rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
-  rules_1_ref <- dplyr::funs('._.rule__1' = mean, '._.rule__2' = sd,
-                             .args = list(na.rm = TRUE))
+  rules_1_ref <- dplyr::funs(
+    "._.rule__1" = mean, "._.rule__2" = sd,
+    .args = list(na.rm = TRUE)
+  )
   identical(rules_1, rules_1_ref)
 
   rules_2 <- rules(mean, sd = sd, "var")
   rules_2_ref <- dplyr::funs(
-    '._.rule__1' = mean,
-    '._.sd' = sd,
-    '._.rule__3' = "var"
+    "._.rule__1" = mean,
+    "._.sd" = sd,
+    "._.rule__3" = "var"
   )
   identical(rules_2, rules_2_ref)
 
   rules_3 <- rules(mean, .prefix = "a_a_")
-  rules_3_ref <- dplyr::funs('a_a_rule__1' = mean)
+  rules_3_ref <- dplyr::funs("a_a_rule__1" = mean)
   identical(rules_3, rules_3_ref)
 }
 
@@ -73,5 +75,4 @@ if (utils::packageVersion("dplyr") >= "0.8.0") {
   # Use `...` in `summarise_all()` to supply extra arguments
   dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
 }
-
 }

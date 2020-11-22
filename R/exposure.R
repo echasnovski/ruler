@@ -31,7 +31,6 @@
 #' identical(remove_exposure(mtcars_exposed), mtcars)
 #'
 #' identical(get_exposure(mtcars_exposure), mtcars_exposure)
-#'
 #' @name exposure
 NULL
 
@@ -101,8 +100,10 @@ NULL
 #'     )
 #' )
 #' my_data_packs <- data_packs(
-#'   data_dims = . %>% dplyr::summarise(nrow = nrow(.) == 32,
-#'                                      ncol = ncol(.) == 5)
+#'   data_dims = . %>% dplyr::summarise(
+#'     nrow = nrow(.) == 32,
+#'     ncol = ncol(.) == 5
+#'   )
 #' )
 #'
 #' mtcars_exposed <- mtcars %>%
@@ -111,8 +112,9 @@ NULL
 #'
 #' mtcars_exposed %>% get_packs_info()
 #'
-#' mtcars_exposed %>% get_packs_info() %>% is_packs_info()
-#'
+#' mtcars_exposed %>%
+#'   get_packs_info() %>%
+#'   is_packs_info()
 #' @name packs_info
 NULL
 
@@ -160,8 +162,10 @@ NULL
 #'     )
 #' )
 #' my_data_packs <- data_packs(
-#'   data_dims = . %>% dplyr::summarise(nrow = nrow(.) == 32,
-#'                                      ncol = ncol(.) == 5)
+#'   data_dims = . %>% dplyr::summarise(
+#'     nrow = nrow(.) == 32,
+#'     ncol = ncol(.) == 5
+#'   )
 #' )
 #'
 #' mtcars_exposed <- mtcars %>%
@@ -170,16 +174,18 @@ NULL
 #'
 #' mtcars_exposed %>% get_report()
 #'
-#' mtcars_exposed %>% get_report() %>% is_report()
-#'
+#' mtcars_exposed %>%
+#'   get_report() %>%
+#'   is_report()
 #' @name ruler-report
 NULL
 
 
 # Constructors and converters ---------------------------------------------
 new_exposure <- function(.packs_info, .report, .validate = TRUE) {
-  if (.validate && !(is_packs_info(.packs_info, .skip_class = FALSE) &&
-                     is_report(.report, .skip_class = FALSE))) {
+  if (.validate &&
+    !(is_packs_info(.packs_info, .skip_class = FALSE) &&
+      is_report(.report, .skip_class = FALSE))) {
     stop("Invalid input for `new_exposure`.")
   } else {
     structure(
@@ -191,8 +197,10 @@ new_exposure <- function(.packs_info, .report, .validate = TRUE) {
 
 new_single_exposure <- function(.pack, .remove_obeyers, .report) {
   structure(
-    list(pack_info = new_pack_info(.pack, .remove_obeyers),
-         report = .report),
+    list(
+      pack_info = new_pack_info(.pack, .remove_obeyers),
+      report = .report
+    ),
     class = "single_exposure"
   )
 }
@@ -201,19 +209,29 @@ new_single_exposure <- function(.pack, .remove_obeyers, .report) {
 new_pack_info <- function(.pack, .remove_obeyers) {
   pack_type <- class(.pack)[1]
 
-  tibble::tibble(type = pack_type,
-         fun = list(.pack),
-         remove_obeyers = .remove_obeyers) %>%
+  tibble::tibble(
+    type = pack_type,
+    fun = list(.pack),
+    remove_obeyers = .remove_obeyers
+  ) %>%
     add_class("pack_info")
 }
 
 new_packs_info <- function(.names, .packs, .remove_obeyers) {
-  packs_type <- vapply(.packs, function(x) {class(x)[1]}, "chr")
+  packs_type <- vapply(
+    .packs,
+    function(x) {
+      class(x)[1]
+    },
+    "chr"
+  )
 
-  tibble::tibble(name = .names,
-         type = packs_type,
-         fun = .packs,
-         remove_obeyers = .remove_obeyers) %>%
+  tibble::tibble(
+    name = .names,
+    type = packs_type,
+    fun = .packs,
+    remove_obeyers = .remove_obeyers
+  ) %>%
     add_class("packs_info")
 }
 
@@ -221,7 +239,9 @@ as_packs_info <- function(.x, .validate = TRUE) {
   if (.validate && !(is_packs_info(.x, .skip_class = TRUE))) {
     stop("as_packs_info: Invalid input.")
   } else {
-    .x %>% remove_class_cond("pack_info") %>% add_class_cond("packs_info")
+    .x %>%
+      remove_class_cond("pack_info") %>%
+      add_class_cond("packs_info")
   }
 }
 
@@ -323,12 +343,23 @@ print.exposure <- function(x, ..., .validate_packs_info = TRUE,
                            n_report = NULL, width_report = NULL,
                            n_extra_report = NULL) {
   cat("  Exposure\n\n")
-  print(x[["packs_info"]], ..., .validate = .validate_packs_info,
-        n = n_packs_info, width = width_packs_info,
-        n_extra = n_extra_packs_info)
+  print(
+    x[["packs_info"]],
+    ...,
+    .validate = .validate_packs_info,
+    n = n_packs_info,
+    width = width_packs_info,
+    n_extra = n_extra_packs_info
+  )
   cat("\n")
-  print(x[["report"]], ..., .validate = .validate_report, n = n_report,
-        width = width_report, n_extra = n_extra_report)
+  print(
+    x[["report"]],
+    ...,
+    .validate = .validate_report,
+    n = n_report,
+    width = width_report,
+    n_extra = n_extra_report
+  )
 
   invisible(x)
 }

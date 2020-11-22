@@ -2,8 +2,9 @@ context("exposure")
 
 
 # Input data --------------------------------------------------------------
-input_pack <- data_packs(. %>% summarise(nrow_low = nrow(.) > 10,
-                                         nrow_high = nrow(.) < 20))[[1]]
+input_pack <- data_packs(
+  . %>% summarise(nrow_low = nrow(.) > 10, nrow_high = nrow(.) < 20)
+)[[1]]
 input_remove_obeyers <- FALSE
 input_packs_info <- tibble::tibble(
   name = "data_pack__1",
@@ -20,12 +21,12 @@ input_single_report <- tibble::tibble(
 )
 input_report <- input_single_report
 input_report[["pack"]] <- rep("data_pack__1", 2)
-input_report <- input_report %>% select(pack, everything()) %>%
+input_report <- input_report %>%
+  select(pack, everything()) %>%
   add_class("ruler_report")
 
 input_exposure <- structure(
-  list(packs_info = input_packs_info,
-       report = input_report),
+  list(packs_info = input_packs_info, report = input_report),
   class = "exposure"
 )
 
@@ -34,9 +35,14 @@ tibble_class <- class(tibble::tibble())
 print_packs_info_not_validate_output <- "Packs info.*[Tt]ibble"
 print_report_not_validate_output <- "Tidy data validation report.*[Tt]ibble"
 print_exposure_not_validate_output <-
-  paste0(c("Exposure", print_packs_info_not_validate_output,
-           print_report_not_validate_output),
-         collapse = ".*")
+  paste0(
+    c(
+      "Exposure",
+      print_packs_info_not_validate_output,
+      print_report_not_validate_output
+    ),
+    collapse = ".*"
+  )
 
 
 # Custom expectations -----------------------------------------------------
@@ -80,8 +86,10 @@ test_that("new_single_exposure works", {
     .report = input_single_report
   )
   output_ref <- structure(
-    list(pack_info = new_pack_info(input_pack, input_remove_obeyers),
-         report = input_single_report),
+    list(
+      pack_info = new_pack_info(input_pack, input_remove_obeyers),
+      report = input_single_report
+    ),
     class = "single_exposure"
   )
 
@@ -91,8 +99,10 @@ test_that("new_single_exposure works", {
 
 # new_pack_info -----------------------------------------------------------
 test_that("new_pack_info works", {
-  output <- new_pack_info(.pack = input_pack,
-                          .remove_obeyers = input_remove_obeyers)
+  output <- new_pack_info(
+    .pack = input_pack,
+    .remove_obeyers = input_remove_obeyers
+  )
   output_ref <- input_packs_info[, c("type", "fun", "remove_obeyers")] %>%
     tibble::as_tibble() %>%
     add_class("pack_info")
@@ -103,9 +113,11 @@ test_that("new_pack_info works", {
 
 # new_packs_info -----------------------------------------------------------
 test_that("new_packs_info works", {
-  output <- new_packs_info(.names = "data_pack__1",
-                           .packs = list(input_pack),
-                           .remove_obeyers = input_remove_obeyers)
+  output <- new_packs_info(
+    .names = "data_pack__1",
+    .packs = list(input_pack),
+    .remove_obeyers = input_remove_obeyers
+  )
 
   expect_true(identical(output, input_packs_info))
 })
@@ -255,14 +267,11 @@ test_that("is_report works", {
 
 # is_obeyer ---------------------------------------------------------------
 test_that("is_obeyer works", {
-  expect_identical(is_obeyer(c(TRUE, FALSE, NA)),
-                             c(TRUE, FALSE, FALSE))
+  expect_identical(is_obeyer(c(TRUE, FALSE, NA)), c(TRUE, FALSE, FALSE))
 
-  expect_identical(is_obeyer(c("TRUE", "FALSE", "a")),
-                             c(FALSE, FALSE, FALSE))
+  expect_identical(is_obeyer(c("TRUE", "FALSE", "a")), c(FALSE, FALSE, FALSE))
 
-  expect_identical(is_obeyer(c(1L, 0L)),
-                   c(FALSE, FALSE))
+  expect_identical(is_obeyer(c(1L, 0L)), c(FALSE, FALSE))
 })
 
 
@@ -317,8 +326,10 @@ test_that("get_report works", {
 
 # print.exposure ----------------------------------------------------------
 test_that("print.exposure works", {
-  expect_output(output <- print(input_exposure),
-                print_exposure_not_validate_output)
+  expect_output(
+    output <- print(input_exposure),
+    print_exposure_not_validate_output
+  )
   expect_identical(output, input_exposure)
 })
 
@@ -328,24 +339,45 @@ test_that("print.exposure validates input", {
 
   expect_print_validates(
     input_1, ".validate_packs_info",
-    paste0(c("Exposure", "not proper", "packs_info",
-             "Tidy data validation report", "[Tt]ibble"),
-           collapse = ".*"),
-    print_exposure_not_validate_output)
+    paste0(
+      c(
+        "Exposure",
+        "not proper",
+        "packs_info",
+        "Tidy data validation report",
+        "[Tt]ibble"
+      ),
+      collapse = ".*"
+    ),
+    print_exposure_not_validate_output
+  )
 
   input_2 <- input_exposure
   input_2[["report"]][["pack"]] <- rep(1, nrow(input_2[["report"]]))
 
   expect_print_validates(
     input_2, ".validate_report",
-    paste0(c("Exposure", "Packs info", "[Tt]ibble",
-             "not proper", "ruler_report"),
-           collapse = ".*"),
-    print_exposure_not_validate_output)
+    paste0(
+      c(
+        "Exposure",
+        "Packs info",
+        "[Tt]ibble",
+        "not proper",
+        "ruler_report"
+      ),
+      collapse = ".*"
+    ),
+    print_exposure_not_validate_output
+  )
 })
 
 test_that("print.exposure passes tibble options", {
-  input_print_exposure <- lapply(1:30, function(i) {input_exposure}) %>%
+  input_print_exposure <- lapply(
+    1:30,
+    function(i) {
+      input_exposure
+    }
+  ) %>%
     bind_exposures(.validate_output = TRUE)
 
   input_print_pack_info_tbl <- input_print_exposure$packs_info
@@ -430,8 +462,14 @@ test_that("print.packs_info validates input", {
 })
 
 test_that("print.packs_info handles extra arguments", {
-  input_print_packs_info <- lapply(1:20, function(i) {input_packs_info}) %>%
-    bind_rows() %>% as_packs_info()
+  input_print_packs_info <- lapply(
+    1:20,
+    function(i) {
+      input_packs_info
+    }
+  ) %>%
+    bind_rows() %>%
+    as_packs_info()
 
   input_print_packs_info_tbl <- input_print_packs_info
   class(input_print_packs_info_tbl) <- class(tibble::tibble())
@@ -464,8 +502,14 @@ test_that("print.ruler_report validates input", {
 })
 
 test_that("print.ruler_report handles extra arguments", {
-  input_print_ruler_report <- lapply(1:10, function(i) {input_report}) %>%
-    bind_rows() %>% as_report()
+  input_print_ruler_report <- lapply(
+    1:10,
+    function(i) {
+      input_report
+    }
+  ) %>%
+    bind_rows() %>%
+    as_report()
 
   input_print_ruler_report_tbl <- input_print_ruler_report
   class(input_print_ruler_report_tbl) <- class(tibble::tibble())

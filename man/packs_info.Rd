@@ -50,8 +50,10 @@ my_row_packs <- row_packs(
     )
 )
 my_data_packs <- data_packs(
-  data_dims = . \%>\% dplyr::summarise(nrow = nrow(.) == 32,
-                                     ncol = ncol(.) == 5)
+  data_dims = . \%>\% dplyr::summarise(
+    nrow = nrow(.) == 32,
+    ncol = ncol(.) == 5
+  )
 )
 
 mtcars_exposed <- mtcars \%>\%
@@ -60,6 +62,7 @@ mtcars_exposed <- mtcars \%>\%
 
 mtcars_exposed \%>\% get_packs_info()
 
-mtcars_exposed \%>\% get_packs_info() \%>\% is_packs_info()
-
+mtcars_exposed \%>\%
+  get_packs_info() \%>\%
+  is_packs_info()
 }

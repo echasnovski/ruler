@@ -38,5 +38,4 @@ spread_groups(mtcars_grouped_summary, vs, am)
 spread_groups(mtcars_grouped_summary, vs, am, .group_sep = "__")
 
 spread_groups(mtcars_grouped_summary, vs, am, .col_sep = "__")
-
 }

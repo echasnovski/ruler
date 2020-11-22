@@ -28,15 +28,15 @@ test_that("rules works with `dplyr` version lower than 0.8.0", {
 
   output_3 <- rules(mean, sd = "sd", var, .prefix = "a_a_")
   output_ref_3 <- funs(
-    'a_a_rule__1' = mean,
-    'a_a_sd' = "sd",
-    'a_a_rule__3' = var
+    "a_a_rule__1" = mean,
+    "a_a_sd" = "sd",
+    "a_a_rule__3" = var
   )
 
   expect_identical(output_3, output_ref_3)
 })
 
-test_that("rules works with `dplyr` version higher than 0.8.0",  {
+test_that("rules works with `dplyr` version higher than 0.8.0", {
   skip_if(packageVersion("dplyr") < "0.8.0")
 
   output_1 <- rules(mean, "mean", mean(.), ~ mean(.))

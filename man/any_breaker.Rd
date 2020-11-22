@@ -19,7 +19,6 @@ not obeying the rules, i.e. rule breakers.
 mtcars \%>\%
   expose(data_packs(. \%>\% dplyr::summarise(nrow_low = nrow(.) > 50))) \%>\%
   any_breaker()
-
 }
 \seealso{
 \link{assert_any_breaker} for implicit usage of \code{any_breaker()}.

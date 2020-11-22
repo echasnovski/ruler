@@ -73,7 +73,9 @@ squash_dots_rule_pack <- function(..., .extra_class) {
   rlang::dots_list(...) %>%
     rlang::squash() %>%
     lapply(function(x) {
-      x %>% add_class_cond("rule_pack") %>% add_class(.extra_class)
+      x %>%
+        add_class_cond("rule_pack") %>%
+        add_class(.extra_class)
     })
 }
 
@@ -129,10 +131,12 @@ print.cell_pack <- function(x, ...) {
 #'
 #' @examples
 #' data_dims_rules <- . %>%
-#'   dplyr::summarise(nrow_low = nrow(.) > 10,
-#'                    nrow_up = nrow(.) < 20,
-#'                    ncol_low = ncol(.) > 5,
-#'                    ncol_up = ncol(.) < 10)
+#'   dplyr::summarise(
+#'     nrow_low = nrow(.) > 10,
+#'     nrow_up = nrow(.) < 20,
+#'     ncol_low = ncol(.) > 5,
+#'     ncol_up = ncol(.) < 10
+#'   )
 #' data_na_rules <- . %>%
 #'   dplyr::summarise(all_not_na = Negate(anyNA)(.))
 #'
@@ -140,7 +144,6 @@ print.cell_pack <- function(x, ...) {
 #'   data_nrow = data_dims_rules,
 #'   data_na = data_na_rules
 #' )
-#'
 #' @seealso [Group pack][group-pack], [Column pack][column-pack], [row
 #'   pack][row-pack], [cell pack][cell-pack].
 #'
@@ -185,12 +188,13 @@ NULL
 #' @examples
 #' vs_am_rules <- . %>%
 #'   dplyr::group_by(vs, am) %>%
-#'   dplyr::summarise(nrow_low = n(.) > 10,
-#'                    nrow_up = n(.) < 20,
-#'                    rowmeans_low = rowMeans(.) > 19)
+#'   dplyr::summarise(
+#'     nrow_low = n(.) > 10,
+#'     nrow_up = n(.) < 20,
+#'     rowmeans_low = rowMeans(.) > 19
+#'   )
 #'
 #' group_packs(vs_am = vs_am_rules, .group_vars = c("vs", "am"))
-#'
 #' @seealso [Data pack][data-pack], [Column pack][column-pack], [row
 #'   pack][row-pack], [cell pack][cell-pack].
 #'
@@ -265,7 +269,6 @@ NULL
 #' mtcars %>%
 #'   expose(col_packs(improper_pack, proper_pack)) %>%
 #'   get_report()
-#'
 #' @seealso [Data pack][data-pack], [group pack][group-pack], [row
 #'   pack][row-pack], [cell pack][cell-pack].
 #'
@@ -296,20 +299,21 @@ NULL
 #' recognized as in the original data frame of interest.
 #'
 #' @examples
-#' some_row_mean_rules <- . %>% dplyr::slice(1:3) %>%
+#' some_row_mean_rules <- . %>%
+#'   dplyr::slice(1:3) %>%
 #'   dplyr::mutate(row_mean = rowMeans(.)) %>%
 #'   dplyr::transmute(
 #'     row_mean_low = row_mean > 10,
 #'     row_mean_up = row_mean < 20
 #'   )
-#' all_row_sum_rules <- . %>% dplyr::mutate(row_sum = rowSums(.)) %>%
+#' all_row_sum_rules <- . %>%
+#'   dplyr::mutate(row_sum = rowSums(.)) %>%
 #'   dplyr::transmute(row_sum_low = row_sum > 30)
 #'
 #' row_packs(
 #'   some_row_mean_rules,
 #'   all_row_sum_rules
 #' )
-#'
 #' @seealso [Data pack][data-pack], [group pack][group-pack], [column
 #'   pack][column-pack], [cell pack][cell-pack].
 #'
@@ -368,7 +372,6 @@ NULL
 #' mtcars[1:2, ] %>%
 #'   expose(cell_packs(improper_pack, proper_pack)) %>%
 #'   get_report()
-#'
 #' @seealso [Data pack][data-pack], [group pack][group-pack], [column
 #'   pack][column-pack], [row pack][row-pack].
 #'
