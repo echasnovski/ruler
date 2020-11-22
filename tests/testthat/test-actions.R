@@ -1,6 +1,13 @@
 context("actions")
 
 
+# Helper functions --------------------------------------------------------
+# Taken from https://github.com/harrelfe/Hmisc/blob/master/R/regexpEscape.s
+escape_regex <- function(string) {
+  gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", string)
+}
+
+
 # Input data --------------------------------------------------------------
 mtcars_exposed <- mtcars %>% set_exposure(input_exposure_ref)
 rule_breakers <- input_exposure_ref %>%
@@ -39,15 +46,15 @@ expect_asserts <- function(input, type, silent = FALSE, result = input,
                            warnings = character(0),
                            messages = character(0),
                            ...) {
-  assert_evalutation <- evaluate_promise(
+  assert_evaluation <- evaluate_promise(
     assert_any_breaker(input, type, silent, ...)
   )
 
-  expect_identical(assert_evalutation$result, result)
-  expect_match(assert_evalutation$output, output_name)
-  expect_match(assert_evalutation$output, output_report)
-  expect_identical(assert_evalutation$warnings, warnings)
-  expect_identical(assert_evalutation$messages, messages)
+  expect_identical(assert_evaluation$result, result)
+  expect_match(assert_evaluation$output, output_name)
+  expect_match(assert_evaluation$output, output_report)
+  expect_identical(assert_evaluation$warnings, warnings)
+  expect_identical(assert_evaluation$messages, messages)
 }
 
 
@@ -90,7 +97,7 @@ test_that("act_after_exposure works", {
 
 # assert_any_breaker ------------------------------------------------------
 test_that("assert_any_breaker works", {
-  output_ref <- capture_output(print(rule_breakers))
+  output_ref <- escape_regex(capture_output(print(rule_breakers)))
 
   # Error assertions
   expect_error(
@@ -160,7 +167,7 @@ test_that("assert_any_breaker works", {
 })
 
 test_that("assert_any_breaker accounts for printing options", {
-  output_ref <- capture_output(print(rule_breakers, n = 3))
+  output_ref <- escape_regex(capture_output(print(rule_breakers, n = 3)))
 
   expect_error(
     expect_output(
@@ -208,7 +215,10 @@ test_that("generate_breakers_informer works", {
   output <- evaluate_promise(informer(.tbl = mtcars_exposed))
 
   expect_identical(output$result, mtcars_exposed)
-  expect_match(output$output, capture_output(print(rule_breakers)))
+  expect_match(
+    output$output,
+    escape_regex(capture_output(print(rule_breakers)))
+  )
   expect_identical(output$warnings, custom_assert_text)
   expect_identical(output$messages, character(0))
 })
