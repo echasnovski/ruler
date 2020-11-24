@@ -9,20 +9,20 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The main idea of the `ruler` package is to create a format of validation results (along with functional API) that will work naturally with [tidyverse](http://tidyverse.org) tools. This vignette will:
+The main idea of the `ruler` package is to create a format of validation results (along with functional API) that will work naturally with [tidyverse](https://www.tidyverse.org/) tools. This vignette will:
 
 - Guide you through the design process of __exposure__: `ruler`'s validation result format. This should help to understand the foundations of `ruler` validation workflow.
 - Describe exposure format.
 
 ## Design process
 
-The preferred local data structure in `tidyverse` is [tibble](http://tibble.tidyverse.org): "A modern re-imagining of the data frame", on which its implementation is based. That is why `ruler` uses data frames as preferred format for data to be validated. However the initial goal is to use tibbles in creation of validation result format as much as possible.
+The preferred local data structure in `tidyverse` is [tibble](https://tibble.tidyverse.org): "A modern re-imagining of the data frame", on which its implementation is based. That is why `ruler` uses data frames as preferred format for data to be validated. However the initial goal is to use tibbles in creation of validation result format as much as possible.
 
 Basically data frame is a list of variables with the same length. It is easier to think about it as two-dimensional structure where columns can be of different types.
 
 In abstract form validation of data frame can be put as ___asking whether certain subset of data frame (data unit) obeys certain rule___. The result of validation is logical __value__ representing an answer.
 
-With influence of [dplyr](http://dplyr.tidyverse.org)'s grammar of data manipulation a data frame can be represented in terms of the following data units:
+With influence of [dplyr](https://dplyr.tidyverse.org)'s grammar of data manipulation a data frame can be represented in terms of the following data units:
 
 - Data frame as a whole. Validation can be done by `summarise()` _without_ grouping.
 - Collection of groups of rows. Validation can be done by `summarise()` _with_ grouping.

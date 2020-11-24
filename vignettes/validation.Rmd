@@ -34,7 +34,9 @@ my_group_packs <- group_packs(
   .group_vars = c("vs", "am")
 )
 
-is_integerish <- function(x) {all(x == as.integer(x))}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
 
 my_col_packs <- col_packs(
   my_col_pack_1 = . %>% summarise_if(
@@ -44,7 +46,9 @@ my_col_packs <- col_packs(
   . %>% summarise_at(vars(vs = "vs"), rules(sum(.) > 300))
 )
 
-z_score <- function(x) {(x - mean(x)) / sd(x)}
+z_score <- function(x) {
+  (x - mean(x)) / sd(x)
+}
 
 my_row_packs <- row_packs(
   my_row_pack_1 = . %>% mutate(rowMean = rowMeans(.)) %>%
@@ -78,7 +82,7 @@ After attaching exposure to data frame one can extract information from it using
 For exposing data to rules use `expose()`:
 
 - It takes data as a first argument and rule packs (in pure form or inside list at any depth) of interest after that.
-- All rule packs are actually applied to __keyed__ version of data (see [keyholder](https://echasnovski.github.io/keyholder)) for reasons described in "Rule Packs" vignette. If input has keys they are removed and _id key_ is created.
+- All rule packs are actually applied to __keyed__ version of data (see [keyholder](https://echasnovski.github.io/keyholder/)) for reasons described in "Rule Packs" vignette. If input has keys they are removed and _id key_ is created.
 - It is guaranteed that its output is equivalent to the input data frame: only attribute `exposure` might change. If input has already `exposure` attached to it then the new one is binded with it.
 
 Simple example:
@@ -139,7 +143,7 @@ However there are some edge cases (especially for group packs). To write strict 
 ```{r Expose can not guess, error = TRUE, purl = FALSE}
 mtcars %>%
   expose(some_data_pack = . %>% summarise(nrow = nrow(.) == 10),
-         .guess = FALSE)
+    .guess = FALSE)
 ```
 
 ### Using different rule separator
@@ -189,13 +193,13 @@ trigger_one_pack <- function(.tbl) {
   packs_number <- .tbl %>%
     get_packs_info() %>%
     nrow()
-  
+
   packs_number > 1
 }
 
 actor_one_pack <- function(.tbl) {
   cat("More than one pack was applied.\n")
-  
+
   invisible(.tbl)
 }
 

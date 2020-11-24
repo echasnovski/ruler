@@ -26,9 +26,9 @@ This vignette describes and explains logic behind common ways of creating rule p
 
 __Rule__ is a function which converts data unit of interest (data, group, column, row, cell) to logical value indicating whether this object satisfies certain condition.
 
-__Rule pack__ is a function which combines several rules for common data unit into one functional block. The recommended way of creating rules is by creating packs right away with the use of `dplyr` and [magrittr](http://magrittr.tidyverse.org/)'s pipe operator.
+__Rule pack__ is a function which combines several rules for common data unit into one functional block. The recommended way of creating rules is by creating packs right away with the use of `dplyr` and [magrittr](https://magrittr.tidyverse.org/)'s pipe operator.
 
-Some of `ruler`'s functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder) package. It is highly recommended to use its supported functions during rule pack construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rule packs.
+Some of `ruler`'s functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder/) package. It is highly recommended to use its supported functions during rule pack construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rule packs.
 
 As described in vignette about design process it is necessary for rule pack to have __type__ because outputs for different data units have different structure. For this reason `ruler` has family of `*_packs()` constructors (where `*` stands for the name of data unit):
 
@@ -74,7 +74,7 @@ To check whether certain groups of rows of `mtcars` obey some rules one can writ
 
 ```{r Group properties of mtcars}
 mtcars %>% group_by(vs, am) %>%
-    summarise(any_cyl_6 = any(cyl == 6))
+  summarise(any_cyl_6 = any(cyl == 6))
 ```
 
 The output has the following structure:
@@ -99,14 +99,16 @@ __Notes__:
 
 - In this example pack's output is a grouped tibble. It doesn't affect anything because during exposure this output is `ungroup`ed.
 - Names of grouping columns should be supplied with `.group_vars` argument to distinguish them from non-grouping ones.
-- Value for `var` column in validation report is created by [uniting](http://tidyr.tidyverse.org/reference/unite.html) them with the default separator `.`. In this case values will be `0.0`, `0.1`, `1.0`, `1.1`. To change separator supply it with `.group_sep` argument.
+- Value for `var` column in validation report is created by [uniting](https://tidyr.tidyverse.org/reference/unite.html) them with the default separator `.`. In this case values will be `0.0`, `0.1`, `1.0`, `1.1`. To change separator supply it with `.group_sep` argument.
 
 ## Column rule packs
 
 To check whether certain columns of `mtcars` obey some rules one can write the next dplyr pipeline:
 
 ```{r Column properties of mtcars}
-is_integerish <- function(x) {all(x == as.integer(x))}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
 
 mtcars %>%
   summarise_if(is_integerish, funs(mean_low = mean(.) > 0.5))
@@ -143,7 +145,9 @@ my_col_packs <- col_packs(
 To check whether certain rows of `mtcars` are not outliers one can write the next dplyr pipeline:
 
 ```{r Row properties of mtcars}
-z_score <- function(x) {(x - mean(x)) / sd(x)}
+z_score <- function(x) {
+  (x - mean(x)) / sd(x)
+}
 
 mtcars %>%
   mutate(rowMean = rowMeans(.)) %>%
@@ -159,7 +163,7 @@ The output has the following structure:
 
 Pipeline like the one above is quite common: for every row compute some value based on all rows and then validate only some of them. However in the validation report column `id` should represent the row index _in the original data frame_ and this information is missing after applying `slice()`.
 
-This problem is solved by using [keyholder](https://echasnovski.github.io/keyholder) package. Its main purpose is to track information about rows while modifying data frame. During exposure pack is applied to the __keyed__ version of input data with key equals to row index. __Note__ that to use this feature one should create rule packs using composition of functions supported by `keyholder`.
+This problem is solved by using [keyholder](https://echasnovski.github.io/keyholder/) package. Its main purpose is to track information about rows while modifying data frame. During exposure pack is applied to the __keyed__ version of input data with key equals to row index. __Note__ that to use this feature one should create rule packs using composition of functions supported by `keyholder`.
 
 The next code creates a list with one row pack `my_row_pack_1`. It contains one rule `is_common_row_mean` that checks 6 rows (from 10 to 15) for not being an outlier (based on information from all rows) in terms of row means.
 
@@ -177,10 +181,10 @@ To check whether certain cells of `mtcars` are not outliers one can write the ne
 
 ```{r Cell properties of mtcars}
 mtcars %>% transmute_if(
-    is_integerish,
-    funs(is_common = abs(z_score(.)) < 1)
-  ) %>%
-    slice(20:24)
+  is_integerish,
+  funs(is_common = abs(z_score(.)) < 1)
+) %>%
+  slice(20:24)
 ```
 
 The output has the following structure:

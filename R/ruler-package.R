@@ -1,7 +1,7 @@
 #' ruler: Rule Your Data
 #'
 #' `ruler` offers a set of tools for creating tidy data validation reports using
-#' [dplyr](http://dplyr.tidyverse.org) grammar of data manipulation. It
+#' [dplyr](https://dplyr.tidyverse.org) grammar of data manipulation. It
 #' is designed to be flexible and extendable in terms of creating rules and
 #' using their output.
 #'

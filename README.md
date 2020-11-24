@@ -15,7 +15,7 @@ Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://codeco
 <!-- badges: end -->
 
 `ruler` offers a set of tools for creating tidy data validation reports
-using [dplyr](http://dplyr.tidyverse.org) grammar of data manipulation.
+using [dplyr](https://dplyr.tidyverse.org) grammar of data manipulation.
 It is structured to be flexible and extendable in terms of creating
 rules and using their output.
 
@@ -24,7 +24,7 @@ key idea behind `ruler`’s design is to validate data by modifying
 regular `dplyr` code with as little overhead as possible.
 
 Some functionality is powered by the
-[keyholder](https://echasnovski.github.io/keyholder) package. It is
+[keyholder](https://echasnovski.github.io/keyholder/) package. It is
 highly recommended to use its supported functions during rule
 construction. All one- and two-table `dplyr` verbs applied to local data
 frames are supported and considered the most appropriate way to create
@@ -32,13 +32,13 @@ rules.
 
 This README is structured as follows:
 
-  - **Installation** shows ways to install package.
-  - **Example** shows the basic usage of `ruler` for exploration of
+-   **Installation** shows ways to install package.
+-   **Example** shows the basic usage of `ruler` for exploration of
     obeying user-defined rules and its automatic validation.
-  - **Overview** explains basic data and function types with design
+-   **Overview** explains basic data and function types with design
     behind them.
-  - **Usage** describes `ruler`’s capabilities in more detail.
-  - **Other packages for validation and assertions** lists alternatives
+-   **Usage** describes `ruler`’s capabilities in more detail.
+-   **Other packages for validation and assertions** lists alternatives
     for described tasks.
 
 ## Installation
@@ -60,14 +60,18 @@ devtools::install_github("echasnovski/ruler")
 
 ``` r
 # Utilities functions
-is_integerish <- function(x) {all(x == as.integer(x))}
-z_score <- function(x) {abs(x - mean(x)) / sd(x)}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
+z_score <- function(x) {
+  abs(x - mean(x)) / sd(x)
+}
 
 # Define rule packs
 my_packs <- list(
   data_packs(
     dims = . %>% summarise(nrow_low = nrow(.) >= 10, nrow_high = nrow(.) <= 15,
-                           ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
+      ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
   ),
   group_packs(
     vs_am_num = . %>% group_by(vs, am) %>% summarise(vs_am_low = n() >= 7),
@@ -145,7 +149,7 @@ object satisfies certain condition.
 **Rule pack** is a function which combines several rules into one
 functional block. The recommended way of creating rules is by creating
 packs right away with the use of `dplyr` and
-[magrittr](http://magrittr.tidyverse.org/)’s pipe operator.
+[magrittr](https://magrittr.tidyverse.org/)’s pipe operator.
 
 **Exposing** data to rules means applying rules to data, collecting
 results in common format and attaching them to the data as an `exposure`
@@ -157,41 +161,41 @@ validation of different data units. For reproducibility it also saves
 information about applied packs. Basically exposure is a list with two
 elements:
 
-1.  **Packs info**: a [tibble](http://tibble.tidyverse.org/) with the
+1.  **Packs info**: a [tibble](https://tibble.tidyverse.org/) with the
     following structure:
-      - *name* \<chr\> : Name of the pack. If not set manually it will
-        be imputed during exposure.
-      - *type* \<chr\> : Name of pack type. Indicates which data unit
-        pack checks.
-      - *fun* \<list\> : List of rule pack functions.
-      - *remove\_obeyers* \<lgl\> : Whether rows about obeyers (data
+    -   *name* &lt;chr&gt; : Name of the pack. If not set manually it
+        will be imputed during exposure.
+    -   *type* &lt;chr&gt; : Name of pack type. Indicates which data
+        unit pack checks.
+    -   *fun* &lt;list&gt; : List of rule pack functions.
+    -   *remove\_obeyers* &lt;lgl&gt; : Whether rows about obeyers (data
         units that obey certain rule) were removed from report after
         applying pack.
 2.  **Tidy data validation report**: a `tibble` with the following
     structure:
-      - *pack* \<chr\> : Name of rule pack from column ‘name’ in packs
-        info.
-      - *rule* \<chr\> : Name of the rule defined in rule pack.
-      - *var* \<chr\> : Name of the variable which validation result is
-        reported. Value ‘.all’ is reserved and interpreted as ‘all
+    -   *pack* &lt;chr&gt; : Name of rule pack from column ‘name’ in
+        packs info.
+    -   *rule* &lt;chr&gt; : Name of the rule defined in rule pack.
+    -   *var* &lt;chr&gt; : Name of the variable which validation result
+        is reported. Value ‘.all’ is reserved and interpreted as ‘all
         columns as a whole’. **Note** that *var* doesn’t always
         represent the actual column in data frame: for group packs it
         represents the created group name.
-      - *id* \<int\> : Index of the row in tested data frame which
+    -   *id* &lt;int&gt; : Index of the row in tested data frame which
         validation result is reported. Value 0 is reserved and
         interpreted as ‘all rows as a whole’.
-      - *value* \<lgl\> : Whether the described data unit obeys the
+    -   *value* &lt;lgl&gt; : Whether the described data unit obeys the
         rule.
 
 There are four basic combinations of `var` and `id` values which define
 five basic data units:
 
-  - `var == '.all'` and `id == 0`: Data as a whole.
-  - `var != '.all'` and `id == 0`: Group (`var` shouldn’t be an actual
+-   `var == '.all'` and `id == 0`: Data as a whole.
+-   `var != '.all'` and `id == 0`: Group (`var` shouldn’t be an actual
     column name) or column (`var` should be an actual column name) as a
     whole.
-  - `var == '.all'` and `id != 0`: Row as a whole.
-  - `var != '.all'` and `id != 0`: Described cell.
+-   `var == '.all'` and `id != 0`: Row as a whole.
+-   `var != '.all'` and `id != 0`: Described cell.
 
 With exposure attached to data one can perform different kinds of
 actions: exploration, assertion, imputation and so on.
@@ -211,7 +215,7 @@ my_data_packs <- data_packs(
     ncol = ncol(.) == 12,
     nrow = nrow(.) == 32
   ),
-  
+
   # Data after subsetting should have number of rows in between 10 and 30
   # Rules are applied separately
   vs_1 = . %>% filter(vs == 1) %>%
@@ -230,7 +234,7 @@ my_group_packs <- group_packs(
   # Name will be imputed during exposure
   . %>% group_by(vs, am) %>%
     summarise(any_cyl_6 = any(cyl == 6)),
-  
+
   # One should supply grouping variables for correct interpretation of output
   .group_vars = c("vs", "am")
 )
@@ -249,7 +253,7 @@ my_col_packs <- col_packs(
     vars(starts_with("c")),
     rules(sum_low = sum(.) > 300, sum_high = sum(.) < 400)
   ),
-  
+
   # In the edge case of checking one column with one rule there is a need
   # for forcing inclusion of names in the output of summarise_at().
   # This is done with naming argument in vars()
@@ -260,7 +264,9 @@ my_col_packs <- col_packs(
 #### Row packs
 
 ``` r
-z_score <- function(x) {(x - mean(x)) / sd(x)}
+z_score <- function(x) {
+  (x - mean(x)) / sd(x)
+}
 
 # List of one rule pack checking certain rows' property
 my_row_packs <- row_packs(
@@ -276,7 +282,9 @@ my_row_packs <- row_packs(
 #### Cell packs
 
 ``` r
-is_integerish <- function(x) {all(x == as.integer(x))}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
 
 # List of two cell pack checking certain cells' property
 my_cell_packs <- cell_packs(
@@ -287,7 +295,7 @@ my_cell_packs <- cell_packs(
   ) %>%
     # Check only rows 20-30
     slice(20:30),
-  
+
   # The same edge case as in column rule pack
   vs_side = . %>% transmute_at(vars(vs = "vs"), rules(. > mean(.)))
 )
@@ -395,9 +403,9 @@ mtcars %>%
 General actions are recommended to be done with `act_after_exposure()`.
 It takes two arguments:
 
-  - `.trigger` - a function which takes the data with attached exposure
+-   `.trigger` - a function which takes the data with attached exposure
     and returns `TRUE` if some action should be made.
-  - `.actor` - a function which takes the same argument as `.trigger`
+-   `.actor` - a function which takes the same argument as `.trigger`
     and performs some action.
 
 If trigger didn’t notify then the input data is returned untouched.
@@ -411,13 +419,13 @@ trigger_one_pack <- function(.tbl) {
   packs_number <- .tbl %>%
     get_packs_info() %>%
     nrow()
-  
+
   packs_number > 1
 }
 
 actor_one_pack <- function(.tbl) {
   cat("More than one pack was applied.\n")
-  
+
   invisible(.tbl)
 }
 
@@ -454,15 +462,15 @@ mtcars %>%
 
 More leaned towards assertions:
 
-  - [assertr](https://github.com/ropensci/assertr)
-  - [assertthat](https://github.com/hadley/assertthat)
-  - [checkmate](https://github.com/mllg/checkmate)
-  - [ensurer](https://github.com/smbache/ensurer)
-  - [tester](https://github.com/gastonstat/tester)
-  - [sealr](https://github.com/uribo/sealr)
+-   [assertr](https://github.com/ropensci/assertr)
+-   [assertthat](https://github.com/hadley/assertthat)
+-   [checkmate](https://github.com/mllg/checkmate)
+-   [ensurer](https://github.com/smbache/ensurer)
+-   [tester](https://github.com/gastonstat/tester)
+-   [sealr](https://github.com/uribo/sealr)
 
 More leaned towards validation:
 
-  - [naniar](https://github.com/njtierney/naniar)
-  - [skimr](https://github.com/ropenscilabs/skimr)
-  - [validate](https://github.com/data-cleaning/validate)
+-   [naniar](https://github.com/njtierney/naniar)
+-   [skimr](https://github.com/ropensci/skimr)
+-   [validate](https://github.com/data-cleaning/validate)

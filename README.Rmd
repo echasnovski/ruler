@@ -26,11 +26,11 @@ options(tibble.print_min = 6, tibble.print_max = 6)
 <!-- badges: end -->
 
 `ruler` offers a set of tools for creating tidy data validation reports using 
-[dplyr](http://dplyr.tidyverse.org) grammar of data manipulation. It is structured to be flexible and extendable in terms of creating rules and using their output.
+[dplyr](https://dplyr.tidyverse.org) grammar of data manipulation. It is structured to be flexible and extendable in terms of creating rules and using their output.
 
 To fully use this package a solid knowledge of `dplyr` is required. The key idea behind `ruler`'s design is to validate data by modifying regular `dplyr` code with as little overhead as possible.
 
-Some functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder) package. It is highly recommended to use its supported functions during rule construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rules.
+Some functionality is powered by the [keyholder](https://echasnovski.github.io/keyholder/) package. It is highly recommended to use its supported functions during rule construction. All one- and two-table `dplyr` verbs applied to local data frames are supported and considered the most appropriate way to create rules.
 
 This README is structured as follows:
 
@@ -59,14 +59,18 @@ devtools::install_github("echasnovski/ruler")
 
 ```{r Example, error = TRUE, purl = FALSE}
 # Utilities functions
-is_integerish <- function(x) {all(x == as.integer(x))}
-z_score <- function(x) {abs(x - mean(x)) / sd(x)}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
+z_score <- function(x) {
+  abs(x - mean(x)) / sd(x)
+}
 
 # Define rule packs
 my_packs <- list(
   data_packs(
     dims = . %>% summarise(nrow_low = nrow(.) >= 10, nrow_high = nrow(.) <= 15,
-                           ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
+      ncol_low = ncol(.) >= 20, ncol_high = ncol(.) <= 30)
   ),
   group_packs(
     vs_am_num = . %>% group_by(vs, am) %>% summarise(vs_am_low = n() >= 7),
@@ -106,14 +110,14 @@ column, row, cell) to logical value indicating whether this object satisfies
 certain condition.
 
 __Rule pack__ is a function which combines several rules into one functional
-block. The recommended way of creating rules is by creating packs right away with the use of `dplyr` and [magrittr](http://magrittr.tidyverse.org/)'s
+block. The recommended way of creating rules is by creating packs right away with the use of `dplyr` and [magrittr](https://magrittr.tidyverse.org/)'s
 pipe operator.
 
 __Exposing__ data to rules means applying rules to data, collecting results in common format and attaching them to the data as an `exposure` attribute. In this way actual exposure can be done in multiple steps and also be a part of a general data preparation pipeline.
 
 __Exposure__ is a format designed to contain uniform information about validation of different data units. For reproducibility it also saves information about applied packs. Basically exposure is a list with two elements:
 
-1. __Packs info__: a [tibble](http://tibble.tidyverse.org/) with the following structure:
+1. __Packs info__: a [tibble](https://tibble.tidyverse.org/) with the following structure:
     - _name_ \<chr\> : Name of the pack. If not set manually it will be imputed during exposure.
     - _type_ \<chr\> : Name of pack type. Indicates which data unit pack checks.
     - _fun_ \<list\> : List of rule pack functions.
@@ -149,7 +153,7 @@ my_data_packs <- data_packs(
     ncol = ncol(.) == 12,
     nrow = nrow(.) == 32
   ),
-  
+
   # Data after subsetting should have number of rows in between 10 and 30
   # Rules are applied separately
   vs_1 = . %>% filter(vs == 1) %>%
@@ -168,7 +172,7 @@ my_group_packs <- group_packs(
   # Name will be imputed during exposure
   . %>% group_by(vs, am) %>%
     summarise(any_cyl_6 = any(cyl == 6)),
-  
+
   # One should supply grouping variables for correct interpretation of output
   .group_vars = c("vs", "am")
 )
@@ -187,7 +191,7 @@ my_col_packs <- col_packs(
     vars(starts_with("c")),
     rules(sum_low = sum(.) > 300, sum_high = sum(.) < 400)
   ),
-  
+
   # In the edge case of checking one column with one rule there is a need
   # for forcing inclusion of names in the output of summarise_at().
   # This is done with naming argument in vars()
@@ -198,7 +202,9 @@ my_col_packs <- col_packs(
 #### Row packs
 
 ```{r Row packs}
-z_score <- function(x) {(x - mean(x)) / sd(x)}
+z_score <- function(x) {
+  (x - mean(x)) / sd(x)
+}
 
 # List of one rule pack checking certain rows' property
 my_row_packs <- row_packs(
@@ -214,7 +220,9 @@ my_row_packs <- row_packs(
 #### Cell packs
 
 ```{r Cell packs}
-is_integerish <- function(x) {all(x == as.integer(x))}
+is_integerish <- function(x) {
+  all(x == as.integer(x))
+}
 
 # List of two cell pack checking certain cells' property
 my_cell_packs <- cell_packs(
@@ -225,7 +233,7 @@ my_cell_packs <- cell_packs(
   ) %>%
     # Check only rows 20-30
     slice(20:30),
-  
+
   # The same edge case as in column rule pack
   vs_side = . %>% transmute_at(vars(vs = "vs"), rules(. > mean(.)))
 )
@@ -286,13 +294,13 @@ trigger_one_pack <- function(.tbl) {
   packs_number <- .tbl %>%
     get_packs_info() %>%
     nrow()
-  
+
   packs_number > 1
 }
 
 actor_one_pack <- function(.tbl) {
   cat("More than one pack was applied.\n")
-  
+
   invisible(.tbl)
 }
 
@@ -327,5 +335,5 @@ More leaned towards assertions:
 More leaned towards validation:
 
 - [naniar](https://github.com/njtierney/naniar)
-- [skimr](https://github.com/ropenscilabs/skimr)
+- [skimr](https://github.com/ropensci/skimr)
 - [validate](https://github.com/data-cleaning/validate)
