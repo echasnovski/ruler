@@ -1,4 +1,4 @@
-# comperes 0.2.4
+# ruler 0.2.4
 
 * Maintenance release in reaction to a planned update of `tibble`.
 
