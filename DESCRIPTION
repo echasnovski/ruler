@@ -22,7 +22,8 @@ Imports:
     keyholder,
     rlang,
     tibble,
-    tidyr (>= 0.7.0)
+    tidyr (>= 0.7.0),
+    magrittr
 Suggests:
     covr,
     knitr,

@@ -1,7 +1,3 @@
-#' @export
-dplyr::`%>%`
-
-
 # General -----------------------------------------------------------------
 #' Inside punctuation regular expression
 #'
