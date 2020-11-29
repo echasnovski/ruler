@@ -81,7 +81,7 @@ Values indicate whether the data as a whole follows the rule.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -160,25 +160,29 @@ should return a data frame with the following properties:</p><ul>
 
     <p>This format is inspired by <code>dplyr</code>'s <a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a> applied
 to non-grouped data.</p>
-<p>The most common way to define data pack is by creating a functional sequence with no grouping and ending with
+<p>The most common way to define data pack is by creating a
+functional sequence with no grouping and ending with
 <code>summarise(...)</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='group-pack.html'>Group pack</a>, <a href='column-pack.html'>Column pack</a>, <a href='row-pack.html'>row pack</a>, <a href='cell-pack.html'>cell pack</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><code class = "r"><div class='input'><span class='no'>data_dims_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>nrow_low</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>10</span>,
-                   <span class='kw'>nrow_up</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>.</span>) <span class='kw'>&lt;</span> <span class='fl'>20</span>,
-                   <span class='kw'>ncol_low</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>5</span>,
-                   <span class='kw'>ncol_up</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>.</span>) <span class='kw'>&lt;</span> <span class='fl'>10</span>)
-<span class='no'>data_na_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>all_not_na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Negate</a></span>(<span class='no'>anyNA</span>)(<span class='no'>.</span>))
+    <pre class="examples"><code class = "r"><div class='input'><span class='va'>data_dims_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    nrow_low <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>10</span>,
+    nrow_up <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>20</span>,
+    ncol_low <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>5</span>,
+    ncol_up <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>10</span>
+  <span class='op'>)</span>
+<span class='va'>data_na_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>all_not_na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Negate</a></span><span class='op'>(</span><span class='va'>anyNA</span><span class='op'>)</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='rule-packs.html'>data_packs</a></span>(
-  <span class='kw'>data_nrow</span> <span class='kw'>=</span> <span class='no'>data_dims_rules</span>,
-  <span class='kw'>data_na</span> <span class='kw'>=</span> <span class='no'>data_na_rules</span>
-)</div><div class='output co'>#&gt; $data_nrow
+<span class='fu'><a href='rule-packs.html'>data_packs</a></span><span class='op'>(</span>
+  data_nrow <span class='op'>=</span> <span class='va'>data_dims_rules</span>,
+  data_na <span class='op'>=</span> <span class='va'>data_na_rules</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; $data_nrow
 #&gt; A Data rule pack:
 #&gt; Functional sequence with the following components:
 #&gt; 
@@ -193,8 +197,7 @@ to non-grouped data.</p>
 #&gt;  1. dplyr::summarise(., all_not_na = Negate(anyNA)(.))
 #&gt; 
 #&gt; Use 'functions' to extract the individual functions. 
-#&gt; </div><div class='input'>
-</div></code></pre>
+#&gt; </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +213,7 @@ to non-grouped data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

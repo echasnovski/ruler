@@ -82,7 +82,7 @@ Values indicate whether the cell follows the rule.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -161,7 +161,8 @@ should return a data frame with the following properties:</p><ul>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This format is inspired by <a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>scoped variants of transmute()</a>.</p>
-<p>The most common way to define cell pack is by creating a functional sequence containing one of:</p><ul>
+<p>The most common way to define cell pack is by creating a
+functional sequence containing one of:</p><ul>
 <li><p><code>transmute_all(.funs = rules(...))</code>.</p></li>
 <li><p><code>transmute_if(.predicate, .funs = rules(...))</code>.</p></li>
 <li><p><code>transmute_at(.vars, .funs = rules(...))</code>.</p></li>
@@ -189,20 +190,21 @@ separator as prefix surrounded by any number of non-alphanumeric values.</p></li
 
     
 
-<p><strong>Note</strong> that during exposure packs are applied to <a href='https://rdrr.io/pkg/keyholder/man/keys-set.html'>keyed object</a> with <a href='https://rdrr.io/pkg/keyholder/man/keyholder-id.html'>id key</a>. So they
-can rearrange rows as long as it is done with <a href='https://rdrr.io/pkg/keyholder/man/keyholder-supported-funs.html'>functions supported by keyholder</a>. Rows will be tracked and
+<p><strong>Note</strong> that during exposure packs are applied to <a href='https://echasnovski.github.io/keyholder/reference/keys-set.html'>keyed object</a> with <a href='https://echasnovski.github.io/keyholder/reference/keyholder-id.html'>id key</a>. So they
+can rearrange rows as long as it is done with <a href='https://echasnovski.github.io/keyholder/reference/keyholder-supported-funs.html'>functions supported by keyholder</a>. Rows will be tracked and
 recognized as in the original data frame of interest.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='data-pack.html'>Data pack</a>, <a href='group-pack.html'>group pack</a>, <a href='column-pack.html'>column pack</a>, <a href='row-pack.html'>row pack</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><code class = "r"><div class='input'><span class='no'>cell_outlier_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"disp"</span>, <span class='st'>"qsec"</span>),
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>z_score</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>.</span> - <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>)) / <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>1</span>)
-)
+    <pre class="examples"><code class = "r"><div class='input'><span class='va'>cell_outlier_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"disp"</span>, <span class='st'>"qsec"</span><span class='op'>)</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>z_score <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='rule-packs.html'>cell_packs</a></span>(<span class='kw'>outlier</span> <span class='kw'>=</span> <span class='no'>cell_outlier_rules</span>)</div><div class='output co'>#&gt; $outlier
+<span class='fu'><a href='rule-packs.html'>cell_packs</a></span><span class='op'>(</span>outlier <span class='op'>=</span> <span class='va'>cell_outlier_rules</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $outlier
 #&gt; A Cell rule pack:
 #&gt; Functional sequence with the following components:
 #&gt; 
@@ -211,27 +213,27 @@ recognized as in the original data frame of interest.</p>
 #&gt; Use 'functions' to extract the individual functions. 
 #&gt; </div><div class='input'>
 <span class='co'># Dealing with one column edge case</span>
-<span class='no'>improper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span>(
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>vs</span>),
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>improper_is_neg</span> <span class='kw'>=</span> <span class='no'>.</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>)
-)
+<span class='va'>improper_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span><span class='op'>(</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>improper_is_neg <span class='op'>=</span> <span class='va'>.</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>proper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span>(
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>vs</span> <span class='kw'>=</span> <span class='no'>vs</span>),
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>proper_is_neg</span> <span class='kw'>=</span> <span class='no'>.</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>)
-)
+<span class='va'>proper_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_at</a></span><span class='op'>(</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span>vs <span class='op'>=</span> <span class='va'>vs</span><span class='op'>)</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>proper_is_neg <span class='op'>=</span> <span class='va'>.</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>2</span>, ] <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='expose.html'>expose</a></span>(<span class='fu'><a href='rule-packs.html'>cell_packs</a></span>(<span class='no'>improper_pack</span>, <span class='no'>proper_pack</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; <span style='color: #949494;'># A tibble: 4 x 5</span><span>
+<span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='op'>]</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='expose.html'>expose</a></span><span class='op'>(</span><span class='fu'><a href='rule-packs.html'>cell_packs</a></span><span class='op'>(</span><span class='va'>improper_pack</span>, <span class='va'>proper_pack</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
 #&gt;   pack         rule            var      id value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> cell_pack__1 improper_is_neg </span><span style='color: #949494;'>""</span><span>        1 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> cell_pack__1 improper_is_neg </span><span style='color: #949494;'>""</span><span>        2 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> cell_pack__2 proper_is_neg   </span><span style='color: #949494;'>"</span><span>vs</span><span style='color: #949494;'>"</span><span>      1 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> cell_pack__2 proper_is_neg   </span><span style='color: #949494;'>"</span><span>vs</span><span style='color: #949494;'>"</span><span>      2 FALSE</div><div class='input'>
-</div></span></code></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> cell_pack__1 improper_is_neg </span><span style='color: #555555;'>""</span><span>        1 FALSE
+#&gt; </span><span style='color: #555555;'>2</span><span> cell_pack__1 improper_is_neg </span><span style='color: #555555;'>""</span><span>        2 FALSE
+#&gt; </span><span style='color: #555555;'>3</span><span> cell_pack__2 proper_is_neg   </span><span style='color: #555555;'>"</span><span>vs</span><span style='color: #555555;'>"</span><span>      1 FALSE
+#&gt; </span><span style='color: #555555;'>4</span><span> cell_pack__2 proper_is_neg   </span><span style='color: #555555;'>"</span><span>vs</span><span style='color: #555555;'>"</span><span>      2 FALSE</div></span></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -247,7 +249,7 @@ recognized as in the original data frame of interest.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

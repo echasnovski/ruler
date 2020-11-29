@@ -76,7 +76,7 @@ not obeying the rules, i.e. rule breakers." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@ not obeying the rules, i.e. rule breakers." />
 not obeying the rules, i.e. rule breakers.</p>
     </div>
 
-    <pre class="usage"><code class = "r"><span class='fu'>any_breaker</span>(<span class='no'>.tbl</span>)</code></pre>
+    <pre class="usage"><code class = "r"><span class='fu'>any_breaker</span><span class='op'>(</span><span class='va'>.tbl</span><span class='op'>)</span></code></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,10 +161,10 @@ attribute.</p></td>
     <div class='dont-index'><p><a href='assert_any_breaker.html'>assert_any_breaker</a> for implicit usage of <code>any_breaker()</code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><code class = "r"><div class='input'><span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='expose.html'>expose</a></span>(<span class='fu'><a href='rule-packs.html'>data_packs</a></span>(<span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>nrow_low</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>50</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>any_breaker</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></code></pre>
+    <pre class="examples"><code class = "r"><div class='input'><span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='expose.html'>expose</a></span><span class='op'>(</span><span class='fu'><a href='rule-packs.html'>data_packs</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>nrow_low <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>any_breaker</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -180,7 +180,7 @@ attribute.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

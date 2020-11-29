@@ -81,7 +81,7 @@ Values indicate whether the row as a whole follows the rule.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -159,32 +159,36 @@ values. It should return a data frame with the following properties:</p><ul>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This format is inspired by <code>dplyr</code>'s <a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a>.</p>
-<p>The most common way to define row pack is by creating a functional sequence containing <code>transmute(...)</code>.</p>
+<p>The most common way to define row pack is by creating a
+functional sequence containing <code>transmute(...)</code>.</p>
     <h2 class="hasAnchor" id="note-about-rearranging-rows"><a class="anchor" href="#note-about-rearranging-rows"></a>Note about rearranging rows</h2>
 
     
 
-<p><strong>Note</strong> that during exposure packs are applied to <a href='https://rdrr.io/pkg/keyholder/man/keys-set.html'>keyed object</a> with <a href='https://rdrr.io/pkg/keyholder/man/keyholder-id.html'>id key</a>. So they
-can rearrange rows as long as it is done with <a href='https://rdrr.io/pkg/keyholder/man/keyholder-supported-funs.html'>functions supported by keyholder</a>. Rows will be tracked and
+<p><strong>Note</strong> that during exposure packs are applied to <a href='https://echasnovski.github.io/keyholder/reference/keys-set.html'>keyed object</a> with <a href='https://echasnovski.github.io/keyholder/reference/keyholder-id.html'>id key</a>. So they
+can rearrange rows as long as it is done with <a href='https://echasnovski.github.io/keyholder/reference/keyholder-supported-funs.html'>functions supported by keyholder</a>. Rows will be tracked and
 recognized as in the original data frame of interest.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='data-pack.html'>Data pack</a>, <a href='group-pack.html'>group pack</a>, <a href='column-pack.html'>column pack</a>, <a href='cell-pack.html'>cell pack</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><code class = "r"><div class='input'><span class='no'>some_row_mean_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>row_mean</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowMeans</a></span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(
-    <span class='kw'>row_mean_low</span> <span class='kw'>=</span> <span class='no'>row_mean</span> <span class='kw'>&gt;</span> <span class='fl'>10</span>,
-    <span class='kw'>row_mean_up</span> <span class='kw'>=</span> <span class='no'>row_mean</span> <span class='kw'>&lt;</span> <span class='fl'>20</span>
-  )
-<span class='no'>all_row_sum_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>row_sum</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='kw'>row_sum_low</span> <span class='kw'>=</span> <span class='no'>row_sum</span> <span class='kw'>&gt;</span> <span class='fl'>30</span>)
+    <pre class="examples"><code class = "r"><div class='input'><span class='va'>some_row_mean_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>row_mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowMeans</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>
+    row_mean_low <span class='op'>=</span> <span class='va'>row_mean</span> <span class='op'>&gt;</span> <span class='fl'>10</span>,
+    row_mean_up <span class='op'>=</span> <span class='va'>row_mean</span> <span class='op'>&lt;</span> <span class='fl'>20</span>
+  <span class='op'>)</span>
+<span class='va'>all_row_sum_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>row_sum <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>row_sum_low <span class='op'>=</span> <span class='va'>row_sum</span> <span class='op'>&gt;</span> <span class='fl'>30</span><span class='op'>)</span>
 
-<span class='fu'><a href='rule-packs.html'>row_packs</a></span>(
-  <span class='no'>some_row_mean_rules</span>,
-  <span class='no'>all_row_sum_rules</span>
-)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'><a href='rule-packs.html'>row_packs</a></span><span class='op'>(</span>
+  <span class='va'>some_row_mean_rules</span>,
+  <span class='va'>all_row_sum_rules</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; A Row rule pack:
 #&gt; Functional sequence with the following components:
 #&gt; 
@@ -202,8 +206,7 @@ recognized as in the original data frame of interest.</p>
 #&gt;  2. dplyr::transmute(., row_sum_low = row_sum &gt; 30)
 #&gt; 
 #&gt; Use 'functions' to extract the individual functions. 
-#&gt; </div><div class='input'>
-</div></code></pre>
+#&gt; </div></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -219,7 +222,7 @@ recognized as in the original data frame of interest.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

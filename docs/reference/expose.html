@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -140,8 +140,8 @@
     <p>Function for applying rule packs to data.</p>
     </div>
 
-    <pre class="usage"><code class = "r"><span class='fu'>expose</span>(<span class='no'>.tbl</span>, <span class='no'>...</span>, <span class='kw'>.rule_sep</span> <span class='kw'>=</span> <span class='fu'><a href='inside_punct.html'>inside_punct</a></span>(<span class='st'>"\\._\\."</span>),
-  <span class='kw'>.remove_obeyers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</code></pre>
+    <pre class="usage"><code class = "r"><span class='fu'>expose</span><span class='op'>(</span><span class='va'>.tbl</span>, <span class='va'>...</span>, .rule_sep <span class='op'>=</span> <span class='fu'><a href='inside_punct.html'>inside_punct</a></span><span class='op'>(</span><span class='st'>"\\._\\."</span><span class='op'>)</span>,
+  .remove_obeyers <span class='op'>=</span> <span class='cn'>TRUE</span>, .guess <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></code></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,84 +219,100 @@ are checked. In this case it will be guessed as column pack.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><code class = "r"><div class='input'><span class='no'>my_rule_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>nrow_neg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>.</span>) <span class='kw'>&lt;</span> <span class='fl'>0</span>)
-<span class='no'>my_data_packs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rule-packs.html'>data_packs</a></span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>)
+    <pre class="examples"><code class = "r"><div class='input'><span class='va'>my_rule_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>nrow_neg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>my_data_packs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rule-packs.html'>data_packs</a></span><span class='op'>(</span>my_data_pack_1 <span class='op'>=</span> <span class='va'>my_rule_pack</span><span class='op'>)</span>
 
 <span class='co'># These pipes give identical results</span>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>my_data_packs</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; <span style='color: #949494;'># A tibble: 1 x 5</span><span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span><span class='va'>my_data_packs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; <span style='color: #555555;'># A tibble: 1 x 5</span><span>
 #&gt;   pack           rule     var      id value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; </span><span style='color: #949494;'># A tibble: 1 x 5</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span>my_data_pack_1 <span class='op'>=</span> <span class='va'>my_rule_pack</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; </span><span style='color: #555555;'># A tibble: 1 x 5</span><span>
 #&gt;   pack           rule     var      id value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> my_data_pack_1 nrow_neg .all      0 FALSE</div><div class='input'>
 <span class='co'># This throws an error because no pack type is specified for my_rule_pack</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='kw'>my_data_pack_1</span> <span class='kw'>=</span> <span class='no'>my_rule_pack</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>expose</span><span class='op'>(</span>my_data_pack_1 <span class='op'>=</span> <span class='va'>my_rule_pack</span>, .guess <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Edge cases against using 'guess = TRUE' for robust code</span>
-<span class='no'>group_rule_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>vs_one</span> <span class='kw'>=</span> <span class='no'>vs</span> <span class='kw'>==</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>vs_one</span>, <span class='no'>am</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>n_low</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span>() <span class='kw'>&gt;</span> <span class='fl'>10</span>)
-<span class='no'>group_rule_pack_dummy</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>vs_one</span> <span class='kw'>=</span> <span class='no'>vs</span> <span class='kw'>==</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>mpg</span>, <span class='no'>vs_one</span>, <span class='no'>wt</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>n_low</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span>() <span class='kw'>&gt;</span> <span class='fl'>10</span>)
-<span class='no'>row_rule_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='kw'>neg_row_sum</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>.</span>) <span class='kw'>&lt;</span> <span class='fl'>0</span>)
-<span class='no'>cell_rule_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_all</a></span>(<span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>neg_value</span> <span class='kw'>=</span> <span class='no'>.</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>))
+<span class='va'>group_rule_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vs_one <span class='op'>=</span> <span class='va'>vs</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>vs_one</span>, <span class='va'>am</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n_low <span class='op'>=</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>group_rule_pack_dummy</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vs_one <span class='op'>=</span> <span class='va'>vs</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>vs_one</span>, <span class='va'>wt</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n_low <span class='op'>=</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>row_rule_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>neg_row_sum <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>cell_rule_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>transmute_all</a></span><span class='op'>(</span><span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>neg_value <span class='op'>=</span> <span class='va'>.</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Only column 'am' is guessed as grouping which defines non-unique levels.</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>expose</span>(<span class='no'>group_rule_pack</span>, <span class='kw'>.remove_obeyers</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='ruler-report.html'>get_report</a></span>()
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span><span class='va'>group_rule_pack</span>, .remove_obeyers <span class='op'>=</span> <span class='cn'>FALSE</span>, .guess <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Values in `var` should contain combination of three grouping columns but</span>
 <span class='co'># column 'vs_one' is guessed as rule. No error is thrown because the guessed</span>
 <span class='co'># grouping column define unique levels.</span>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>expose</span>(<span class='no'>group_rule_pack_dummy</span>, <span class='kw'>.remove_obeyers</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.guess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; </span><span style='color: #949494;'># A tibble: 64 x 5</span><span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span><span class='va'>group_rule_pack_dummy</span>, .remove_obeyers <span class='op'>=</span> <span class='cn'>FALSE</span>, .guess <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; </span><span style='color: #555555;'># A tibble: 64 x 5</span><span>
 #&gt;    pack          rule   var           id value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> group_pack__1 vs_one 10.4.5.25      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> group_pack__1 vs_one 10.4.5.424     0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> group_pack__1 vs_one 13.3.3.84      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> group_pack__1 vs_one 14.3.3.57      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> group_pack__1 vs_one 14.7.5.345     0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> group_pack__1 vs_one 15.3.57        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> group_pack__1 vs_one 15.2.3.435     0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> group_pack__1 vs_one 15.2.3.78      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> group_pack__1 vs_one 15.5.3.52      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> group_pack__1 vs_one 15.8.3.17      0 FALSE
-#&gt; </span><span style='color: #949494;'># … with 54 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> group_pack__1 vs_one 10.4.5.25      0 FALSE
+#&gt; </span><span style='color: #555555;'> 2</span><span> group_pack__1 vs_one 10.4.5.424     0 FALSE
+#&gt; </span><span style='color: #555555;'> 3</span><span> group_pack__1 vs_one 13.3.3.84      0 FALSE
+#&gt; </span><span style='color: #555555;'> 4</span><span> group_pack__1 vs_one 14.3.3.57      0 FALSE
+#&gt; </span><span style='color: #555555;'> 5</span><span> group_pack__1 vs_one 14.7.5.345     0 FALSE
+#&gt; </span><span style='color: #555555;'> 6</span><span> group_pack__1 vs_one 15.3.57        0 FALSE
+#&gt; </span><span style='color: #555555;'> 7</span><span> group_pack__1 vs_one 15.2.3.435     0 FALSE
+#&gt; </span><span style='color: #555555;'> 8</span><span> group_pack__1 vs_one 15.2.3.78      0 FALSE
+#&gt; </span><span style='color: #555555;'> 9</span><span> group_pack__1 vs_one 15.5.3.52      0 FALSE
+#&gt; </span><span style='color: #555555;'>10</span><span> group_pack__1 vs_one 15.8.3.17      0 FALSE
+#&gt; </span><span style='color: #555555;'># … with 54 more rows</span><span></div><div class='input'>
 <span class='co'># Results should have in column 'id' value 1 and not 0.</span>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>row_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; </span><span style='color: #949494;'># A tibble: 1 x 5</span><span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span><span class='va'>row_rule_pack</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; </span><span style='color: #555555;'># A tibble: 1 x 5</span><span>
 #&gt;   pack         rule        var      id value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> data_pack__1 neg_row_sum .all      0 FALSE</div><div class='input'>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>expose</span>(<span class='no'>cell_rule_pack</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; </span><span style='color: #949494;'># A tibble: 11 x 5</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> data_pack__1 neg_row_sum .all      0 FALSE</div><div class='input'>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>expose</span><span class='op'>(</span><span class='va'>cell_rule_pack</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; </span><span style='color: #555555;'># A tibble: 11 x 5</span><span>
 #&gt;    pack        rule      var      id value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> col_pack__1 neg_value mpg       0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> col_pack__1 neg_value cyl       0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> col_pack__1 neg_value disp      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> col_pack__1 neg_value hp        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> col_pack__1 neg_value drat      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> col_pack__1 neg_value wt        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> col_pack__1 neg_value qsec      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> col_pack__1 neg_value vs        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> col_pack__1 neg_value am        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> col_pack__1 neg_value gear      0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> col_pack__1 neg_value carb      0 FALSE</div><div class='input'>
-</div></span></code></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> col_pack__1 neg_value mpg       0 FALSE
+#&gt; </span><span style='color: #555555;'> 2</span><span> col_pack__1 neg_value cyl       0 FALSE
+#&gt; </span><span style='color: #555555;'> 3</span><span> col_pack__1 neg_value disp      0 FALSE
+#&gt; </span><span style='color: #555555;'> 4</span><span> col_pack__1 neg_value hp        0 FALSE
+#&gt; </span><span style='color: #555555;'> 5</span><span> col_pack__1 neg_value drat      0 FALSE
+#&gt; </span><span style='color: #555555;'> 6</span><span> col_pack__1 neg_value wt        0 FALSE
+#&gt; </span><span style='color: #555555;'> 7</span><span> col_pack__1 neg_value qsec      0 FALSE
+#&gt; </span><span style='color: #555555;'> 8</span><span> col_pack__1 neg_value vs        0 FALSE
+#&gt; </span><span style='color: #555555;'> 9</span><span> col_pack__1 neg_value am        0 FALSE
+#&gt; </span><span style='color: #555555;'>10</span><span> col_pack__1 neg_value gear      0 FALSE
+#&gt; </span><span style='color: #555555;'>11</span><span> col_pack__1 neg_value carb      0 FALSE</div></span></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -312,7 +328,7 @@ are checked. In this case it will be guessed as column pack.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

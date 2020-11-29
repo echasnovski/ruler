@@ -82,7 +82,7 @@ Values indicate whether the column as a whole follows the rule.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -163,7 +163,9 @@ logical values. It should return a data frame with the following properties:</p>
     <p>This format is inspired by <code>dplyr</code>'s
 <a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>scoped variants of summarise()</a> applied to non-grouped
 data.</p>
-<p>The most common way to define column pack is by creating a functional sequence with no grouping and ending with one of:</p><ul>
+<p>The most common way to define column pack is by creating a
+functional sequence with no grouping and ending with
+one of:</p><ul>
 <li><p><code>summarise_all(.funs = rules(...))</code>.</p></li>
 <li><p><code>summarise_if(.predicate, .funs = rules(...))</code>.</p></li>
 <li><p><code>summarise_at(.vars, .funs = rules(...))</code>.</p></li>
@@ -193,19 +195,20 @@ separator as prefix surrounded by any number of non-alphanumeric values.</p></li
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><code class = "r"><div class='input'><span class='co'># Validating present columns</span>
-<span class='no'>numeric_column_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_if</a></span>(
-  <span class='no'>is.numeric</span>,
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>.</span>) <span class='kw'>&lt;</span> <span class='fl'>10</span>)
-)
-<span class='no'>character_column_rules</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_if</a></span>(
-  <span class='no'>is.character</span>,
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='no'>.</span> <span class='kw'>%in%</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>])
-)
+<span class='va'>numeric_column_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_if</a></span><span class='op'>(</span>
+  <span class='va'>is.numeric</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>character_column_rules</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_if</a></span><span class='op'>(</span>
+  <span class='va'>is.character</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'>%in%</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='rule-packs.html'>col_packs</a></span>(
-  <span class='kw'>num_col</span> <span class='kw'>=</span> <span class='no'>numeric_column_rules</span>,
-  <span class='kw'>chr_col</span> <span class='kw'>=</span> <span class='no'>character_column_rules</span>
-)</div><div class='output co'>#&gt; $num_col
+<span class='fu'><a href='rule-packs.html'>col_packs</a></span><span class='op'>(</span>
+  num_col <span class='op'>=</span> <span class='va'>numeric_column_rules</span>,
+  chr_col <span class='op'>=</span> <span class='va'>character_column_rules</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; $num_col
 #&gt; A Column rule pack:
 #&gt; Functional sequence with the following components:
 #&gt; 
@@ -222,25 +225,25 @@ separator as prefix surrounded by any number of non-alphanumeric values.</p></li
 #&gt; Use 'functions' to extract the individual functions. 
 #&gt; </div><div class='input'>
 <span class='co'># Dealing with one column edge case</span>
-<span class='no'>improper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span>(
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>vs</span>),
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>improper_is_chr</span> <span class='kw'>=</span> <span class='no'>is.character</span>)
-)
+<span class='va'>improper_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span><span class='op'>(</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>)</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>improper_is_chr <span class='op'>=</span> <span class='va'>is.character</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>proper_pack</span> <span class='kw'>&lt;-</span> <span class='no'>.</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span>(
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='kw'>vs</span> <span class='kw'>=</span> <span class='no'>vs</span>),
-  <span class='fu'><a href='rules.html'>rules</a></span>(<span class='kw'>proper_is_chr</span> <span class='kw'>=</span> <span class='no'>is.character</span>)
-)
+<span class='va'>proper_pack</span> <span class='op'>&lt;-</span> <span class='va'>.</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span><span class='op'>(</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span>vs <span class='op'>=</span> <span class='va'>vs</span><span class='op'>)</span>,
+  <span class='fu'><a href='rules.html'>rules</a></span><span class='op'>(</span>proper_is_chr <span class='op'>=</span> <span class='va'>is.character</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='expose.html'>expose</a></span>(<span class='fu'><a href='rule-packs.html'>col_packs</a></span>(<span class='no'>improper_pack</span>, <span class='no'>proper_pack</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ruler-report.html'>get_report</a></span>()</div><div class='output co'>#&gt; Tidy data validation report:
-#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span><span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='expose.html'>expose</a></span><span class='op'>(</span><span class='fu'><a href='rule-packs.html'>col_packs</a></span><span class='op'>(</span><span class='va'>improper_pack</span>, <span class='va'>proper_pack</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ruler-report.html'>get_report</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Tidy data validation report:
+#&gt; <span style='color: #555555;'># A tibble: 2 x 5</span><span>
 #&gt;   pack        rule            var      id value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> col_pack__1 improper_is_chr </span><span style='color: #949494;'>""</span><span>        0 FALSE
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> col_pack__2 proper_is_chr   </span><span style='color: #949494;'>"</span><span>vs</span><span style='color: #949494;'>"</span><span>      0 FALSE</div><div class='input'>
-</div></span></code></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> col_pack__1 improper_is_chr </span><span style='color: #555555;'>""</span><span>        0 FALSE
+#&gt; </span><span style='color: #555555;'>2</span><span> col_pack__2 proper_is_chr   </span><span style='color: #555555;'>"</span><span>vs</span><span style='color: #555555;'>"</span><span>      0 FALSE</div></span></code></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +259,7 @@ separator as prefix surrounded by any number of non-alphanumeric values.</p></li
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

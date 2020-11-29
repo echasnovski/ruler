@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -86,13 +86,14 @@
 
       
 
-      </header><div class="row">
+      </header><script src="design-and-format_files/header-attrs-2.5/header-attrs.js"></script><link href="design-and-format_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="design-and-format_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Design Process and Exposure Format</h1>
                         <h4 class="author">Evgeni Chasnovski</h4>
             
-            <h4 class="date">2020-05-10</h4>
+            <h4 class="date">2020-11-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/design-and-format.Rmd"><code>vignettes/design-and-format.Rmd</code></a></small>
       <div class="hidden name"><code>design-and-format.Rmd</code></div>
@@ -101,7 +102,7 @@
 
     
     
-<p>The main idea of the <code>ruler</code> package is to create a format of validation results (along with functional API) that will work naturally with <a href="http://tidyverse.org">tidyverse</a> tools. This vignette will:</p>
+<p>The main idea of the <code>ruler</code> package is to create a format of validation results (along with functional API) that will work naturally with <a href="https://www.tidyverse.org/">tidyverse</a> tools. This vignette will:</p>
 <ul>
 <li>Guide you through the design process of <strong>exposure</strong>: <code>ruler</code>’s validation result format. This should help to understand the foundations of <code>ruler</code> validation workflow.</li>
 <li>Describe exposure format.</li>
@@ -109,10 +110,10 @@
 <div id="design-process" class="section level2">
 <h2 class="hasAnchor">
 <a href="#design-process" class="anchor"></a>Design process</h2>
-<p>The preferred local data structure in <code>tidyverse</code> is <a href="http://tibble.tidyverse.org">tibble</a>: “A modern re-imagining of the data frame”, on which its implementation is based. That is why <code>ruler</code> uses data frames as preferred format for data to be validated. However the initial goal is to use tibbles in creation of validation result format as much as possible.</p>
+<p>The preferred local data structure in <code>tidyverse</code> is <a href="https://tibble.tidyverse.org">tibble</a>: “A modern re-imagining of the data frame”, on which its implementation is based. That is why <code>ruler</code> uses data frames as preferred format for data to be validated. However the initial goal is to use tibbles in creation of validation result format as much as possible.</p>
 <p>Basically data frame is a list of variables with the same length. It is easier to think about it as two-dimensional structure where columns can be of different types.</p>
 <p>In abstract form validation of data frame can be put as <strong><em>asking whether certain subset of data frame (data unit) obeys certain rule</em></strong>. The result of validation is logical <strong>value</strong> representing an answer.</p>
-<p>With influence of <a href="http://dplyr.tidyverse.org">dplyr</a>’s grammar of data manipulation a data frame can be represented in terms of the following data units:</p>
+<p>With influence of <a href="https://dplyr.tidyverse.org">dplyr</a>’s grammar of data manipulation a data frame can be represented in terms of the following data units:</p>
 <ul>
 <li>Data frame as a whole. Validation can be done by <code>summarise()</code> <em>without</em> grouping.</li>
 <li>Collection of groups of rows. Validation can be done by <code>summarise()</code> <em>with</em> grouping.</li>
@@ -200,7 +201,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
