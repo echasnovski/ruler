@@ -285,7 +285,7 @@ interp_data_pack_out <- function(.pack_out) {
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     mutate(var = ".all", id = 0L) %>%
-    select(.data$rule, .data$var, .data$id, .data$value)
+    select("rule", "var", "id", "value")
 }
 
 interp_group_pack_out <- function(.pack_out, .group_vars, .group_sep,
@@ -320,7 +320,7 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
       regex = rule_sep_regex
     ) %>%
     mutate(id = 0L) %>%
-    select(.data$rule, .data$var, .data$id, .data$value)
+    select("rule", "var", "id", "value")
 }
 
 interp_row_pack_out <- function(.pack_out) {
@@ -335,7 +335,7 @@ interp_row_pack_out <- function(.pack_out) {
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     mutate(var = ".all") %>%
-    select(.data$rule, .data$var, .data$id, .data$value)
+    select("rule", "var", "id", "value")
 }
 
 interp_cell_pack_out <- function(.pack_out, .rule_sep) {
@@ -357,5 +357,5 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
       col = "var_rule", into = c("var", "rule"),
       regex = rule_sep_regex
     ) %>%
-    select(.data$rule, .data$var, .data$id, .data$value)
+    select("rule", "var", "id", "value")
 }
