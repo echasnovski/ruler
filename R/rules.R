@@ -3,19 +3,10 @@
 #' `rules()` is a function designed to create input for `.funs` argument of
 #' scoped `dplyr` "mutating" verbs (such as
 #' [summarise_all()][dplyr::summarise_all()] and
-#' [transmute_all()][dplyr::transmute_all()]). For version of `dplyr` less than
-#' 0.8.0 it is a direct wrapper for [funs()][dplyr::funs()] which does custom
-#' name repair (see 'Details'). For newer versions it converts bare expressions
+#' [transmute_all()][dplyr::transmute_all()]). It converts bare expressions
 #' with `.` as input into formulas and repairs names of the output.
 #'
-#' @param ... Element(s) suitable as `.funs` argument (in scoped "mutating"
-#'   verbs) for current version of `dplyr`. It can also be a bare expression
-#'   with `.` as input even if `dplyr` version is 0.8.0 or newer.
-#' @param .args A named list of additional arguments to be added to all function
-#'   calls (as in `dplyr::funs()`). **Note** that this argument isn't used if
-#'   installed version of `dplyr` is 0.8.0 or newer. Use other methods to supply
-#'   arguments: `...` argument in [scoped verbs][summarise_at()] or make own
-#'   explicit functions.
+#' @param ... Bare expression(s) with `.` as input.
 #' @param .prefix Prefix to be added to function names.
 #'
 #' @details `rules()` repairs names by the following algorithm:
@@ -25,59 +16,27 @@
 #'   is picked for its symbolism (it is the Morse code of letter 'R') and rare
 #'   occurrence in names. In those rare cases it can be manually changed but
 #'   this will not be tracked further. **Note** that it is a good idea for
-#'   `.prefix` to be [syntactic][make.names()], as newer versions of `dplyr` (>=
-#'   0.8.0) will force tibble names to be syntactic. To check if string is
-#'   "good", use it as input to `make.names()`: if output equals that string
-#'   than it is a "good" choice.
+#'   `.prefix` to be [syntactic][make.names()], as `dplyr` will force tibble
+#'   names to be syntactic. To check if string is "good", use it as input to
+#'   `make.names()`: if output equals that string than it is a "good" choice.
 #'
 #' @examples
-#' if (utils::packageVersion("dplyr") < "0.8.0") {
-#'   rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
-#'   rules_1_ref <- dplyr::funs(
-#'     "._.rule__1" = mean, "._.rule__2" = sd,
-#'     .args = list(na.rm = TRUE)
-#'   )
-#'   identical(rules_1, rules_1_ref)
+#' # `rules()` accepts bare expression calls with `.` as input, which is not
+#' # possible with advised `list()` approach of `dplyr`
+#' dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
 #'
-#'   rules_2 <- rules(mean, sd = sd, "var")
-#'   rules_2_ref <- dplyr::funs(
-#'     "._.rule__1" = mean,
-#'     "._.sd" = sd,
-#'     "._.rule__3" = "var"
-#'   )
-#'   identical(rules_2, rules_2_ref)
+#' dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
 #'
-#'   rules_3 <- rules(mean, .prefix = "a_a_")
-#'   rules_3_ref <- dplyr::funs("a_a_rule__1" = mean)
-#'   identical(rules_3, rules_3_ref)
-#' }
-#'
-#' if (utils::packageVersion("dplyr") >= "0.8.0") {
-#'   # `rules()` also accepts bare expression calls with `.` as input, which is
-#'   # not possible with advised `list()` approach of `dplyr`
-#'   dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
-#'
-#'   dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
-#'
-#'   # Use `...` in `summarise_all()` to supply extra arguments
-#'   dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
-#' }
+#' # Use `...` in `summarise_all()` to supply extra arguments
+#' dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
 #' @export
-rules <- function(..., .args = list(), .prefix = "._.") {
+rules <- function(..., .prefix = "._.") {
   dots <- quos(...)
   names(dots) <- enhance_names(
     .name = rlang::names2(dots), .prefix = .prefix, .root = "rule"
   )
 
-  if (utils::packageVersion("dplyr") < "0.8.0") {
-    do.call(
-      what = dplyr::funs,
-      args = c(dots, list(.args = .args)),
-      envir = rlang::caller_env()
-    )
-  } else {
-    lapply(dots, extract_funs_input)
-  }
+  lapply(dots, extract_funs_input)
 }
 
 extract_funs_input <- function(obj) {

@@ -244,8 +244,7 @@ my_group_packs <- group_packs(
 #### Column packs
 
 ``` r
-# rules() is a dplyr::funs() with necessary name imputations
-# In column packs it should always be used instead of dplyr::funs()
+# rules() defines function predicators with necessary name imputations
 
 # List of two rule pack for checking certain columns' properties
 my_col_packs <- col_packs(

@@ -4,18 +4,10 @@
 \alias{rules}
 \title{Create a list of rules}
 \usage{
-rules(..., .args = list(), .prefix = "._.")
+rules(..., .prefix = "._.")
 }
 \arguments{
-\item{...}{Element(s) suitable as \code{.funs} argument (in scoped "mutating"
-verbs) for current version of \code{dplyr}. It can also be a bare expression
-with \code{.} as input even if \code{dplyr} version is 0.8.0 or newer.}
-
-\item{.args}{A named list of additional arguments to be added to all function
-calls (as in \code{dplyr::funs()}). \strong{Note} that this argument isn't used if
-installed version of \code{dplyr} is 0.8.0 or newer. Use other methods to supply
-arguments: \code{...} argument in \link[=summarise_at]{scoped verbs} or make own
-explicit functions.}
+\item{...}{Bare expression(s) with \code{.} as input.}
 
 \item{.prefix}{Prefix to be added to function names.}
 }
@@ -23,9 +15,7 @@ explicit functions.}
 \code{rules()} is a function designed to create input for \code{.funs} argument of
 scoped \code{dplyr} "mutating" verbs (such as
 \link[dplyr:summarise_all]{summarise_all()} and
-\link[dplyr:mutate_all]{transmute_all()}). For version of \code{dplyr} less than
-0.8.0 it is a direct wrapper for \link[dplyr:funs]{funs()} which does custom
-name repair (see 'Details'). For newer versions it converts bare expressions
+\link[dplyr:mutate_all]{transmute_all()}). It converts bare expressions
 with \code{.} as input into formulas and repairs names of the output.
 }
 \details{
@@ -37,42 +27,18 @@ index of function position in the \code{...} .
 is picked for its symbolism (it is the Morse code of letter 'R') and rare
 occurrence in names. In those rare cases it can be manually changed but
 this will not be tracked further. \strong{Note} that it is a good idea for
-\code{.prefix} to be \link[=make.names]{syntactic}, as newer versions of \code{dplyr} (>=
-0.8.0) will force tibble names to be syntactic. To check if string is
-"good", use it as input to \code{make.names()}: if output equals that string
-than it is a "good" choice.
+\code{.prefix} to be \link[=make.names]{syntactic}, as \code{dplyr} will force tibble
+names to be syntactic. To check if string is "good", use it as input to
+\code{make.names()}: if output equals that string than it is a "good" choice.
 }
 }
 \examples{
-if (utils::packageVersion("dplyr") < "0.8.0") {
-  rules_1 <- rules(mean, sd, .args = list(na.rm = TRUE))
-  rules_1_ref <- dplyr::funs(
-    "._.rule__1" = mean, "._.rule__2" = sd,
-    .args = list(na.rm = TRUE)
-  )
-  identical(rules_1, rules_1_ref)
+# `rules()` accepts bare expression calls with `.` as input, which is not
+# possible with advised `list()` approach of `dplyr`
+dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
 
-  rules_2 <- rules(mean, sd = sd, "var")
-  rules_2_ref <- dplyr::funs(
-    "._.rule__1" = mean,
-    "._.sd" = sd,
-    "._.rule__3" = "var"
-  )
-  identical(rules_2, rules_2_ref)
+dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
 
-  rules_3 <- rules(mean, .prefix = "a_a_")
-  rules_3_ref <- dplyr::funs("a_a_rule__1" = mean)
-  identical(rules_3, rules_3_ref)
-}
-
-if (utils::packageVersion("dplyr") >= "0.8.0") {
-  # `rules()` also accepts bare expression calls with `.` as input, which is
-  # not possible with advised `list()` approach of `dplyr`
-  dplyr::summarise_all(mtcars[, 1:2], rules(sd, "sd", sd(.), ~ sd(.)))
-
-  dplyr::summarise_all(mtcars[, 1:2], rules(sd, .prefix = "a_a_"))
-
-  # Use `...` in `summarise_all()` to supply extra arguments
-  dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
-}
+# Use `...` in `summarise_all()` to supply extra arguments
+dplyr::summarise_all(data.frame(x = c(1:2, NA)), rules(sd), na.rm = TRUE)
 }

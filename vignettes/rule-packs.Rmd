@@ -111,7 +111,7 @@ is_integerish <- function(x) {
 }
 
 mtcars %>%
-  summarise_if(is_integerish, funs(mean_low = mean(.) > 0.5))
+  summarise_if(is_integerish, list(mean_low = ~ mean(.) > 0.5))
 ```
 
 The output has the following structure:
@@ -120,7 +120,7 @@ The output has the following structure:
 - Column names are constructed as **'validated column name' + 'separator' + 'rule name'**.
 - Values indicate whether the __column as a whole__ follows the rule.
 
-In general it is hard to automatically separate output's column names into 'validated column name' and 'rule name' because default separator `_` is a commonly used one. For this reason `ruler` has function `rules()` which wraps `funs()` with the following functionality:
+In general it is hard to automatically separate output's column names into 'validated column name' and 'rule name' because default separator `_` is a commonly used one. For this reason `ruler` has function `rules()` with the following functionality:
 
 - Impute not supplied rule names. The format is 'rule__{ind}' where {ind} is the index of function position within `rules()`'s arguments.
 - Add rarely used prefix `._.` (Morse code for 'R') to rule names. __Note__ that one can change this prefix with `.prefix` argument.
@@ -182,7 +182,7 @@ To check whether certain cells of `mtcars` are not outliers one can write the ne
 ```{r Cell properties of mtcars}
 mtcars %>% transmute_if(
   is_integerish,
-  funs(is_common = abs(z_score(.)) < 1)
+  list(is_common = ~ abs(z_score(.)) < 1)
 ) %>%
   slice(20:24)
 ```
@@ -195,7 +195,7 @@ The output has the following structure:
 
 Basically cell rule pack is a combination of column and row rule packs. It means:
 
-- Using `rules()` instead of `funs()` in scoped variants of `transmute()`.
+- Using `rules()` instead of pure list in scoped variants of `transmute()`.
 - Using functions supported by `keyholder`.
 
 The next code creates a list with one cell pack `my_cell_pack_1`. It checks cells of every integer-like column in rows 20-24 for not being an outlier within column.

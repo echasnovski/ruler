@@ -1,5 +1,7 @@
 # ruler (development version)
 
+* Update minimum `dplyr` version to be 0.8.0.
+
 # ruler 0.2.4
 
 * Maintenance release in reaction to a planned update of `tibble`.

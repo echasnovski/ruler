@@ -27,8 +27,8 @@
 #'   Default value for `.rule_sep` is the regular expression `characters
 #'   ._. surrounded by non alphanumeric characters`. It is picked to be used
 #'   smoothly with `dplyr`'s [scoped verbs][dplyr::scoped] and [rules()] instead
-#'   of [funs()][dplyr::funs()]. In most cases it shouldn't be changed but if
-#'   needed it should align with `.prefix` in [rules()].
+#'   of pure list. In most cases it shouldn't be changed but if needed it
+#'   should align with `.prefix` in [rules()].
 #'
 #' @section Guessing:
 #'   To work properly in some edge cases one should specify pack types with

@@ -44,8 +44,8 @@ to one in \code{\link[=rules]{rules()}} but applied to every pack type separatel
 
 Default value for \code{.rule_sep} is the regular expression \verb{characters ._. surrounded by non alphanumeric characters}. It is picked to be used
 smoothly with \code{dplyr}'s \link[dplyr:scoped]{scoped verbs} and \code{\link[=rules]{rules()}} instead
-of \link[dplyr:funs]{funs()}. In most cases it shouldn't be changed but if
-needed it should align with \code{.prefix} in \code{\link[=rules]{rules()}}.
+of pure list. In most cases it shouldn't be changed but if needed it
+should align with \code{.prefix} in \code{\link[=rules]{rules()}}.
 }
 \section{Guessing}{
 
