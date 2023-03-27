@@ -349,7 +349,7 @@ print.exposure <- function(x, ..., .validate_packs_info = TRUE,
     .validate = .validate_packs_info,
     n = n_packs_info,
     width = width_packs_info,
-    n_extra = n_extra_packs_info
+    max_extra_cols = n_extra_packs_info
   )
   cat("\n")
   print(
@@ -358,7 +358,7 @@ print.exposure <- function(x, ..., .validate_packs_info = TRUE,
     .validate = .validate_report,
     n = n_report,
     width = width_report,
-    n_extra = n_extra_report
+    max_extra_cols = n_extra_report
   )
 
   invisible(x)

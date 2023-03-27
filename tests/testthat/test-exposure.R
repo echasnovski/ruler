@@ -426,7 +426,7 @@ test_that("print.exposure passes tibble options", {
 
   # Option `n_extra`
   output_ref_packs_info_n_extra <- capture_output(
-    print(input_print_pack_info_tbl, width = 30, n_extra = 1)
+    print(input_print_pack_info_tbl, width = 30, max_extra_cols = 1)
   )
   expect_output(
     print(input_print_exposure, width_packs_info = 30, n_extra_packs_info = 1),
@@ -435,7 +435,7 @@ test_that("print.exposure passes tibble options", {
   )
 
   output_ref_report_n_extra <- capture_output(
-    print(input_print_report_tbl, width = 20, n_extra = 1)
+    print(input_print_report_tbl, width = 20, max_extra_cols = 1)
   )
   expect_output(
     print(input_print_exposure, width_report = 20, n_extra_report = 1),
