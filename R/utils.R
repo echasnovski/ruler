@@ -21,6 +21,14 @@ negate_select_cols <- function(.tbl, ...) {
   setdiff(colnames(.tbl), colnames(selected_tbl))
 }
 
+# Replicate deprecated `rlang::squash()`
+squash <- function(x) {
+  out <- purrr::list_flatten(x)
+  if (identical(out, x)) {
+    return(out)
+  }
+  squash(out)
+}
 
 # General assertions ------------------------------------------------------
 assert_positive_length <- function(.x, .name) {

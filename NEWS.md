@@ -1,6 +1,7 @@
 # ruler (development version)
 
 * Update minimum `dplyr` version to be 0.8.0.
+* Introduce dependency on `purrr >= 1.0.0` as a reaction to soft deprecation or `rlang::squash()`.
 
 # ruler 0.2.4
 

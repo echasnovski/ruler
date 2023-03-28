@@ -23,7 +23,8 @@ Imports:
     rlang,
     tibble,
     tidyr (>= 0.7.0),
-    magrittr
+    magrittr,
+    purrr (>= 1.0.0)
 Suggests:
     covr,
     knitr,

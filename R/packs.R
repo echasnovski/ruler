@@ -71,7 +71,7 @@ cell_packs <- function(...) {
 
 squash_dots_rule_pack <- function(..., .extra_class) {
   rlang::dots_list(...) %>%
-    rlang::squash() %>%
+    squash() %>%
     lapply(function(x) {
       x %>%
         add_class_cond("rule_pack") %>%

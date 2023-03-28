@@ -82,6 +82,7 @@ test_that("cell_packs works", {
 # squash_dots_rule_pack ---------------------------------------------------
 test_that("squash_dots_rule_pack returns a list", {
   output <- squash_dots_rule_pack(1, .extra_class = "extra")
+  names(output) <- NULL
   output_ref <- list(structure(1, class = c("extra", "rule_pack", "numeric")))
 
   expect_identical(output, output_ref)
@@ -100,6 +101,7 @@ test_that("squash_dots_rule_pack squashes", {
     list(list(list(4L)), list(5L, list(6L))),
     .extra_class = "extra"
   )
+  names(output) <- NULL
   output_ref <- lapply(
     1:6,
     structure,

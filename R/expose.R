@@ -121,7 +121,7 @@ expose <- function(.tbl, ..., .rule_sep = inside_punct("\\._\\."),
     unkey() %>%
     use_id()
   packs <- rlang::dots_list(...) %>%
-    rlang::squash()
+    squash()
 
   res_exposure <- lapply(
     packs, expose_single,

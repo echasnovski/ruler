@@ -153,7 +153,7 @@ add_pack_names <- function(.single_exposures) {
 #' @export
 bind_exposures <- function(..., .validate_output = TRUE) {
   exposures <- rlang::dots_list(...) %>%
-    rlang::squash() %>%
+    squash() %>%
     filter_not_null()
 
   if (length(exposures) == 0) {
