@@ -1,3 +1,5 @@
+# ruler (development version)
+
 # ruler 0.3.0
 
 * Update minimum `dplyr` version to be 0.8.0.
