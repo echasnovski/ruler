@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,23 +34,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruler</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -71,8 +67,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/echasnovski/ruler/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/echasnovski/ruler/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,49 +82,80 @@
 
       
 
-      </header><script src="design-and-format_files/header-attrs-2.5/header-attrs.js"></script><link href="design-and-format_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="design-and-format_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Design Process and Exposure Format</h1>
-                        <h4 class="author">Evgeni Chasnovski</h4>
+                        <h4 data-toc-skip class="author">Evgeni
+Chasnovski</h4>
             
-            <h4 class="date">2020-11-29</h4>
+            <h4 data-toc-skip class="date">2023-03-30</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/master/vignettes/design-and-format.Rmd"><code>vignettes/design-and-format.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/echasnovski/ruler/blob/HEAD/vignettes/design-and-format.Rmd" class="external-link"><code>vignettes/design-and-format.Rmd</code></a></small>
       <div class="hidden name"><code>design-and-format.Rmd</code></div>
 
     </div>
 
     
     
-<p>The main idea of the <code>ruler</code> package is to create a format of validation results (along with functional API) that will work naturally with <a href="https://www.tidyverse.org/">tidyverse</a> tools. This vignette will:</p>
+<p>The main idea of the <code>ruler</code> package is to create a format
+of validation results (along with functional API) that will work
+naturally with <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> tools.
+This vignette will:</p>
 <ul>
-<li>Guide you through the design process of <strong>exposure</strong>: <code>ruler</code>’s validation result format. This should help to understand the foundations of <code>ruler</code> validation workflow.</li>
+<li>Guide you through the design process of <strong>exposure</strong>:
+<code>ruler</code>’s validation result format. This should help to
+understand the foundations of <code>ruler</code> validation
+workflow.</li>
 <li>Describe exposure format.</li>
 </ul>
-<div id="design-process" class="section level2">
-<h2 class="hasAnchor">
-<a href="#design-process" class="anchor"></a>Design process</h2>
-<p>The preferred local data structure in <code>tidyverse</code> is <a href="https://tibble.tidyverse.org">tibble</a>: “A modern re-imagining of the data frame”, on which its implementation is based. That is why <code>ruler</code> uses data frames as preferred format for data to be validated. However the initial goal is to use tibbles in creation of validation result format as much as possible.</p>
-<p>Basically data frame is a list of variables with the same length. It is easier to think about it as two-dimensional structure where columns can be of different types.</p>
-<p>In abstract form validation of data frame can be put as <strong><em>asking whether certain subset of data frame (data unit) obeys certain rule</em></strong>. The result of validation is logical <strong>value</strong> representing an answer.</p>
-<p>With influence of <a href="https://dplyr.tidyverse.org">dplyr</a>’s grammar of data manipulation a data frame can be represented in terms of the following data units:</p>
+<div class="section level2">
+<h2 id="design-process">Design process<a class="anchor" aria-label="anchor" href="#design-process"></a>
+</h2>
+<p>The preferred local data structure in <code>tidyverse</code> is <a href="https://tibble.tidyverse.org" class="external-link">tibble</a>: “A modern re-imagining
+of the data frame”, on which its implementation is based. That is why
+<code>ruler</code> uses data frames as preferred format for data to be
+validated. However the initial goal is to use tibbles in creation of
+validation result format as much as possible.</p>
+<p>Basically data frame is a list of variables with the same length. It
+is easier to think about it as two-dimensional structure where columns
+can be of different types.</p>
+<p>In abstract form validation of data frame can be put as
+<strong><em>asking whether certain subset of data frame (data unit)
+obeys certain rule</em></strong>. The result of validation is logical
+<strong>value</strong> representing an answer.</p>
+<p>With influence of <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>’s
+grammar of data manipulation a data frame can be represented in terms of
+the following data units:</p>
 <ul>
-<li>Data frame as a whole. Validation can be done by <code>summarise()</code> <em>without</em> grouping.</li>
-<li>Collection of groups of rows. Validation can be done by <code>summarise()</code> <em>with</em> grouping.</li>
-<li>Collection of columns. Validation can be done by scoped variants of <code>summarise()</code> <em>without</em> grouping: <code>summarise_all()</code>, <code>summarise_if()</code> and <code>summarise_at()</code>.</li>
-<li>Collection of rows. Validation can be done by <code>transmute()</code>.</li>
-<li>2d-collection of cells. Validation can be done by scoped variants of <code>transmute()</code>: <code>transmute_all()</code>, <code>transmute_if()</code> and <code>transmute_at()</code>.</li>
+<li>Data frame as a whole. Validation can be done by
+<code>summarise()</code> <em>without</em> grouping.</li>
+<li>Collection of groups of rows. Validation can be done by
+<code>summarise()</code> <em>with</em> grouping.</li>
+<li>Collection of columns. Validation can be done by scoped variants of
+<code>summarise()</code> <em>without</em> grouping:
+<code>summarise_all()</code>, <code>summarise_if()</code> and
+<code>summarise_at()</code>.</li>
+<li>Collection of rows. Validation can be done by
+<code>transmute()</code>.</li>
+<li>2d-collection of cells. Validation can be done by scoped variants of
+<code>transmute()</code>: <code>transmute_all()</code>,
+<code>transmute_if()</code> and <code>transmute_at()</code>.</li>
 </ul>
-<p>In <code>ruler</code> data, group, column, row and cell are five basic data units. They all can be described by the combination of two variables:</p>
+<p>In <code>ruler</code> data, group, column, row and cell are five
+basic data units. They all can be described by the combination of two
+variables:</p>
 <ul>
 <li>
-<strong>var</strong> which represents the variable name of data unit:
+<strong>var</strong> which represents the variable name of data
+unit:
 <ul>
 <li>Value ‘.all’ is reserved for ‘all columns as a whole’.</li>
-<li>Value <em>equal</em> to some column name indicates column of data unit.</li>
-<li>Value <em>not equal</em> to some column name indicates the name of group: it is created by uniting (with delimiter) group levels of grouping columns.</li>
+<li>Value <em>equal</em> to some column name indicates column of data
+unit.</li>
+<li>Value <em>not equal</em> to some column name indicates the name of
+group: it is created by uniting (with delimiter) group levels of
+grouping columns.</li>
 </ul>
 </li>
 <li>
@@ -139,47 +166,80 @@
 </ul>
 </li>
 </ul>
-<p>Validation of data units can be done with the <code>dplyr</code> functions described above. Their application to some data unit can give answers to multiple questions. That is why by design <strong>rules</strong> (functions that answer one certain question about one type of data unit) are combined in <strong>rule packs</strong> (functions that answer multiple questions about one type of data unit).</p>
-<p>Application of rule pack to data is connected with several points:</p>
+<p>Validation of data units can be done with the <code>dplyr</code>
+functions described above. Their application to some data unit can give
+answers to multiple questions. That is why by design
+<strong>rules</strong> (functions that answer one certain question about
+one type of data unit) are combined in <strong>rule packs</strong>
+(functions that answer multiple questions about one type of data
+unit).</p>
+<p>Application of rule pack to data is connected with several
+points:</p>
 <ul>
-<li>Rule packs should have unique <strong>names</strong> to be used as references.</li>
-<li>By the same reason rules should have names. However uniqueness is necessary only within corresponding rule pack which makes pair ‘pack name’+‘rule name’ a key of identifying the actual rule.</li>
-<li>Output of rule packs for different data units differ in their structure. Therefore rule packs should have <strong>types</strong> to apply different interpretations to their outputs.</li>
-<li>During the actual validation the most part of results normally indicates obedience to rules. This can cause storing many redundant information in validation results. <code>ruler</code> has option of <strong>removing obeyers</strong> from results during the validation.</li>
+<li>Rule packs should have unique <strong>names</strong> to be used as
+references.</li>
+<li>By the same reason rules should have names. However uniqueness is
+necessary only within corresponding rule pack which makes pair ‘pack
+name’+‘rule name’ a key of identifying the actual rule.</li>
+<li>Output of rule packs for different data units differ in their
+structure. Therefore rule packs should have <strong>types</strong> to
+apply different interpretations to their outputs.</li>
+<li>During the actual validation the most part of results normally
+indicates obedience to rules. This can cause storing many redundant
+information in validation results. <code>ruler</code> has option of
+<strong>removing obeyers</strong> from results during the
+validation.</li>
 </ul>
-<p>In <code>ruler</code> <strong>exposing</strong> data to rules means applying rule packs to data, collecting results in common format and attaching them to the data as an <code>exposure</code> attribute. In this way actual exposure can be done in multiple steps and also be a part of a general data preparation pipeline.</p>
+<p>In <code>ruler</code> <strong>exposing</strong> data to rules means
+applying rule packs to data, collecting results in common format and
+attaching them to the data as an <code>exposure</code> attribute. In
+this way actual exposure can be done in multiple steps and also be a
+part of a general data preparation pipeline.</p>
 </div>
-<div id="exposure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exposure" class="anchor"></a>Exposure</h2>
-<p><strong>Exposure</strong> is a format designed to contain uniform information about validation of different data units. For reproducibility it also saves information about applied packs. Basically exposure is a list with two elements:</p>
+<div class="section level2">
+<h2 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a>
+</h2>
+<p><strong>Exposure</strong> is a format designed to contain uniform
+information about validation of different data units. For
+reproducibility it also saves information about applied packs. Basically
+exposure is a list with two elements:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Packs info</strong>: a <code>tibble</code> with the following structure:
+<strong>Packs info</strong>: a <code>tibble</code> with the
+following structure:
 <ul>
 <li>
-<em>name</em> &lt;chr&gt; : Name of the pack. If not set manually it will be imputed during exposure.</li>
+<em>name</em> &lt;chr&gt; : Name of the pack. If not set manually it
+will be imputed during exposure.</li>
 <li>
-<em>type</em> &lt;chr&gt; : Name of pack type. Indicates which data unit pack checks.</li>
+<em>type</em> &lt;chr&gt; : Name of pack type. Indicates which data
+unit pack checks.</li>
 <li>
-<em>fun</em> &lt;list&gt; : List (preferably unnamed) of rule pack functions.</li>
+<em>fun</em> &lt;list&gt; : List (preferably unnamed) of rule pack
+functions.</li>
 <li>
-<em>remove_obeyers</em> &lt;lgl&gt; : Whether rows about obeyers (data units that obey certain rule) were removed from report after applying pack.</li>
+<em>remove_obeyers</em> &lt;lgl&gt; : Whether rows about obeyers
+(data units that obey certain rule) were removed from report after
+applying pack.</li>
 </ul>
 </li>
 <li>
-<strong>Tidy data validation report</strong>: a <code>tibble</code> with the following structure:
+<strong>Tidy data validation report</strong>: a <code>tibble</code>
+with the following structure:
 <ul>
 <li>
-<em>pack</em> &lt;chr&gt; : Name of rule pack (from column ‘name’ in packs info).</li>
+<em>pack</em> &lt;chr&gt; : Name of rule pack (from column ‘name’ in
+packs info).</li>
 <li>
-<em>rule</em> &lt;chr&gt; : Name of the rule defined in rule pack.</li>
+<em>rule</em> &lt;chr&gt; : Name of the rule defined in rule
+pack.</li>
 <li>
 <em>var</em> &lt;chr&gt; : Name of the data unit variable.</li>
 <li>
 <em>id</em> &lt;int&gt; : Row index of data unit.</li>
 <li>
-<em>value</em> &lt;lgl&gt; : Whether the described data unit obeys the rule.</li>
+<em>value</em> &lt;lgl&gt; : Whether the described data unit obeys
+the rule.</li>
 </ul>
 </li>
 </ol>
@@ -197,11 +257,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Evgeni Chasnovski.</p>
+  <p></p>
+<p>Developed by Evgeni Chasnovski.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -209,6 +271,8 @@
 
   
 
+
+  
 
   </body>
 </html>
