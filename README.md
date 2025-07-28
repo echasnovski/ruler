@@ -5,7 +5,7 @@
 
 [![R-CMD-check](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml)
 [![Coverage
-Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://app.codecov.io/github/echasnovski/ruler?branch=master)
+Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://app.codecov.io/gh/echasnovski/ruler)
 [![CRAN](https://www.r-pkg.org/badges/version/ruler?color=blue)](https://cran.r-project.org/package=ruler)
 [![Dependencies](https://tinyverse.netlify.com/badge/ruler)](https://CRAN.R-project.org/package=ruler)
 [![Downloads](http://cranlogs.r-pkg.org/badges/ruler)](https://cran.r-project.org/package=ruler)
