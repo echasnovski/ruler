@@ -89,8 +89,13 @@ compute_def_names <- function(.n = 1, .root = "", .start_ind = 1) {
   }
 }
 
-enhance_names <- function(.name, .prefix = "", .root = "", .suffix = "",
-                          .start_ind = 1) {
+enhance_names <- function(
+  .name,
+  .prefix = "",
+  .root = "",
+  .suffix = "",
+  .start_ind = 1
+) {
   if (length(.name) == 0) {
     return(.name)
   }

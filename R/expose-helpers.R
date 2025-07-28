@@ -39,9 +39,13 @@ impute_exposure_pack_names <- function(.single_exposures, .exposure_ref) {
   }
 
   # Collect data about imputed pack types
-  pack_types <- vapply(.single_exposures, function(cur_single_exposure) {
-    cur_single_exposure[["pack_info"]][["type"]][1]
-  }, "chr")
+  pack_types <- vapply(
+    .single_exposures,
+    function(cur_single_exposure) {
+      cur_single_exposure[["pack_info"]][["type"]][1]
+    },
+    "chr"
+  )
   pack_types_table <- table(pack_types)
   unique_pack_types <- names(pack_types_table)
 
@@ -64,7 +68,8 @@ impute_exposure_pack_names <- function(.single_exposures, .exposure_ref) {
   # Impute
   def_names <- mapply(
     compute_def_names,
-    .n = pack_types_table, .root = unique_pack_types,
+    .n = pack_types_table,
+    .root = unique_pack_types,
     .start_ind = start_ind_vec,
     SIMPLIFY = FALSE
   ) %>%
@@ -207,7 +212,9 @@ assert_pack_out_all_have_separator <-
       return(TRUE)
     } else {
       stop(paste0(
-        "In some ", .pack_type, " not all columns contain rule separator"
+        "In some ",
+        .pack_type,
+        " not all columns contain rule separator"
       ))
     }
   }

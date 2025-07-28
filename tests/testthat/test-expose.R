@@ -44,30 +44,51 @@ input_cell_pack_report_no_remove <- tibble::tibble(
   var = rep(c("mpg", "disp", "drat", "wt", "qsec"), each = 32),
   id = rep(1:32, 5),
   value = c(
-    rep(TRUE, 17), FALSE, TRUE, FALSE, rep(TRUE, 62),
-    FALSE, rep(TRUE, 27), rep(FALSE, 3), rep(TRUE, 23),
-    FALSE, rep(TRUE, 23)
+    rep(TRUE, 17),
+    FALSE,
+    TRUE,
+    FALSE,
+    rep(TRUE, 62),
+    FALSE,
+    rep(TRUE, 27),
+    rep(FALSE, 3),
+    rep(TRUE, 23),
+    FALSE,
+    rep(TRUE, 23)
   )
 )
 
 
 # Custom expectations -----------------------------------------------------
 expect_error_expose_single <-
-  function(.tbl, .pack, .error, .rule_sep = inside_punct("\\._\\."),
-           .remove_obeyers = TRUE, .guess = TRUE) {
+  function(
+    .tbl,
+    .pack,
+    .error,
+    .rule_sep = inside_punct("\\._\\."),
+    .remove_obeyers = TRUE,
+    .guess = TRUE
+  ) {
     expect_error(
       expose_single(
-        .tbl = .tbl, .pack = .pack, .rule_sep = .rule_sep,
-        .remove_obeyers = .remove_obeyers, .guess = .guess
+        .tbl = .tbl,
+        .pack = .pack,
+        .rule_sep = .rule_sep,
+        .remove_obeyers = .remove_obeyers,
+        .guess = .guess
       ),
       .error
     )
   }
 
-expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
-                                       .rule_sep = inside_punct("\\._\\."),
-                                       .report_with_remove,
-                                       .report_no_remove) {
+expect_expose_single_works <- function(
+  .tbl,
+  .pack,
+  .used_pack = .pack,
+  .rule_sep = inside_punct("\\._\\."),
+  .report_with_remove,
+  .report_no_remove
+) {
   output_ref_remove <- new_single_exposure(
     .pack = .pack,
     .remove_obeyers = TRUE,
@@ -76,9 +97,11 @@ expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
 
   expect_identical(
     expose_single(
-      .tbl = .tbl, .pack = .used_pack,
+      .tbl = .tbl,
+      .pack = .used_pack,
       .rule_sep = .rule_sep,
-      .remove_obeyers = TRUE, .guess = TRUE
+      .remove_obeyers = TRUE,
+      .guess = TRUE
     ),
     output_ref_remove
   )
@@ -91,9 +114,11 @@ expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
 
   expect_identical(
     expose_single(
-      .tbl = .tbl, .pack = .used_pack,
+      .tbl = .tbl,
+      .pack = .used_pack,
       .rule_sep = .rule_sep,
-      .remove_obeyers = FALSE, .guess = TRUE
+      .remove_obeyers = FALSE,
+      .guess = TRUE
     ),
     output_ref_no_remove
   )
@@ -102,19 +127,29 @@ expect_expose_single_works <- function(.tbl, .pack, .used_pack = .pack,
 }
 
 expect_expose_single_default_works <-
-  function(.tbl, .pack, .rule_sep = inside_punct("\\._\\."),
-           .report_with_remove, .report_no_remove) {
+  function(
+    .tbl,
+    .pack,
+    .rule_sep = inside_punct("\\._\\."),
+    .report_with_remove,
+    .report_no_remove
+  ) {
     input_rule_pack <- .pack
     class(input_rule_pack) <- c("fseq", "function")
 
     expect_error_expose_single(
-      .tbl = .tbl, .pack = input_rule_pack,
-      .error = "unsupported", .rule_sep = .rule_sep,
-      .remove_obeyers = TRUE, .guess = FALSE
+      .tbl = .tbl,
+      .pack = input_rule_pack,
+      .error = "unsupported",
+      .rule_sep = .rule_sep,
+      .remove_obeyers = TRUE,
+      .guess = FALSE
     )
 
     expect_expose_single_works(
-      .tbl = .tbl, .pack = .pack, .used_pack = input_rule_pack,
+      .tbl = .tbl,
+      .pack = .pack,
+      .used_pack = input_rule_pack,
       .rule_sep = .rule_sep,
       .report_with_remove = .report_with_remove,
       .report_no_remove = .report_no_remove
@@ -163,7 +198,8 @@ test_that("expose works", {
         .report = input_row_pack_report_with_remove,
         .pack_name = "my_row_pack"
       )
-    ) %>% add_class_cond("ruler_report")
+    ) %>%
+      add_class_cond("ruler_report")
   )
 
   expect_equivalent(expose_res_1, input_tbl)
@@ -194,7 +230,8 @@ test_that("expose works", {
           input_col_pack_report_no_remove,
           "col_pack__1"
         )
-      ) %>% add_class_cond("ruler_report")
+      ) %>%
+        add_class_cond("ruler_report")
     )
   )
 
@@ -266,7 +303,8 @@ test_that("expose preserves pack names", {
 
 test_that("expose accounts for rule separator", {
   output <- input_tbl %>%
-    expose(input_packs[["col_other"]],
+    expose(
+      input_packs[["col_other"]],
       .rule_sep = inside_punct("_\\._"),
       .remove_obeyers = TRUE
     ) %>%
@@ -315,9 +353,11 @@ test_that("expose_single.default guesses group pack", {
 
 test_that("expose_single.default adds guessed attributes to group pack", {
   output_single_exposure <- expose_single(
-    .tbl = input_tbl_keyed, .pack = group_pack_ref,
+    .tbl = input_tbl_keyed,
+    .pack = group_pack_ref,
     .rule_sep = inside_punct("\\._\\."),
-    .remove_obeyers = TRUE, .guess = TRUE
+    .remove_obeyers = TRUE,
+    .guess = TRUE
   )
 
   guessed_fun <- output_single_exposure[["pack_info"]][["fun"]][[1]]
@@ -374,7 +414,8 @@ test_that("expose_single.default guesses cell pack", {
 # expose_single.data_pack -------------------------------------------------
 test_that("expose_single.data_pack works", {
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_data_pack,
+    .tbl = input_tbl_keyed,
+    .pack = input_data_pack,
     .report_with_remove = input_data_pack_report_with_remove,
     .report_no_remove = input_data_pack_report_no_remove
   )
@@ -396,32 +437,37 @@ test_that("expose_single.data_pack works", {
 # expose_single.group_pack ------------------------------------------------
 test_that("expose_single.group_pack works", {
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_group_pack,
+    .tbl = input_tbl_keyed,
+    .pack = input_group_pack,
     .report_with_remove = input_group_pack_report_with_remove,
     .report_no_remove = input_group_pack_report_no_remove
   )
 
   bad_pack_1 <- `attr<-`(input_group_pack, "group_vars", 1L)
   expect_error_expose_single(
-    .tbl = input_tbl_keyed, .pack = bad_pack_1,
+    .tbl = input_tbl_keyed,
+    .pack = bad_pack_1,
     .error = "[Gg]roup var.*should.*character"
   )
 
   bad_pack_2 <- `attr<-`(input_group_pack, "group_vars", character(0))
   expect_error_expose_single(
-    .tbl = input_tbl_keyed, .pack = bad_pack_2,
+    .tbl = input_tbl_keyed,
+    .pack = bad_pack_2,
     .error = "[Gg]roup var.*should.*positive.*length"
   )
 
   bad_pack_3 <- `attr<-`(input_group_pack, "group_sep", 1L)
   expect_error_expose_single(
-    .tbl = input_tbl_keyed, .pack = bad_pack_3,
+    .tbl = input_tbl_keyed,
+    .pack = bad_pack_3,
     .error = "[Gg]roup sep.*should.*character"
   )
 
   bad_pack_4 <- `attr<-`(input_group_pack, "group_sep", c(".", "+"))
   expect_error_expose_single(
-    .tbl = input_tbl_keyed, .pack = bad_pack_4,
+    .tbl = input_tbl_keyed,
+    .pack = bad_pack_4,
     .error = "[Gg]roup sep.*should.*length.*1"
   )
 })
@@ -430,13 +476,15 @@ test_that("expose_single.group_pack works", {
 # expose_single.col_pack --------------------------------------------------
 test_that("expose_single.col_pack works", {
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_col_pack,
+    .tbl = input_tbl_keyed,
+    .pack = input_col_pack,
     .report_with_remove = input_col_pack_report_with_remove,
     .report_no_remove = input_col_pack_report_no_remove
   )
 
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_packs[["col_other"]],
+    .tbl = input_tbl_keyed,
+    .pack = input_packs[["col_other"]],
     .rule_sep = inside_punct("_\\._"),
     .report_with_remove = input_col_pack_report_with_remove,
     .report_no_remove = input_col_pack_report_no_remove
@@ -465,7 +513,8 @@ test_that("expose_single.col_pack works", {
 # expose_single.row_pack --------------------------------------------------
 test_that("expose_single.row_pack works", {
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_row_pack,
+    .tbl = input_tbl_keyed,
+    .pack = input_row_pack,
     .report_with_remove = input_row_pack_report_with_remove,
     .report_no_remove = input_row_pack_report_no_remove
   )
@@ -481,13 +530,15 @@ test_that("expose_single.row_pack works", {
 # expose_single.cell_pack -------------------------------------------------
 test_that("expose_single.cell_pack works", {
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_cell_pack,
+    .tbl = input_tbl_keyed,
+    .pack = input_cell_pack,
     .report_with_remove = input_cell_pack_report_with_remove,
     .report_no_remove = input_cell_pack_report_no_remove
   )
 
   expect_expose_single_works(
-    .tbl = input_tbl_keyed, .pack = input_packs[["cell_other"]],
+    .tbl = input_tbl_keyed,
+    .pack = input_packs[["cell_other"]],
     .rule_sep = inside_punct("_\\._"),
     .report_with_remove = input_cell_pack_report_with_remove,
     .report_no_remove = input_cell_pack_report_no_remove

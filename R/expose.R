@@ -113,8 +113,13 @@
 #'   expose(cell_rule_pack) %>%
 #'   get_report()
 #' @export
-expose <- function(.tbl, ..., .rule_sep = inside_punct("\\._\\."),
-                   .remove_obeyers = TRUE, .guess = TRUE) {
+expose <- function(
+  .tbl,
+  ...,
+  .rule_sep = inside_punct("\\._\\."),
+  .remove_obeyers = TRUE,
+  .guess = TRUE
+) {
   present_exposure <- get_exposure(.tbl)
 
   tbl_keyed <- .tbl %>%
@@ -124,9 +129,12 @@ expose <- function(.tbl, ..., .rule_sep = inside_punct("\\._\\."),
     squash()
 
   res_exposure <- lapply(
-    packs, expose_single,
-    .tbl = tbl_keyed, .rule_sep = .rule_sep,
-    .remove_obeyers = .remove_obeyers, .guess = .guess
+    packs,
+    expose_single,
+    .tbl = tbl_keyed,
+    .rule_sep = .rule_sep,
+    .remove_obeyers = .remove_obeyers,
+    .guess = .guess
   ) %>%
     impute_exposure_pack_names(.exposure_ref = present_exposure) %>%
     add_pack_names() %>%
@@ -151,14 +159,19 @@ expose <- function(.tbl, ..., .rule_sep = inside_punct("\\._\\."),
 #' @inheritParams expose
 #'
 #' @keywords internal
-expose_single <- function(.tbl, .pack, .rule_sep,
-                          .remove_obeyers, ...) {
+expose_single <- function(.tbl, .pack, .rule_sep, .remove_obeyers, ...) {
   UseMethod("expose_single", .pack)
 }
 
 #' @export
-expose_single.default <- function(.tbl, .pack, .rule_sep,
-                                  .remove_obeyers, .guess, ...) {
+expose_single.default <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  .guess,
+  ...
+) {
   if (!.guess) {
     stop("There is unsupported class of rule pack.")
   }
@@ -203,8 +216,13 @@ expose_single.default <- function(.tbl, .pack, .rule_sep,
 }
 
 #' @export
-expose_single.data_pack <- function(.tbl, .pack, .rule_sep,
-                                    .remove_obeyers, ...) {
+expose_single.data_pack <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  ...
+) {
   pack_report <- .tbl %>%
     .pack() %>%
     interp_data_pack_out() %>%
@@ -214,8 +232,13 @@ expose_single.data_pack <- function(.tbl, .pack, .rule_sep,
 }
 
 #' @export
-expose_single.group_pack <- function(.tbl, .pack, .rule_sep,
-                                     .remove_obeyers, ...) {
+expose_single.group_pack <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  ...
+) {
   # Scrape attributes
   pack_group_vars <- attr(.pack, "group_vars")
   assert_character(pack_group_vars, "Group variables of group pack")
@@ -240,8 +263,13 @@ expose_single.group_pack <- function(.tbl, .pack, .rule_sep,
 }
 
 #' @export
-expose_single.col_pack <- function(.tbl, .pack, .rule_sep,
-                                   .remove_obeyers, ...) {
+expose_single.col_pack <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  ...
+) {
   pack_report <- .tbl %>%
     .pack() %>%
     interp_col_pack_out(.rule_sep = .rule_sep) %>%
@@ -251,8 +279,13 @@ expose_single.col_pack <- function(.tbl, .pack, .rule_sep,
 }
 
 #' @export
-expose_single.row_pack <- function(.tbl, .pack, .rule_sep,
-                                   .remove_obeyers, ...) {
+expose_single.row_pack <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  ...
+) {
   pack_report <- .tbl %>%
     .pack() %>%
     interp_row_pack_out() %>%
@@ -262,8 +295,13 @@ expose_single.row_pack <- function(.tbl, .pack, .rule_sep,
 }
 
 #' @export
-expose_single.cell_pack <- function(.tbl, .pack, .rule_sep,
-                                    .remove_obeyers, ...) {
+expose_single.cell_pack <- function(
+  .tbl,
+  .pack,
+  .rule_sep,
+  .remove_obeyers,
+  ...
+) {
   pack_report <- .tbl %>%
     .pack() %>%
     interp_cell_pack_out(.rule_sep = .rule_sep) %>%
@@ -281,15 +319,20 @@ interp_data_pack_out <- function(.pack_out) {
   .pack_out %>%
     tibble::as_tibble() %>%
     tidyr::gather(
-      key = "rule", value = "value",
+      key = "rule",
+      value = "value",
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     mutate(var = ".all", id = 0L) %>%
     select("rule", "var", "id", "value")
 }
 
-interp_group_pack_out <- function(.pack_out, .group_vars, .group_sep,
-                                  .col_sep = "@_-_@") {
+interp_group_pack_out <- function(
+  .pack_out,
+  .group_vars,
+  .group_sep,
+  .col_sep = "@_-_@"
+) {
   .pack_out %>%
     tibble::as_tibble() %>%
     ungroup() %>%
@@ -312,11 +355,13 @@ interp_col_pack_out <- function(.pack_out, .rule_sep) {
   .pack_out %>%
     tibble::as_tibble() %>%
     tidyr::gather(
-      key = "var_rule", value = "value",
+      key = "var_rule",
+      value = "value",
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     tidyr::extract(
-      col = "var_rule", into = c("var", "rule"),
+      col = "var_rule",
+      into = c("var", "rule"),
       regex = rule_sep_regex
     ) %>%
     mutate(id = 0L) %>%
@@ -331,7 +376,8 @@ interp_row_pack_out <- function(.pack_out) {
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(
-      key = "rule", value = "value",
+      key = "rule",
+      value = "value",
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     mutate(var = ".all") %>%
@@ -350,11 +396,13 @@ interp_cell_pack_out <- function(.pack_out, .rule_sep) {
     rename_keys(id = ".id") %>%
     restore_keys_at(.vars = "id", .remove = TRUE, .unkey = TRUE) %>%
     tidyr::gather(
-      key = "var_rule", value = "value",
+      key = "var_rule",
+      value = "value",
       !!!rlang::syms(colnames(.pack_out))
     ) %>%
     tidyr::extract(
-      col = "var_rule", into = c("var", "rule"),
+      col = "var_rule",
+      into = c("var", "rule"),
       regex = rule_sep_regex
     ) %>%
     select("rule", "var", "id", "value")

@@ -33,7 +33,9 @@
 rules <- function(..., .prefix = "._.") {
   dots <- quos(...)
   names(dots) <- enhance_names(
-    .name = rlang::names2(dots), .prefix = .prefix, .root = "rule"
+    .name = rlang::names2(dots),
+    .prefix = .prefix,
+    .root = "rule"
   )
 
   lapply(dots, extract_funs_input)
@@ -59,7 +61,9 @@ extract_funs_input <- function(obj) {
     expr
   } else {
     stop(
-      "Wrong input `", rlang::expr_text(expr), "` to `rules()`.",
+      "Wrong input `",
+      rlang::expr_text(expr),
+      "` to `rules()`.",
       call. = FALSE
     )
   }

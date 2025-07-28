@@ -145,8 +145,12 @@ any_breaker <- function(.tbl) {
 
 # Actors ---------------------------------------------------------------
 generate_breakers_informer <-
-  function(.fun = stop, .message = "Some breakers found in exposure.",
-           .silent, ...) {
+  function(
+    .fun = stop,
+    .message = "Some breakers found in exposure.",
+    .silent,
+    ...
+  ) {
     force(.fun)
     force(.message)
     force(.silent)

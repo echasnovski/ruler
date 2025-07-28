@@ -183,9 +183,11 @@ NULL
 
 # Constructors and converters ---------------------------------------------
 new_exposure <- function(.packs_info, .report, .validate = TRUE) {
-  if (.validate &&
-    !(is_packs_info(.packs_info, .skip_class = FALSE) &&
-      is_report(.report, .skip_class = FALSE))) {
+  if (
+    .validate &&
+      !(is_packs_info(.packs_info, .skip_class = FALSE) &&
+        is_report(.report, .skip_class = FALSE))
+  ) {
     stop("Invalid input for `new_exposure`.")
   } else {
     structure(
@@ -272,7 +274,8 @@ is_packs_info <- function(.x, .skip_class = FALSE) {
     is.data.frame(.x) &&
     ("tbl_df" %in% class(.x)) &&
     identical(names(.x), c("name", "type", "fun", "remove_obeyers")) &&
-    is.character(.x[["name"]]) && is.character(.x[["type"]]) &&
+    is.character(.x[["name"]]) &&
+    is.character(.x[["type"]]) &&
     all(vapply(.x[["fun"]], rlang::is_function, TRUE)) &&
     is.logical(.x[["remove_obeyers"]])
 }
@@ -285,8 +288,10 @@ is_report <- function(.x, .skip_class = FALSE) {
     ("tbl_df" %in% class(.x)) &&
     identical(names(.x), c("pack", "rule", "var", "id", "value")) &&
     is.character(.x[["pack"]]) &&
-    is.character(.x[["rule"]]) && is.character(.x[["var"]]) &&
-    is.integer(.x[["id"]]) && is.logical(.x[["value"]])
+    is.character(.x[["rule"]]) &&
+    is.character(.x[["var"]]) &&
+    is.integer(.x[["id"]]) &&
+    is.logical(.x[["value"]])
 }
 
 is_obeyer <- function(.x) {
@@ -336,12 +341,18 @@ get_report <- function(.object) {
 
 # Printers ----------------------------------------------------------------
 #' @export
-print.exposure <- function(x, ..., .validate_packs_info = TRUE,
-                           n_packs_info = NULL, width_packs_info = NULL,
-                           n_extra_packs_info = NULL,
-                           .validate_report = TRUE,
-                           n_report = NULL, width_report = NULL,
-                           n_extra_report = NULL) {
+print.exposure <- function(
+  x,
+  ...,
+  .validate_packs_info = TRUE,
+  n_packs_info = NULL,
+  width_packs_info = NULL,
+  n_extra_packs_info = NULL,
+  .validate_report = TRUE,
+  n_report = NULL,
+  width_report = NULL,
+  n_extra_report = NULL
+) {
   cat("  Exposure\n\n")
   print(
     x[["packs_info"]],

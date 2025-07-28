@@ -11,7 +11,8 @@ input_packs_info <- tibble::tibble(
   type = "data_pack",
   fun = list(input_pack),
   remove_obeyers = input_remove_obeyers
-) %>% add_class("packs_info")
+) %>%
+  add_class("packs_info")
 
 input_single_report <- tibble::tibble(
   rule = c("nrow_low", "nrow_high"),
@@ -46,8 +47,12 @@ print_exposure_not_validate_output <-
 
 
 # Custom expectations -----------------------------------------------------
-expect_print_validates <- function(bad_input, validate_par_name,
-                                   validate_output, not_validate_output) {
+expect_print_validates <- function(
+  bad_input,
+  validate_par_name,
+  validate_output,
+  not_validate_output
+) {
   expect_output(
     do.call(print, setNames(list(bad_input, TRUE), c("x", validate_par_name))),
     validate_output
@@ -338,7 +343,8 @@ test_that("print.exposure validates input", {
   input_1[["packs_info"]][["name"]] <- rep(1, nrow(input_1[["packs_info"]]))
 
   expect_print_validates(
-    input_1, ".validate_packs_info",
+    input_1,
+    ".validate_packs_info",
     paste0(
       c(
         "Exposure",
@@ -356,7 +362,8 @@ test_that("print.exposure validates input", {
   input_2[["report"]][["pack"]] <- rep(1, nrow(input_2[["report"]]))
 
   expect_print_validates(
-    input_2, ".validate_report",
+    input_2,
+    ".validate_report",
     paste0(
       c(
         "Exposure",
@@ -455,7 +462,8 @@ test_that("print.packs_info validates input", {
   bad_input[["name"]] <- rep(1, nrow(bad_input))
 
   expect_print_validates(
-    bad_input, ".validate",
+    bad_input,
+    ".validate",
     "not proper.*packs_info",
     print_packs_info_not_validate_output
   )
@@ -495,7 +503,8 @@ test_that("print.ruler_report validates input", {
   bad_input[["pack"]] <- rep(1, nrow(bad_input))
 
   expect_print_validates(
-    bad_input, ".validate",
+    bad_input,
+    ".validate",
     "not proper.*ruler_report",
     print_report_not_validate_output
   )

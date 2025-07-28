@@ -26,8 +26,10 @@ test_that("guess_pack_type works", {
 # remove_obeyers ----------------------------------------------------------
 test_that("remove_obeyers works", {
   input_report <- tibble::tibble(
-    pack = rep("data_pack", 4), rule = paste0("rule__", 1:4),
-    var = rep(".all", 4), id = rep(0L, 4),
+    pack = rep("data_pack", 4),
+    rule = paste0("rule__", 1:4),
+    var = rep(".all", 4),
+    id = rep(0L, 4),
     value = c(TRUE, FALSE, TRUE, NA)
   )
 
@@ -51,8 +53,14 @@ test_that("impute_exposure_pack_names works with NULL reference exposure", {
   expect_identical(
     names(impute_exposure_pack_names(cur_input_single_exposures, NULL)),
     c(
-      "data_pack__1", "cell_pack__1", "col_pack__1", "new_col_proper_sums",
-      "data_pack__2", "row_pack__1", "another_data_pack", "group_pack__1"
+      "data_pack__1",
+      "cell_pack__1",
+      "col_pack__1",
+      "new_col_proper_sums",
+      "data_pack__2",
+      "row_pack__1",
+      "another_data_pack",
+      "group_pack__1"
     )
   )
 })
@@ -69,8 +77,14 @@ test_that("impute_exposure_pack_names works with not NULL reference exposure", {
       input_exposure_ref
     )),
     c(
-      "data_pack__3", "cell_pack__2", "col_pack__3", "new_col_proper_sums",
-      "data_pack__4", "row_pack__2", "another_data_pack", "group_pack__2"
+      "data_pack__3",
+      "cell_pack__2",
+      "col_pack__3",
+      "new_col_proper_sums",
+      "data_pack__4",
+      "row_pack__2",
+      "another_data_pack",
+      "group_pack__2"
     )
   )
 })
@@ -156,18 +170,24 @@ test_that("assert_pack_out_all_logical works", {
 test_that("assert_pack_out_all_have_separator works", {
   expect_silent(
     assert_pack_out_all_have_separator(
-      input_col_pack_out, "col_pack", inside_punct("\\._\\.")
+      input_col_pack_out,
+      "col_pack",
+      inside_punct("\\._\\.")
     )
   )
   expect_error(
     assert_pack_out_all_have_separator(
-      input_data_pack_out, "data_pack", inside_punct("\\._\\.")
+      input_data_pack_out,
+      "data_pack",
+      inside_punct("\\._\\.")
     ),
     "data_pack.*not.*separator"
   )
   expect_error(
     assert_pack_out_all_have_separator(
-      input_col_pack_out, "col_pack", inside_punct("\\.___\\.")
+      input_col_pack_out,
+      "col_pack",
+      inside_punct("\\.___\\.")
     ),
     "col_pack.*not.*separator"
   )

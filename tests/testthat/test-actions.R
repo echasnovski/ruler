@@ -40,12 +40,17 @@ mtcars_exposed_no_breakers <- set_exposure(mtcars, exposure_no_breakers)
 
 
 # Custom expectations -----------------------------------------------------
-expect_asserts <- function(input, type, silent = FALSE, result = input,
-                           output_name = "Breakers report\n",
-                           output_report,
-                           warnings = character(0),
-                           messages = character(0),
-                           ...) {
+expect_asserts <- function(
+  input,
+  type,
+  silent = FALSE,
+  result = input,
+  output_name = "Breakers report\n",
+  output_report,
+  warnings = character(0),
+  messages = character(0),
+  ...
+) {
   assert_evaluation <- evaluate_promise(
     assert_any_breaker(input, type, silent, ...)
   )
@@ -75,7 +80,8 @@ test_that("act_after_exposure works", {
 
   expect_silent(
     output_1 <- act_after_exposure(
-      mtcars_exposed, trigger_nrow_30,
+      mtcars_exposed,
+      trigger_nrow_30,
       actor_print
     )
   )
@@ -85,7 +91,8 @@ test_that("act_after_exposure works", {
 
   expect_output(
     output_2 <- act_after_exposure(
-      mtcars_exposed, trigger_nrow_10,
+      mtcars_exposed,
+      trigger_nrow_10,
       actor_print
     ),
     output_ref,

@@ -21,18 +21,14 @@ test_that("rules works", {
   expect_error(rules(mean2), "`mean2`")
 })
 
-
 # extract_funs_input ------------------------------------------------------
 # Tested in `rules()`
-
 
 # has_dot_symbol ----------------------------------------------------------
 # Tested in `rules()`
 
-
 # squash_expr -------------------------------------------------------------
 # Tested in `rules()`
-
 
 # quo_get_function --------------------------------------------------------
 # Tested in `rules()`
