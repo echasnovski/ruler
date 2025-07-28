@@ -3,8 +3,6 @@
 
 <!-- badges: start -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/echasnovski/ruler.svg?branch=master)](https://travis-ci.org/echasnovski/ruler)
 [![R-CMD-check](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://app.codecov.io/github/echasnovski/ruler?branch=master)
@@ -459,7 +457,7 @@ mtcars %>%
 
 More leaned towards assertions:
 
-- [assertr](https://github.com/ropensci/assertr)
+- [assertr](https://github.com/tonyfischetti/assertr)
 - [assertthat](https://github.com/hadley/assertthat)
 - [checkmate](https://github.com/mllg/checkmate)
 - [ensurer](https://github.com/smbache/ensurer)
