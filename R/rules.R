@@ -10,7 +10,7 @@
 #' @param .prefix Prefix to be added to function names.
 #'
 #' @details `rules()` repairs names by the following algorithm:
-#' - Absent names are replaced with the 'rule__\\{ind\\}' where \\{ind\\} is the
+#' - Absent names are replaced with the `'rule__{ind}'` where `{ind}` is the
 #'   index of function position in the `...` .
 #' - `.prefix` is added at the beginning of all names. The default is `._.` . It
 #'   is picked for its symbolism (it is the Morse code of letter 'R') and rare

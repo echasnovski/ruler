@@ -21,7 +21,7 @@ with \code{.} as input into formulas and repairs names of the output.
 \details{
 \code{rules()} repairs names by the following algorithm:
 \itemize{
-\item Absent names are replaced with the 'rule__\\{ind\\}' where \\{ind\\} is the
+\item Absent names are replaced with the \code{'rule__{ind}'} where \code{{ind}} is the
 index of function position in the \code{...} .
 \item \code{.prefix} is added at the beginning of all names. The default is \code{._.} . It
 is picked for its symbolism (it is the Morse code of letter 'R') and rare
