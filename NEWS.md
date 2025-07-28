@@ -1,4 +1,6 @@
-# ruler (development version)
+# ruler 0.3.1
+
+* Reaction to `R CMD check` notes.
 
 # ruler 0.3.0
 
