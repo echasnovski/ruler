@@ -3,12 +3,14 @@ context("rules")
 
 # rules -------------------------------------------------------------------
 test_that("rules works", {
-  output_1 <- rules(mean, "mean", mean(.), ~ mean(.))
+  val <- -5
+  output_1 <- rules(mean, "mean", mean(.), ~ mean(.), . >= !!val)
   output_ref_1 <- list(
     ._.rule__1 = mean,
     ._.rule__2 = "mean",
     ._.rule__3 = ~ mean(.),
-    ._.rule__4 = output_1[[4]]
+    ._.rule__4 = output_1[[4]],
+    ._.rule__5 = ~ . >= -5
   )
 
   expect_identical(output_1, output_ref_1)

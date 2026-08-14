@@ -76,7 +76,8 @@ has_dot_symbol <- function(x) {
 }
 
 squash_expr <- function(x) {
-  if (rlang::is_syntactic_literal(x) || rlang::is_symbol(x)) {
+  # NOTE: test for numeric because negative numbers are not literals or symbols
+  if (rlang::is_syntactic_literal(x) || rlang::is_symbol(x) || is.numeric(x)) {
     return(x)
   }
 
