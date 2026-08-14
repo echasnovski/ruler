@@ -43,4 +43,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Evgeni Chasnovski \email{evgeni.chasnovski@gmail.com} (\href{https://orcid.org/0000-0002-1617-4019}{ORCID})
 
+Authors:
+\itemize{
+  \item Evgeni Chasnovski \email{evgeni.chasnovski@gmail.com} (\href{https://orcid.org/0000-0002-1617-4019}{ORCID})
+}
+
 }

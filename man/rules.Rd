@@ -15,7 +15,7 @@ rules(..., .prefix = "._.")
 \code{rules()} is a function designed to create input for \code{.funs} argument of
 scoped \code{dplyr} "mutating" verbs (such as
 \link[dplyr:summarise_all]{summarise_all()} and
-\link[dplyr:mutate_all]{transmute_all()}). It converts bare expressions
+\link[dplyr:transmute_all]{transmute_all()}). It converts bare expressions
 with \code{.} as input into formulas and repairs names of the output.
 }
 \details{
