@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The main idea of the `ruler` package is to create a format of validation results (along with functional API) that will work naturally with [tidyverse](https://www.tidyverse.org/) tools. This vignette will:
+The main idea of the `ruler` package is to create a format of validation results (along with functional API) that will work naturally with [tidyverse](https://tidyverse.org) tools. This vignette will:
 
 - Guide you through the design process of __exposure__: `ruler`'s validation result format. This should help to understand the foundations of `ruler` validation workflow.
 - Describe exposure format.
