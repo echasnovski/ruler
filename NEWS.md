@@ -1,4 +1,6 @@
-# ruler (development version)
+# ruler 0.3.2
+
+* Reaction to `rlang` 1.1.7.
 
 # ruler 0.3.1
 
