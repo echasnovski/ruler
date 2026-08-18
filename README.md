@@ -4,11 +4,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/echasnovski/ruler/actions/workflows/R-CMD-check.yaml)
-[![Coverage
-Status](https://codecov.io/gh/echasnovski/ruler/graph/badge.svg)](https://app.codecov.io/gh/echasnovski/ruler)
 [![CRAN](https://www.r-pkg.org/badges/version/ruler?color=blue)](https://cran.r-project.org/package=ruler)
-[![Dependencies](https://tinyverse.netlify.com/badge/ruler)](https://CRAN.R-project.org/package=ruler)
-[![Downloads](http://cranlogs.r-pkg.org/badges/ruler)](https://cran.r-project.org/package=ruler)
+[![Downloads](https://cranlogs.r-pkg.org/badges/ruler)](https://cran.r-project.org/package=ruler)
 <!-- badges: end -->
 
 `ruler` offers a set of tools for creating tidy data validation reports
@@ -134,7 +131,8 @@ invisible(mtcars_exposed %>% assert_any_breaker())
 #> 5 enough_row_sum  is_enough  .all     19 FALSE
 #> 6 dbl_not_outlier is_not_out mpg      15 FALSE
 #> # ℹ 111 more rows
-#> Error: assert_any_breaker: Some breakers found in exposure.
+#> Error:
+#> ! assert_any_breaker: Some breakers found in exposure.
 ```
 
 ## Overview
@@ -390,7 +388,8 @@ mtcars %>%
     .guess = FALSE
   ) %>%
   get_exposure()
-#> Error in expose_single.default(X[[i]], ...): There is unsupported class of rule pack.
+#> Error in `expose_single.default()`:
+#> ! There is unsupported class of rule pack.
 ```
 
 ### Acting after exposure
@@ -450,7 +449,8 @@ mtcars %>%
 #> 2 sum_bounds sum_low            carb      0 FALSE
 #> 3 vs_mean    rule__1            vs        0 FALSE
 #> 4 row_mean   is_common_row_mean .all     15 FALSE
-#> Error: assert_any_breaker: Some breakers found in exposure.
+#> Error:
+#> ! assert_any_breaker: Some breakers found in exposure.
 ```
 
 ## Other packages for validation and assertions
